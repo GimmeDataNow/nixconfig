@@ -106,6 +106,7 @@
         "interval": 1,
         "max-lenght": 40,
         "on-click": "playerctl --player spotify play-pause",
+        "on-click-right": "wl-copy $(playerctl metadata --no-messages --player spotify --format \"{{ artist }} | {{ title }}\" || echo \"-\")",
         "on-scroll-up": "playerctl --player spotify previous",
 		"on-scroll-down": "playerctl --player spotify next",
     }
