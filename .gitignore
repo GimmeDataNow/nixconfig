@@ -2,6 +2,7 @@
 *
 /*
 .cargo/*
+games
 # execpt
 !.gitignore
 !.config/*
