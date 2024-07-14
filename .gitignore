@@ -1,10 +1,19 @@
 # ignore everything
 *
-/*
-.cargo/*
-games
 # execpt
 !.gitignore
+
 !.config/*
+!.config/.scripts/*
+!.config/btop/*
+!.config/glow/*
+!.config/helix/*
+!.config/hypr/*
+!.config/kanata/*
+!.config/kitty/*
+!.config/ranger/*
+!.config/rofi/*
+!.config/waybar/*
+!.config/yazi/*
+
 !nixos/*
-!*/

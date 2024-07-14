@@ -8,5 +8,6 @@ prepend_keymap = [
 
   # complex settings
   { on = [ "c", "a" ],       run = "plugin ouch --args=zip",  desc = "Compress selected" },
+  { on = [ "c", "m" ],       run = "plugin chmod", desc = "chmod on selected"}
 
 ]
