@@ -1,0 +1,45 @@
+[filetype]
+rules = [
+  # base color for all folders
+  { name = "*/", fg = "blue"},
+  # mark all invalid sym links red
+  { name = "*", is = "orphan", fg = "red"},  
+]
+
+[icon]
+prepend_rules = [
+  { name = "*.nix", text = "" },
+  { name = "*.sh", text = "", is = "exec", fg = "#66ff66"},
+  { name = "*.sh", text = ""},
+  { name = "*.rs", text = "󱘗", fg = "#b35900" },
+  { name = "*.toml", text = "", fg = "#6d8086" },
+  { name = "*.db", text = "" },
+  { name = "*.js", text = "󰌞",  fg = "#ffff00"},
+  { name = "*.java", text = "󰬷" },
+  { name = "*.md", text = "󰽛" },
+  { name = "*.json", text = "", fg = "#ffb84d"},
+  { name = "*.conf", text = "" },
+  { name = "*.fingerprint", text = "" },
+  
+  { name = "*.rb", text = "" },
+  { name = "*.exe", text = "" },
+  { name = "*.html", text = "", fg = "#ff5050" },
+  { name = "*.css", text = "", fg = "#4d79ff" },
+  { name = "*.yml", text = "" },
+  { name = "*.ts", text = "󰛦", fg = "#1aa3ff" },
+  { name = "*.sqlite", text = "" },
+  { name = "*.desktop", text = ""},
+  { name = "*.bin", text = "" },
+  { name = "*.lock", text = "", fg = "#6d8086" },
+  { name = "*.vtt", text = "󰨗"},
+  { name = "*.m3u", text = "󰲸" },
+
+  { name = "*gitconfig", text = ""},
+
+  # add the steam logo to .steam files
+  { name = "*steampath", text = "" },
+  { name = "*steampid", text = ""},
+
+  { name = "*.config/", text = ""},
+  { name = "*downloads/", text = "󰉍"},
+]

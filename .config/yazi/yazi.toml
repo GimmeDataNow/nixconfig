@@ -1,0 +1,38 @@
+[manager]
+show_hidden = true
+
+[opener]
+play = [
+  { run = 'mpv "$@"', is = "orphan", desc = "mvp"},
+]
+view-image = [
+  { run = 'imv "$@"', is = "orphan", desc = "imv" },
+]
+open = [
+	{ run = 'xdg-open "$@"', is = "orphan", desc = "xdg-open" },
+]
+vscode = [
+  { run = 'code "$@"', is = "orphan", desc = "vscode"}
+]
+
+[open]
+prepend_rules = [
+  { mime = "text/*", use = ["edit", "vscode"] },
+  { mime = "video/*", use = "play" },
+  { mime = "image/*", use = "view-image" },
+]
+append_rules = [
+	{ name = "*", use = 'hx "$@"' },
+]
+[plugin]
+prepend_previewers = [
+	# Archive previewer
+	{ mime = "application/*zip",            run = "ouch" },
+	{ mime = "application/x-tar",           run = "ouch" },
+	{ mime = "application/x-bzip2",         run = "ouch" },
+	{ mime = "application/x-7z-compressed", run = "ouch" },
+	{ mime = "application/x-rar",           run = "ouch" },
+	{ mime = "application/x-xz",            run = "ouch" },
+
+  { name = "*.md", run = "glow" },
+]
