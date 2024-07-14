@@ -3,7 +3,7 @@
 # execpt
 !.gitignore
 
-!.config/*
+# .config
 !.config/.scripts/*
 !.config/btop/*
 !.config/glow/*
@@ -16,4 +16,5 @@
 !.config/waybar/*
 !.config/yazi/*
 
+# nixos folder
 !nixos/*

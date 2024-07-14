@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, ...}: 
+{ inputs, config, pkgs, lib,  ...}: 
 let
   # define channels here for switching
   stable = import <nixos-stable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
@@ -74,7 +74,15 @@ in
     powerManagement.finegrained = false; # might crash otherwise
     open = false; # opensource
     nvidiaSettings = true; # nvidia app
-    package = config.boot.kernelPackages.nvidiaPackages.production; # driver version
+    # package = config.boot.kernelPackages.nvidiaPackages.production; # driver version
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "555.58";
+      sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+      sha256_aarch64 = "sha256-7XswQwW1iFP4ji5mbRQ6PVEhD4SGWpjUJe1o8zoXYRE=";
+      openSha256 = "sha256-hEAmFISMuXm8tbsrB+WiUcEFuSGRNZ37aKWvf0WJ2/c=";
+      settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M="; #"sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4=";
+      persistencedSha256 = lib.fakeHash; #"sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=";
+    };
   };
 
   # security
@@ -189,7 +197,7 @@ in
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor
-    neovim # better text editor
+    unstable.neovim # better text editor
     unstable.helix # vim alternative in rust
     xclip # clipboard manager for files
     git # git
