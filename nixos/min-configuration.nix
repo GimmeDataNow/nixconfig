@@ -14,6 +14,8 @@ in
   # bootloader options
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_9;
   boot.kernelModules = [ "kvm-amd"];
 
   # networking
@@ -151,6 +153,14 @@ in
 
     # lutris itch.io fix
     WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+
+    # fixing these shitty dotfiles in my directory
+    # XDG_CONFIG_HOME = "$HOME/.config";
+    # XDG_CACHE_HOME = "$HOME/.cache";
+    # XDG_DATA_HOME = "$HOME/.local/share";
+    # XDG_STATE_HOME = "$HOME/.local/state";
+    # CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv"
+    # CARGO_HOME = "$XDG_DATA_HOME/cargo";
   };
 
   # aliasing and some other bash-env 
@@ -197,7 +207,7 @@ in
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor
-    unstable.neovim # better text editor
+    # unstable.neovim # better text editor
     unstable.helix # vim alternative in rust
     xclip # clipboard manager for files
     git # git
@@ -207,7 +217,7 @@ in
     yazi # tui file explorer
     btop # system monitor
     unzip # unzip
-    lshw # ls for hardware
+    # lshw # ls for hardware
     wl-clipboard # fixes the clipboard for wayland
     xorg.setxkbmap # dep of espanso
     ecryptfs # encryption
@@ -236,13 +246,14 @@ in
     qalculate-qt # calculator
     localsend # airdrop
     sirikali # encryption manager
+    hyprpicker
 
     # code
     unstable.vscode.fhs # vscode
     unstable.rustc # rust
     cargo # rust cargo
-    python3 # pyhton 
-    python311Packages.pillow # pillow for lightnovels
+    # python3 # pyhton 
+    # python311Packages.pillow # pillow for lightnovels
     nil # nix language server
 
     # gui personal
@@ -263,7 +274,7 @@ in
     # gaming
     #stable.minecraft # vanilla minecraft launcher
     #stable.prismlauncher # better minecraft launcher
-    zulu17 # java for minecraft
+    # zulu17 # java for minecraft
     steam # steam
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux

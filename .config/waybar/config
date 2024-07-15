@@ -4,7 +4,7 @@
     // "height": 36, // Waybar height (to be removed for auto height)
     
     // Choose the order of the modules
-    "modules-left": [ "clock", "custom/playerctl" ],
+    "modules-left": [ "clock", "custom/screenutil","custom/playerctl" ],
     "modules-center": ["hyprland/workspaces"],
     "modules-right": [ "cpu", "memory", "custom/gpu", "disk", "pulseaudio", "network"],
     
@@ -34,14 +34,14 @@
         "spacing": 5
     },
     "clock": {
-        "format": "  {:%H:%M   %e %b}",
+        "format": "  {:%H:%M   %F %b}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "today-format": "<b>{}</b>",
-        "on-click": "gnome-calendar"
+        "on-click": "gnome-calendar",
+        "on-click-right": "wl-copy $(date '+%Y-%m-%d @ %H:%M')",
     },
     "cpu": {
         "interval": "4",      
-        //"format": " {max_frequency}GHz <span color=\"darkgray\">|  {usage}%</span>",
         "format": "󰻠  {usage}%",
         "max-length": 7,
         "min-length": 7,
@@ -60,7 +60,7 @@
     "network": {
         // "interface": "wlan0", // (Optional) To force the use of this interface,
         "format-wifi": "  {essid}",
-        "format-ethernet": "{ifname}: {ipaddr}/{cidr} 󰈀 ",
+        "format-ethernet": "{ifname} 󰈀 ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
@@ -90,19 +90,25 @@
         "on-click": "pavucontrol",
         "on-click-right": "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
     },
+    "custom/screenutil": {
+        "format": "  | ",
+        "on-click": "hyprpicker | wl-copy",
+        "on-click-right": " grim -g \"$(slurp)\" \"screenshots\"/\"$(date +%Y-%m-%d@%H:%M:%S)\".png ",
+    },
     "custom/gpu": {
-      "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
-      "format": "󰕣 {}%",
-      "interval": 4,
-      "tooltip": "wow what a cool gpu",
-      "max-length": 6,
-      "min-length": 6,
-      "on-click": "nvidia-settings"
+        "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+        "format": "󰕣 {}%",
+        "tooltip": false, // not working
+        "interval": 4,
+        "tooltip": "wow what a cool gpu",
+        "max-length": 6,
+        "min-length": 6,
+        "on-click": "nvidia-settings"
     },
     "custom/playerctl": {
-        // "exec": "sh ./.config/waybar/custom_modules/playerctl-sanitisation.sh",
         "exec": "playerctl metadata --no-messages --player spotify --format \"{{ artist }} | {{ title }}\" || echo \"-\"",
         "format": "  {}",
+        "tooltip": false,
         "interval": 1,
         "max-lenght": 40,
         "on-click": "playerctl --player spotify play-pause",

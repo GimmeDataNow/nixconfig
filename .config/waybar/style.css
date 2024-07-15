@@ -93,6 +93,7 @@
 #custom-weather,
 #custom-gpu,
 #custom-playerctl,
+#custom-screenutil,
 #tray,
 #backlight,
 #language,
@@ -197,7 +198,7 @@
     padding: 0 0.6em;
 }
 #custom-playerctl {
-    background: @nord_bg;
+    background: @nord_bg_blue;
     font-weight: bold;
     padding: 0 0.6em;
 }
@@ -235,7 +236,9 @@
 #memory {
     background: @memory;
 }
-
+#custom-screenutil {
+    background: @nord_bg;
+}
 #cpu {
     background: @nord_bg;
     color: #D8DEE9;
