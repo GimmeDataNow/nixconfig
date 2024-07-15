@@ -165,7 +165,8 @@ in
 
   # aliasing and some other bash-env 
   environment.interactiveShellInit = ''
-    alias e='nvim'
+    alias e='hx'
+    alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
     alias nix-dev-rust='nix-shell ~/nixos/nix-shell/rust.nix'
   '';
@@ -221,8 +222,9 @@ in
     wl-clipboard # fixes the clipboard for wayland
     xorg.setxkbmap # dep of espanso
     ecryptfs # encryption
-    ouch
-    glow
+    ouch # universal unarchiver
+    glow # markdown viewer
+    bat # better pager and better cat
     
     # gui
     unstable.hyprland # window manager
