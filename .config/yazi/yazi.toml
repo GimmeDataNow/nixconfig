@@ -14,10 +14,13 @@ open = [
 vscode = [
   { run = 'code "$@"', is = "orphan", desc = "vscode"}
 ]
+firefox = [
+  { run = 'firefox "$@"', desc = "firefox"},
+]
 
 [open]
 prepend_rules = [
-  { mime = "text/*", use = ["edit", "vscode"] },
+  { mime = "text/*", use = ["edit", "vscode", "firefox"] },
   { mime = "video/*", use = "play" },
   { mime = "image/*", use = "view-image" },
 ]
