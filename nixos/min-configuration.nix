@@ -155,11 +155,11 @@ in
     WEBKIT_DISABLE_DMABUF_RENDERER = "1";
 
     # fixing these shitty dotfiles in my directory
-    # XDG_CONFIG_HOME = "$HOME/.config";
-    # XDG_CACHE_HOME = "$HOME/.cache";
-    # XDG_DATA_HOME = "$HOME/.local/share";
-    # XDG_STATE_HOME = "$HOME/.local/state";
-    # CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv"
+    XDG_CONFIG_HOME = "$HOME/.config";
+    XDG_CACHE_HOME = "$HOME/.cache";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_STATE_HOME = "$HOME/.local/state";
+    CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv";
     # CARGO_HOME = "$XDG_DATA_HOME/cargo";
   };
 
