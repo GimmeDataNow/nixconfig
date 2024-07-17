@@ -132,23 +132,17 @@
     background: @nord_bg;
     padding: 0 0.6em;
 }
-#idle_inhibitor {
-    background: @mode;
-    /*font-size: 1.6em;*/
-    font-weight: bold;
-    padding: 0 0.6em;
-}
 #network {
     background: @nord_bg_blue;
 }
 #memory {
-    background: @memory;
+    background: @nord_bg;
 }
 #custom-screenutil {
-    background: @nord_bg_blue;
+    background: @nord_bg;
 }
 #cpu {
-    background: @nord_bg;
+    background: @nord_bg_blue;
 }
 #clock {
     background: @nord_bg_blue;
@@ -157,5 +151,13 @@
     background: @nord_bg;
 }
 #disk {
-    background: @nord_bg_blue;
+    background: @nord_bg;
+}
+#powah {
+    margin: 0;
+    padding: 0;
+}
+#drawer {
+    margin: 0;
+    padding: 0;
 }

@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": [ "clock","custom/playerctl" ],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": [ "custom/screenutil", "cpu", "memory", "custom/gpu", "disk", "wireplumber", "network"],
+    "modules-right": [ "custom/screenutil", "group/powah", "wireplumber", "network"],
     
     // Modules configuration
     "hyprland/workspaces": {
@@ -103,5 +103,20 @@
         "on-click-right": "wl-copy $(playerctl metadata --no-messages --player spotify --format \"{{ artist }} | {{ title }}\" || echo \"-\")",
         "on-scroll-up": "playerctl --player spotify previous",
 		"on-scroll-down": "playerctl --player spotify next",
-    }
+    },
+    "group/powah": {
+        "orientation": "inherit",
+        "drawer": {
+            
+            "children-class": "childs",
+            "transition-left-to-right": false,
+        },
+        "modules": [
+            "cpu",
+            "custom/gpu",
+            "disk",
+            "memory",
+
+        ]
+    },
 }

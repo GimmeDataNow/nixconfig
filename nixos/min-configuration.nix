@@ -16,6 +16,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_9;
+  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   boot.kernelModules = [ "kvm-amd"];
 
   # networking
@@ -72,7 +73,7 @@ in
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true; # speed regulation
-    powerManagement.enable = false; # might crash otherwise
+    powerManagement.enable = true; # might crash otherwise
     powerManagement.finegrained = false; # might crash otherwise
     open = false; # opensource
     nvidiaSettings = true; # nvidia app
