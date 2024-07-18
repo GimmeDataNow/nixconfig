@@ -50,6 +50,9 @@ in
     xkb.layout = "de";
     xkb.variant = "";
   };
+  # services.espanso.enable = true;
+  # services.espanso.package = pkgs.espanso-wayland;
+  # services.espanso.wayland = true;
 
   # enable vfs compatible service
   # services.envfs.enable = true;
@@ -222,6 +225,8 @@ in
     # lshw # ls for hardware
     wl-clipboard # fixes the clipboard for wayland
     xorg.setxkbmap # dep of espanso
+    starship # better bash prompt
+    # espanso
     ecryptfs # encryption
     ouch # universal unarchiver
     glow # markdown viewer

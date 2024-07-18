@@ -16,7 +16,11 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs; };
 
-        modules = [ ./min-configuration.nix ];
+        modules = [ 
+          ./min-configuration.nix
+          # ./freetube.nix
+          # ./espanso.nix
+         ];
       };
     };
   };
