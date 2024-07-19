@@ -50,9 +50,6 @@ in
     xkb.layout = "de";
     xkb.variant = "";
   };
-  # services.espanso.enable = true;
-  # services.espanso.package = pkgs.espanso-wayland;
-  # services.espanso.wayland = true;
 
   # enable vfs compatible service
   # services.envfs.enable = true;
@@ -212,7 +209,6 @@ in
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor
-    # unstable.neovim # better text editor
     unstable.helix # vim alternative in rust
     xclip # clipboard manager for files
     git # git
@@ -222,15 +218,14 @@ in
     yazi # tui file explorer
     btop # system monitor
     unzip # unzip
-    # lshw # ls for hardware
     wl-clipboard # fixes the clipboard for wayland
-    xorg.setxkbmap # dep of espanso
+    playerctl # media controller
     starship # better bash prompt
-    # espanso
     ecryptfs # encryption
     ouch # universal unarchiver
     glow # markdown viewer
     bat # better pager and better cat
+    tealdeer # better tldr command
     
     # gui
     unstable.hyprland # window manager
@@ -254,30 +249,26 @@ in
     qalculate-qt # calculator
     localsend # airdrop
     sirikali # encryption manager
-    hyprpicker
+    hyprpicker # color picker for hyprland
 
     # code
     unstable.vscode.fhs # vscode
-    unstable.rustc # rust
-    cargo # rust cargo
-    # python3 # pyhton 
-    # python311Packages.pillow # pillow for lightnovels
     nil # nix language server
-
-    # gui personal
-    unstable.xwaylandvideobridge # does not work
+    # unstable.rustc # rust
+    # cargo # rust cargo
+    
+    # personal
+    unstable.xwaylandvideobridge # allows for screensharing
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video player
-    chromium # unfortunately needed for the poe browser extension
+    # chromium # unfortunately needed for the poe browser extension
     nur.repos.nltch.spotify-adblock # spotify adblock
+    unstable.obsidian # notetaking
 
     # communication
     stable.vesktop # discord
     xdg-utils # xdg-settings and more (set default browser)
-
-    # productive
-    unstable.obsidian # notetaking
 
     # gaming
     #stable.minecraft # vanilla minecraft launcher
@@ -287,7 +278,6 @@ in
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
     winetricks # execute this to fix wine
-    
     heroic # heroic games launcher
     # unstable.path-of-building # pob for poe
     # unstable.r2modman # r2modman / modmanager
@@ -296,9 +286,5 @@ in
     glib # needed for gnome
     gnome3.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
-
-    # for waybar media manager
-    playerctl
-    
   ];
 }
