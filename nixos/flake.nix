@@ -3,6 +3,7 @@
   
   inputs =  {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs = {

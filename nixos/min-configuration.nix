@@ -14,7 +14,7 @@ in
   # bootloader options
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_9;
   boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
   boot.kernelModules = [ "kvm-amd"];
@@ -58,6 +58,8 @@ in
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
   programs.xwayland.enable = true;
   xdg.portal = {
@@ -228,7 +230,7 @@ in
     tealdeer # better tldr command
     
     # gui
-    unstable.hyprland # window manager
+    # unstable.hyprland # window manager
     pwvucontrol # audio control
     firefox-wayland # browser
     rofi-wayland # app launcher
