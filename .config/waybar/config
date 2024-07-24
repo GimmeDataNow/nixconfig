@@ -80,11 +80,11 @@
     },
     "custom/screenutil": {
         "format": "  | ",
-        "on-click": " grim -g \"$(slurp)\" \"screenshots\"/\"$(date +%Y-%m-%d@%H:%M:%S)\".png ",
-        "on-click-right": "hyprpicker | wl-copy",
+        "on-click": "sh ~/.config/.scripts/screenshot.sh",
+        "on-click-right": "sh ~/.config/.scripts/colorpicker.sh",
     },
     "custom/gpu": {
-        "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+        "exec": "sh ~/.config/.scripts/nvidia-gpu-query.sh",
         "format": "󰕣 {}%",
         "tooltip": false, // not working
         "interval": 4,
@@ -94,20 +94,20 @@
         "on-click": "nvidia-settings"
     },
     "custom/playerctl": {
-        "exec": "playerctl metadata --no-messages --player spotify --format \"{{ artist }} | {{ title }}\" || echo \"-\"",
+        "exec": "sh ~/.config/.scripts/spotify-status.sh",
+        "escape": true,
         "format": "  {}",
         "tooltip": false,
         "interval": 1,
         "max-lenght": 40,
-        "on-click": "playerctl --player spotify play-pause",
-        "on-click-right": "wl-copy $(playerctl metadata --no-messages --player spotify --format \"{{ artist }} | {{ title }}\" || echo \"-\")",
-        "on-scroll-up": "playerctl --player spotify previous",
-		"on-scroll-down": "playerctl --player spotify next",
+        "on-click": "sh ~/.config/.scripts/spotify-control.sh play-pause",
+        "on-click-right": "sh ~/.config/.scripts/spotify-status.sh -c",
+        "on-scroll-up": "sh ~/.config/.scripts/spotify-control.sh previous",
+		"on-scroll-down": "sh ~/.config/.scripts/spotify-control.sh next",
     },
     "group/powah": {
         "orientation": "inherit",
         "drawer": {
-            
             "children-class": "childs",
             "transition-left-to-right": false,
         },
@@ -116,7 +116,6 @@
             "custom/gpu",
             "disk",
             "memory",
-
         ]
     },
 }

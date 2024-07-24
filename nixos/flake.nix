@@ -19,8 +19,6 @@
 
         modules = [ 
           ./min-configuration.nix
-          # ./freetube.nix
-          # ./espanso.nix
          ];
       };
     };

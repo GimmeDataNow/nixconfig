@@ -16,7 +16,10 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_9;
-  boot.kernelParams = [ "nvidia.NVreg_PreserveVideoMemoryAllocations=1" ];
+  boot.kernelParams = [ 
+    # "initcall_blacklist=simpledrm_platform_driver_init" # https://github.com/hyprwm/Hyprland/issues/6967#issuecomment-2241948730
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1" 
+  ];
   boot.kernelModules = [ "kvm-amd"];
 
   # networking
@@ -252,6 +255,7 @@ in
     localsend # airdrop
     sirikali # encryption manager
     hyprpicker # color picker for hyprland
+    # mission-center # system monitor
 
     # code
     unstable.vscode.fhs # vscode
