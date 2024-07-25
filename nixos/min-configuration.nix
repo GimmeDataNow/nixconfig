@@ -25,7 +25,8 @@ in
   # networking
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 80 443 53317 ];
+  # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [ 53317 ];
 
   # time 
   time.timeZone = "Europe/Berlin";
@@ -210,6 +211,8 @@ in
 
   # packages
   environment.systemPackages = with pkgs; [
+    # drivers
+    solaar
   
     # tui/cli
     kitty # terminal emulator
@@ -260,8 +263,6 @@ in
     # code
     unstable.vscode.fhs # vscode
     nil # nix language server
-    # unstable.rustc # rust
-    # cargo # rust cargo
     
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
@@ -277,16 +278,11 @@ in
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
-    #stable.minecraft # vanilla minecraft launcher
-    #stable.prismlauncher # better minecraft launcher
-    # zulu17 # java for minecraft
     steam # steam
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
     winetricks # execute this to fix wine
     heroic # heroic games launcher
-    # unstable.path-of-building # pob for poe
-    # unstable.r2modman # r2modman / modmanager
 
     # theme
     glib # needed for gnome

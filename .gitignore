@@ -17,4 +17,4 @@
 !.config/yazi/*
 
 # nixos folder
-!nixos/*
+!nixos
