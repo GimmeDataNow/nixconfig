@@ -1,6 +1,9 @@
 { inputs, config, pkgs, lib,  ...}: 
 let
-  # define channels here for switching
+  # define additional channels here that can later be used via 
+  # unstable.<package>
+  # in order to switch between versions. This will cause 
+  # nixos-rebuild to fail without the --impure flag
   stable = import <nixos-stable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
   unstable = import <nixos-unstable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
 in 
@@ -8,25 +11,22 @@ in
 {
   # imports (keep it minimal here)
   imports = [
-    ./hardware-configuration.nix
+    ./hardware-configuration.nix # hardware stuff
   ];
 
   # bootloader options
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.kernelPackages = pkgs.linuxKernel.kernels.linux_6_9;
+  boot.loader.systemd-boot.enable = true; # use systemd-boot
+  boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
+  boot.kernelPackages = pkgs.linuxPackages_latest; # newest nixos linux kernel version != lastest kernel version
   boot.kernelParams = [ 
     # "initcall_blacklist=simpledrm_platform_driver_init" # https://github.com/hyprwm/Hyprland/issues/6967#issuecomment-2241948730
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1" 
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
   ];
-  boot.kernelModules = [ "kvm-amd"];
 
   # networking
-  networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
-  # 53317 is used by local-send
-  networking.firewall.allowedTCPPorts = [ 53317 ];
+  networking.hostName = "nixos"; # hostname
+  networking.networkmanager.enable = true; # use networkmanager
+  networking.firewall.allowedTCPPorts = [ 53317 ]; # 53317 is used by local-send
 
   # time 
   time.timeZone = "Europe/Berlin";
@@ -70,13 +70,13 @@ in
     enable = true;
   };
 
-  # nvidia
+  # nvidia fluff
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ]; # use nvidia
   hardware.nvidia = {
     modesetting.enable = true; # speed regulation
     powerManagement.enable = true; # might crash otherwise
@@ -84,13 +84,15 @@ in
     open = false; # opensource
     nvidiaSettings = true; # nvidia app
     # package = config.boot.kernelPackages.nvidiaPackages.production; # driver version
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver { 
+      # this is a custom version of the nvida driver that is not
+      # yet available for download per default installation 
       version = "555.58";
       sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
       sha256_aarch64 = "sha256-7XswQwW1iFP4ji5mbRQ6PVEhD4SGWpjUJe1o8zoXYRE=";
       openSha256 = "sha256-hEAmFISMuXm8tbsrB+WiUcEFuSGRNZ37aKWvf0WJ2/c=";
-      settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M="; #"sha256-m2rNASJp0i0Ez2OuqL+JpgEF0Yd8sYVCyrOoo/ln2a4=";
-      persistencedSha256 = lib.fakeHash; #"sha256-XaPN8jVTjdag9frLPgBtqvO/goB5zxeGzaTU0CdL6C4=";
+      settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+      persistencedSha256 = lib.fakeHash; # cant be bothered to find out the proper hash
     };
   };
 
@@ -98,12 +100,15 @@ in
   security.polkit.enable = true;
   
   # nixfeatures
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # allow for flakes and nix commands that are still marked as unstable
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  # should probably be higher up in the nix config but this
+  # enables unfree, insecure and broken packages to be installed
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
   nixpkgs.config.allowBroken = true;
 
-  # prevent chromeium apps from braking
+  # prevent chromeium apps from breaking
   nixpkgs.config.permittedInsecurePackages = [
     "electron-25.9.0"
     "electron-19.1.9"
@@ -113,13 +118,13 @@ in
   system.stateVersion = "24.05";
 
   # sound
-  security.rtkit.enable = true;
+  security.rtkit.enable = true; # this allows pipewire to handle realtime priority
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.enable = true;
+    wireplumber.enable = true; # wireplumber commands
   };
 
   # default user
@@ -127,18 +132,19 @@ in
     password = "hallow";
     isNormalUser = true;
     description = "default user";
-    extraGroups = [ "networkmanager" "wheel" "uinput" ];
-    packages = with pkgs; [
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [ 
+    # empty here because I allow all packages to be
+    # accessible by all users anyways
     ];
   };
 
 
   # autologin
-  services.getty.autologinUser = "hallow";
+  services.getty.autologinUser = "hallow"; # skip the login
 
   # bitwarden security
-  services.gnome.gnome-keyring.enable = true;
-  # services.passSecretService.enable = true;
+  services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
   # important session/bash variables
   environment.sessionVariables = {
@@ -175,24 +181,11 @@ in
     alias e='hx'
     alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
-    alias nix-dev-rust='nix-shell ~/nixos/nix-shell/rust.nix'
   '';
 
   # fonts
   fonts.packages = with pkgs; [
-    # noto-fonts
-    # noto-fonts-cjk
-    # noto-fonts-emoji
-    # liberation_ttf
-    # fira-code
-    # fira-code-symbols
-    # mplus-outline-fonts.githubRelease
-    # dina-font
-    # proggyfonts
-    # font-awesome
-    nerdfonts
-    # terminus-nerdfont
-    # (nerdfonts.override { fonts = [ "DejaVuSansMNerdFontMono" ]; })
+    nerdfonts # nerdfonts is a massive package but I dont care
   ];
 
   # ubuntumono nerd font for utf8 symbols and nice font
@@ -211,8 +204,6 @@ in
 
   # packages
   environment.systemPackages = with pkgs; [
-    # drivers
-    solaar
   
     # tui/cli
     kitty # terminal emulator
