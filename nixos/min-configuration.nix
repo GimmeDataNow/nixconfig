@@ -132,7 +132,7 @@ in
     password = "hallow";
     isNormalUser = true;
     description = "default user";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
     packages = with pkgs; [ 
     # empty here because I allow all packages to be
     # accessible by all users anyways
@@ -259,10 +259,10 @@ in
     unstable.xwaylandvideobridge # allows for screensharing
     unstable.freetube # better youtube desktop
     obs-studio # obs
-    mpv # video player
-    # chromium # unfortunately needed for the poe browser extension
+    mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
     unstable.obsidian # notetaking
+    anki # learning cards
 
     # communication
     stable.vesktop # discord
