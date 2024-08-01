@@ -81,7 +81,7 @@
     "custom/screenutil": {
         "format": "  | ",
         "on-click": "sh ~/.config/.scripts/screenshot.sh",
-        "on-click-right": "sh ~/.config/.scripts/colorpicker.sh",
+        "on-click-right": "sh ~/.config/.scripts/color-picker.sh",
     },
     "custom/gpu": {
         "exec": "sh ~/.config/.scripts/nvidia-gpu-query.sh",

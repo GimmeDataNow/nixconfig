@@ -10,6 +10,6 @@ pkgs.mkShell {
   '';
 
   nativeBuildInputs = with pkgs.buildPackages; [
-    nodejs_21
+    nodejs_22
   ];
 }
