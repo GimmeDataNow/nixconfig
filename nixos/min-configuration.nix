@@ -14,17 +14,6 @@ in
     ./hardware-configuration.nix # hardware stuff
   ];
 
-  nixpkgs.overlays = [
-            (final: prev: {
-              _espanso-orig = prev.espanso;
-              espanso = config.programs.espanso-capdacoverride.packageOverriden;
-            })
-          ];
-
-  programs.espanso-capdacoverride = {
-            enable = true;
-            package = pkgs._espanso-orig;
-          };
 
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
@@ -237,7 +226,7 @@ in
     glow # markdown viewer
     bat # better pager and better cat
     tealdeer # better tldr command
-    
+    espanso    
     # gui
     # unstable.hyprland # window manager
     pwvucontrol # audio control
