@@ -8,33 +8,48 @@
 # Matches are substitution rules: when you type the "trigger" string
 # it gets replaced by the "replace" string.
 matches:
-  # Simple text replacement
-  - trigger: ":espanso-"
+  # espanso status
+  - trigger: ":espanso"
     replace: "espanso is running"
   - trigger: "!isalive"
     replace: "espanso is running"
 
-  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+  # shorthand for commands
+  - trigger: ":rebuild"
+    replace: "sudo nixos-rebuild switch --impure --flake ~/nixos"
 
-  # But matches can also be dynamic:
+  # games
+  - trigger: ":poe-busy"
+    replace: "I am currently busy and will not be able to respond in time. Let me know if you are willing to wait"
+  - trigger: ":poe-l"
+    replace: "There is a high chance that you have the wrong league selected"
+  - trigger: ":poe-bulk"
+    replace: "Please use the bulk exchange tool on the website. It makes trading easies for both parties"
 
-  # Print the current date
+  # dates and time
   - trigger: ":date"
     replace: "{{mydate}}"
     vars:
       - name: mydate
         type: date
         params:
-          format: "%Y-%d-%m"
+          format: "%Y-%m-%d"
   - trigger: ":now"
     replace: "{{mydate}}"
     vars:
       - name: mydate
         type: date
         params:
-          format: "%Y-%d-%m@%H:%M"
+          format: "%Y-%m-%d@%H:%M"
+  - trigger: ":time"
+    replace: "{{mydate}}"
+    vars:
+      - name: mydate
+        type: date
+        params:
+          format: "%H:%M"
 
-  # Print the output of a shell command
+  # cmd outputs
   - trigger: "!shell"
     replace: "{{output}}"
     vars:
@@ -42,5 +57,14 @@ matches:
         type: shell
         params:
           cmd: "echo 'Hello from your shell'"
+  - trigger: ":paste"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo $(wl-paste)"
 
-  # And much more! For more information, visit the docs: https://espanso.org/docs/
+
+  - regex: ":calc[[?P<expr>.*?]]"
+    replace: "{{expr}}"

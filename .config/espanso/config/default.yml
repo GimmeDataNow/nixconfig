@@ -25,6 +25,10 @@
 # By default, espanso uses the "Auto" backend which should work well in most cases,
 # but you may want to try the "Clipboard" or "Inject" backend in case of issues.
 # backend: Clipboard
+# backend: Inject
+# delay: 1000
+evdev_modifier_delay: 25
+backspace_delay: 30
 
 # --- Auto-restart
 
