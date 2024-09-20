@@ -13,5 +13,9 @@ pkgs.mkShell {
     rustc
     cargo
     rust-analyzer
+
+    # glibc.static 
+    pkg-config
+    openssl
   ];
 }

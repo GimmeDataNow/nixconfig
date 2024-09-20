@@ -66,5 +66,10 @@ matches:
           cmd: "echo $(wl-paste)"
 
 
-  - regex: ":calc[[?P<expr>.*?]]"
-    replace: "{{expr}}"
+  - regex: :bc (?P<expr>.+ )=
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: echo "{{expr}}" | bc -l

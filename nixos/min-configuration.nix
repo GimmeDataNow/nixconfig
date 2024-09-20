@@ -31,7 +31,8 @@ in
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
-  boot.kernelPackages = pkgs.linuxPackages_latest; # newest nixos linux kernel version != lastest kernel version
+  # boot.kernelPackages = pkgs.linuxPackages_latest; # newest nixos linux kernel version != lastest kernel version
+  boot.kernelPackages = pkgs.linuxPackages_6_9; # newest nixos linux kernel version != lastest kernel version
   boot.kernelParams = [ 
     # "initcall_blacklist=simpledrm_platform_driver_init" # https://github.com/hyprwm/Hyprland/issues/6967#issuecomment-2241948730
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
@@ -97,17 +98,17 @@ in
     powerManagement.finegrained = false; # might crash otherwise
     open = false; # opensource
     nvidiaSettings = true; # nvidia app
-    # package = config.boot.kernelPackages.nvidiaPackages.production; # driver version
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver { 
+    package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
+    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver { 
       # this is a custom version of the nvida driver that is not
       # yet available for download per default installation 
-      version = "555.58";
-      sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
-      sha256_aarch64 = "sha256-7XswQwW1iFP4ji5mbRQ6PVEhD4SGWpjUJe1o8zoXYRE=";
-      openSha256 = "sha256-hEAmFISMuXm8tbsrB+WiUcEFuSGRNZ37aKWvf0WJ2/c=";
-      settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-      persistencedSha256 = lib.fakeHash; # cant be bothered to find out the proper hash
-    };
+      # version = "555.58";
+      # sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
+      # sha256_aarch64 = "sha256-7XswQwW1iFP4ji5mbRQ6PVEhD4SGWpjUJe1o8zoXYRE=";
+      # openSha256 = "sha256-hEAmFISMuXm8tbsrB+WiUcEFuSGRNZ37aKWvf0WJ2/c=";
+      # settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
+      # persistencedSha256 = lib.fakeHash; # cant be bothered to find out the proper hash
+    # };
   };
 
   # security
@@ -146,7 +147,7 @@ in
     password = "hallow";
     isNormalUser = true;
     description = "default user";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "udev" ];
     packages = with pkgs; [ 
     # empty here because I allow all packages to be
     # accessible by all users anyways
@@ -173,7 +174,7 @@ in
     # experimental
     __GL_VRR_ALLOWED = "0";
     __GL_GSYNC_ALLOWED = "0";
-
+    MOZ_ENABLE_WAYLAND = "0";
     # others
     EDITOR = "hx";
     RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
@@ -215,6 +216,7 @@ in
       inherit pkgs;
     };
   };
+  # hardware.logitech.wireless.enable = true;
 
   # packages
   environment.systemPackages = with pkgs; [
@@ -239,10 +241,19 @@ in
     glow # markdown viewer
     bat # better pager and better cat
     tealdeer # better tldr command
+    bc # calculator
+
+    # logitech-udev-rules
+    # solaar
+    input-remapper
+
+    
     # gui
     # unstable.hyprland # window manager
     pwvucontrol # audio control
-    firefox-wayland # browser
+    # unstable.firefox-wayland # browser
+    # firefox-beta-unwrapped
+    unstable.firefox
     rofi-wayland # app launcher
     waybar (waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
@@ -265,12 +276,12 @@ in
     # mission-center # system monitor
 
     # code
-    unstable.vscode.fhs # vscode
+    vscode.fhs # vscode
     nil # nix language server
     
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
-    unstable.freetube # better youtube desktop
+    freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
