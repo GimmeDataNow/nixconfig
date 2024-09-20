@@ -32,7 +32,7 @@ in
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   # boot.kernelPackages = pkgs.linuxPackages_latest; # newest nixos linux kernel version != lastest kernel version
-  boot.kernelPackages = pkgs.linuxPackages_6_9; # newest nixos linux kernel version != lastest kernel version
+  boot.kernelPackages = pkgs.linuxPackages_6_10; # newest nixos linux kernel version != lastest kernel version
   boot.kernelParams = [ 
     # "initcall_blacklist=simpledrm_platform_driver_init" # https://github.com/hyprwm/Hyprland/issues/6967#issuecomment-2241948730
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
