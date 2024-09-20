@@ -14,18 +14,18 @@ in
     ./hardware-configuration.nix # hardware stuff
   ];
 
-  nixpkgs.overlays = [
-              (final: prev: {
-               _espanso-orig = prev.espanso;
-               espanso = config.programs.espanso-capdacoverride.packageOverriden;
-               })
-            ];
-  programs.espanso-capdacoverride = {
-            enable = true;
-            package = unstable.espanso-wayland;
+  # nixpkgs.overlays = [
+              # (final: prev: {
+               # _espanso-orig = prev.espanso;
+               # espanso = config.programs.espanso-capdacoverride.packageOverriden;
+               # })
+            # ];
+  # programs.espanso-capdacoverride = {
+            # enable = true;
+            # package = unstable.espanso-wayland;
 
             # package = pkgs._espanso-orig;
-          };
+          # };
 
 
   # bootloader options
