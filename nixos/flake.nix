@@ -19,7 +19,7 @@
 
         modules = [ 
           ./min-configuration.nix
-          ./espanso-capdacoverride
+          # ./espanso-capdacoverride
          ];
       };
     };
