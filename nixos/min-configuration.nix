@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib,  ...}: 
+{ inputs, config, pkgs,  ...}: 
 let
   # define additional channels here that can later be used via 
   # unstable.<package>
@@ -27,6 +27,9 @@ in
             # package = pkgs._espanso-orig;
           # };
 
+  programs.steam.extraCompatPackages = with pkgs; [
+    proton-ge-bin
+  ];
 
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
@@ -149,7 +152,7 @@ in
     password = "hallow";
     isNormalUser = true;
     description = "default user";
-    extraGroups = [ "networkmanager" "wheel" "input" "udev" ];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
     packages = with pkgs; [ 
     # empty here because I allow all packages to be
     # accessible by all users anyways
@@ -165,6 +168,7 @@ in
 
   # important session/bash variables
   environment.sessionVariables = {
+
     # hyprland vars
     LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
@@ -177,6 +181,7 @@ in
     __GL_VRR_ALLOWED = "0";
     __GL_GSYNC_ALLOWED = "0";
     MOZ_ENABLE_WAYLAND = "0";
+    
     # others
     EDITOR = "hx";
     RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
@@ -190,7 +195,6 @@ in
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
     CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv";
-    # CARGO_HOME = "$XDG_DATA_HOME/cargo";
   };
 
   # aliasing and some other bash-env 
@@ -238,24 +242,21 @@ in
     wl-clipboard # fixes the clipboard for wayland
     playerctl # media controller
     starship # better bash prompt
-    ecryptfs # encryption
     ouch # universal unarchiver
     glow # markdown viewer
     bat # better pager and better cat
-    tealdeer # better tldr command
-    bc # calculator
+    # tealdeer # better tldr command
+    # bc # calculator
 
     # logitech-udev-rules
     # solaar
-    input-remapper
+    # input-remapper
 
     
     # gui
     # unstable.hyprland # window manager
     pwvucontrol # audio control
-    # unstable.firefox-wayland # browser
-    # firefox-beta-unwrapped
-    unstable.firefox
+    unstable.firefox # browser
     rofi-wayland # app launcher
     waybar (waybar.overrideAttrs (oldAttrs: {
         mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
