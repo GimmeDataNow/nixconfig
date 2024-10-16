@@ -9,44 +9,46 @@ let
 in 
 
 {
+  # nixfeatures
+  # allow for flakes and nix commands that are still marked as unstable
+  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  # should probably be higher up in the nix config but this
+  # enables unfree, insecure and broken packages to be installed
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowInsecure = true;
+  nixpkgs.config.allowBroken = true;
+
+
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
   ];
 
-  # nixpkgs.overlays = [
-              # (final: prev: {
-               # _espanso-orig = prev.espanso;
-               # espanso = config.programs.espanso-capdacoverride.packageOverriden;
-               # })
-            # ];
-  # programs.espanso-capdacoverride = {
-            # enable = true;
-            # package = unstable.espanso-wayland;
-
-            # package = pkgs._espanso-orig;
-          # };
-
-  programs.steam.extraCompatPackages = with pkgs; [
-    proton-ge-bin
-  ];
-
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
-  # boot.kernelPackages = pkgs.linuxPackages_latest; # newest nixos linux kernel version != lastest kernel version
-  # boot.kernelPackages = pkgs.linuxPackages_6_6_hardened; # newest nixos linux kernel version != lastest kernel version
-  boot.kernelPackages = unstable.linuxPackages_6_11;
-  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest; # https://discourse.nixos.org/t/unable-to-build-nix-due-to-nvidia-drivers-due-or-kernel-6-10/49266/17
+  boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
   boot.kernelParams = [ 
-    # "initcall_blacklist=simpledrm_platform_driver_init" # https://github.com/hyprwm/Hyprland/issues/6967#issuecomment-2241948730
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
   ];
 
-  # networking
+  # users
+  users.users.hallow = {
+    isNormalUser = true; # sets up the home directory and set a few misc. variables
+    hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
+    description = "Alan O. User"; # minor additional info
+    extraGroups = [ "networkmanager" "wheel" ]; # add additional capability groups here
+  };
+  
+  # autologin
+  services.getty.autologinUser = "hallow"; # skip the login
+  security.polkit.enable = true;
+
+  # networking & security
   networking.hostName = "nixos"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
   networking.firewall.allowedTCPPorts = [ 53317 ]; # 53317 is used by local-send
+  services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
   # time 
   time.timeZone = "Europe/Berlin";
@@ -68,103 +70,56 @@ in
   # configure console keymap
   console.keyMap = "de";
 
-  # configure keymap in X11
-  services.xserver = {
-    #enable = true;
-    xkb.layout = "de";
-    xkb.variant = "";
-  };
-
-  # enable vfs compatible service
-  # services.envfs.enable = true;
-
-  # hyprland
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  };
-  programs.xwayland.enable = true;
-  xdg.portal = {
-    enable = true;
-  };
-
   # nvidia fluff
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ]; # use nvidia
+  
+  services.xserver.videoDrivers = [ "nvidia" ]; # use nvidia, this is critical for hyprland
+  
   hardware.nvidia = {
     modesetting.enable = true; # speed regulation
     powerManagement.enable = true; # might crash otherwise
     powerManagement.finegrained = false; # might crash otherwise
     open = false; # opensource
-    nvidiaSettings = true; # nvidia app
+    nvidiaSettings = true; # nvidia settings app
     package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
-    # package = config.boot.kernelPackages.nvidiaPackages.mkDriver { 
-      # this is a custom version of the nvida driver that is not
-      # yet available for download per default installation 
-      # version = "555.58";
-      # sha256_64bit = "sha256-bXvcXkg2kQZuCNKRZM5QoTaTjF4l2TtrsKUvyicj5ew=";
-      # sha256_aarch64 = "sha256-7XswQwW1iFP4ji5mbRQ6PVEhD4SGWpjUJe1o8zoXYRE=";
-      # openSha256 = "sha256-hEAmFISMuXm8tbsrB+WiUcEFuSGRNZ37aKWvf0WJ2/c=";
-      # settingsSha256 = "sha256-vWnrXlBCb3K5uVkDFmJDVq51wrCoqgPF03lSjZOuU8M=";
-      # persistencedSha256 = lib.fakeHash; # cant be bothered to find out the proper hash
-    # };
   };
 
-  # security
-  security.polkit.enable = true;
-  
-  # nixfeatures
-  # allow for flakes and nix commands that are still marked as unstable
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
-  # should probably be higher up in the nix config but this
-  # enables unfree, insecure and broken packages to be installed
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.allowInsecure = true;
-  nixpkgs.config.allowBroken = true;
+  # allows for legacy apps to run on hyprland
+  programs.xwayland.enable = true;
 
-  # prevent chromeium apps from breaking
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-    "electron-19.1.9"
-  ];
+  # hyprland
+  programs.hyprland = {
+    enable = true;
+    # allow for legacy apps on hyprland (this might be the same as programs.xwayland.enable but I'm not sure)
+    xwayland.enable = true;
+
+    # pull it from the flake
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  };
+  
+  # allows for screen capture to work in hyprland
+  xdg.portal = {
+    enable = true;
+  };
 
   # target system version
   system.stateVersion = "24.05";
 
+  # sound priority
+  security.rtkit.enable = true; # this allows pipewire to handle real-time priority
+
   # sound
-  security.rtkit.enable = true; # this allows pipewire to handle realtime priority
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    wireplumber.enable = true; # wireplumber commands
+    wireplumber.enable = true; # enable wireplumber commands
   };
-
-  # default user
-  users.users.hallow = {
-    password = "hallow";
-    isNormalUser = true;
-    description = "default user";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
-    packages = with pkgs; [ 
-    # empty here because I allow all packages to be
-    # accessible by all users anyways
-    ];
-  };
-
-
-  # autologin
-  services.getty.autologinUser = "hallow"; # skip the login
-
-  # bitwarden security
-  services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
   # important session/bash variables
   environment.sessionVariables = {
@@ -222,7 +177,6 @@ in
       inherit pkgs;
     };
   };
-  # hardware.logitech.wireless.enable = true;
 
   # packages
   environment.systemPackages = with pkgs; [
@@ -245,16 +199,8 @@ in
     ouch # universal unarchiver
     glow # markdown viewer
     bat # better pager and better cat
-    # tealdeer # better tldr command
-    # bc # calculator
 
-    # logitech-udev-rules
-    # solaar
-    # input-remapper
-
-    
     # gui
-    # unstable.hyprland # window manager
     pwvucontrol # audio control
     unstable.firefox # browser
     rofi-wayland # app launcher
@@ -268,20 +214,19 @@ in
     pavucontrol
     imv # terminal image viewer
     unstable.bitwarden-desktop # password manager
-    # screenshot
+    sirikali # encryption manager
+    qalculate-qt # calculator
+    localsend # airdrop
+    # screenshot and color pickers
     grim # grab area from wayland compositor
     slurp # mark an area from the wayland compositor
     swappy # save a buffer as an image
-    qalculate-qt # calculator
-    localsend # airdrop
-    sirikali # encryption manager
     hyprpicker # color picker for hyprland
-    # mission-center # system monitor
 
     # code
     vscode.fhs # vscode
     nil # nix language server
-    
+        
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
     freetube # better youtube desktop
