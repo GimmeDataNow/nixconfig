@@ -23,13 +23,12 @@ in
   imports = [
     ./hardware-configuration.nix # hardware stuff
   ];
-
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
   boot.kernelParams = [ 
-    "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
+    # "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
   ];
 
   # users
@@ -37,7 +36,7 @@ in
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
     description = "Alan O. User"; # minor additional info
-    extraGroups = [ "networkmanager" "wheel" ]; # add additional capability groups here
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ]; # add additional capability groups here
   };
   
   # autologin
@@ -70,6 +69,12 @@ in
   # configure console keymap
   console.keyMap = "de";
 
+  hardware.sane.enable = true;
+  services.avahi.enable = true;
+  services.avahi.nssmdns4 = true;
+  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin pkgs.sane-airscan ];
+  services.udev.packages = [ pkgs.sane-airscan ];
+
   # nvidia fluff
   hardware.opengl = {
     enable = true;
@@ -98,7 +103,7 @@ in
     xwayland.enable = true;
 
     # pull it from the flake
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
   
   # allows for screen capture to work in hyprland
@@ -129,20 +134,20 @@ in
     XDG_SESSION_TYPE = "wayland";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     GBM_BACKEND = "nvidia-drm";
-    WLR_NO_HARDWARE_CURSORS = "1";
+    # WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
 
     # experimental
-    __GL_VRR_ALLOWED = "0";
-    __GL_GSYNC_ALLOWED = "0";
-    MOZ_ENABLE_WAYLAND = "0";
+    # __GL_VRR_ALLOWED = "0";
+    # MOZ_ENABLE_WAYLAND = "0";
+    # __GL_GSYNC_ALLOWED = "0";
     
     # others
     EDITOR = "hx";
-    RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
+    # RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
 
     # lutris itch.io fix
-    WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+    # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
 
     # fixing these shitty dotfiles in my directory
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -201,6 +206,7 @@ in
     bat # better pager and better cat
 
     # gui
+    unstable.hyprland
     pwvucontrol # audio control
     unstable.firefox # browser
     rofi-wayland # app launcher
@@ -229,7 +235,7 @@ in
         
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
-    freetube # better youtube desktop
+    unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
@@ -241,14 +247,15 @@ in
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
-    steam # steam
+    unstable.steam # steam
+    gamescope
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
     winetricks # execute this to fix wine
     heroic # heroic games launcher
 
     # theme
-    glib # needed for gnome
+    # glib # needed for gnome
     gnome3.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
