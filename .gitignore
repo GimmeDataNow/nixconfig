@@ -1,4 +1,36 @@
 # ignore everything
+.backups
+.cache
+.cargo
+.git
+.gnupg
+.icons
+.local
+.mono
+.mozilla
+.nix-defexpr
+.npm
+.pki
+.ssh
+.steam
+.wine
+Downloads
+downloads
+obsidian
+personal
+screenshots
+secondary_drive
+usb
+.bashrc
+.bash_history
+.gitconfig
+.nvidia-settings-rc
+.pulse-cookie
+.steampath
+.steampid
+pc
+
+
 *
 # execpt
 !.gitignore
@@ -16,3 +48,5 @@
 
 # nixos folder
 !nixos
+
+!coding/rust/CompactManager/*

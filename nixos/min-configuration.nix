@@ -217,6 +217,7 @@ in
     wev # get keyboard inputs
     dunst # notification manager
     swww # desktop background
+    mpvpaper
     pavucontrol
     imv # terminal image viewer
     unstable.bitwarden-desktop # password manager
