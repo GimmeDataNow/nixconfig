@@ -1,11 +1,12 @@
 {
-  stdenv,
-  lib,
-  fetchurl,
-  appimageTools,
-  makeWrapper,
-  electron,
-  nixosTests,
+  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
+  stdenv ? pkgs.stdenv,
+  lib ? pkgs.lib,
+  fetchurl ? pkgs.fetchurl,
+  appimageTools ? pkgs.appimageTools,
+  makeWrapper ? pkgs.makeWrapper,
+  electron ? pkgs.electron,
+  nixosTests ? pkgs.nixosTests,
 }:
 
 stdenv.mkDerivation rec {
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/FreeTubeApp/FreeTube/releases/download/v${version}-beta/freetube_${version}_amd64.AppImage";
-    hash = "sha256-1nvki8fag1a7fx1svcizyn3njq0gqyyl0s3nxww6kr4g2k4kkd8x";
+    hash = "sha256-HbU5yRSP5Gk473ZoQL3HD2Bph/U/sq1Dd0eFpxyKc9s=";
   };
 
   passthru.tests = nixosTests.freetube;

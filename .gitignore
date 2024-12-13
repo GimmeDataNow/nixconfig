@@ -53,5 +53,6 @@ pc
 
 # nixos folder
 !nixos
+nixos/result
 
 !coding/rust/CompactManager/*

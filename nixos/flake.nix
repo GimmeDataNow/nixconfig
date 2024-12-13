@@ -20,7 +20,7 @@
         modules = [ 
           ./min-configuration.nix
           # ./espanso-capdacoverride
-          ./freetube.nix
+          # ./freetube.nix
          ];
       };
     };
