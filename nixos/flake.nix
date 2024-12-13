@@ -2,7 +2,7 @@
   description = "builds the system";
   
   inputs =  {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
@@ -20,6 +20,7 @@
         modules = [ 
           ./min-configuration.nix
           # ./espanso-capdacoverride
+          ./freetube.nix
          ];
       };
     };

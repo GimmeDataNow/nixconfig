@@ -76,25 +76,27 @@ in
   services.udev.packages = [ pkgs.sane-airscan ];
 
   # nvidia fluff
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  # hardware.opengl = {
+    # enable = true;
+    # driSupport = true;
+    # driSupport32Bit = true;
+  # };
   
-  services.xserver.videoDrivers = [ "nvidia" ]; # use nvidia, this is critical for hyprland
+  services.xserver.videoDrivers = [ "amdgpu" ]; # use nvidia, this is critical for hyprland
   
-  hardware.nvidia = {
-    modesetting.enable = true; # speed regulation
-    powerManagement.enable = true; # might crash otherwise
-    powerManagement.finegrained = false; # might crash otherwise
-    open = false; # opensource
-    nvidiaSettings = true; # nvidia settings app
-    package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
-  };
+  # hardware.nvidia = {
+    # modesetting.enable = true; # speed regulation
+    # powerManagement.enable = true; # might crash otherwise
+    # powerManagement.finegrained = false; # might crash otherwise
+    # open = false; # opensource
+    # nvidiaSettings = true; # nvidia settings app
+    # package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
+  # };
 
   # allows for legacy apps to run on hyprland
   programs.xwayland.enable = true;
+
+  programs.steam.enable = true;
 
   # hyprland
   programs.hyprland = {
@@ -112,7 +114,7 @@ in
   };
 
   # target system version
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.11";
 
   # sound priority
   security.rtkit.enable = true; # this allows pipewire to handle real-time priority
@@ -130,10 +132,10 @@ in
   environment.sessionVariables = {
 
     # hyprland vars
-    LIBVA_DRIVER_NAME = "nvidia";
+    # LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    GBM_BACKEND = "nvidia-drm";
+    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    # GBM_BACKEND = "nvidia-drm";
     # WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
 
@@ -206,7 +208,7 @@ in
     bat # better pager and better cat
 
     # gui
-    unstable.hyprland
+    hyprland
     pwvucontrol # audio control
     unstable.firefox # browser
     rofi-wayland # app launcher
@@ -236,7 +238,7 @@ in
         
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
-    unstable.freetube # better youtube desktop
+    # unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
@@ -248,16 +250,18 @@ in
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
-    unstable.steam # steam
+    # unstable.steam # steam
     gamescope
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
     winetricks # execute this to fix wine
     heroic # heroic games launcher
+    prismlauncher # minecraft
+
 
     # theme
     # glib # needed for gnome
-    gnome3.adwaita-icon-theme # makes wm not crash
+    gnome.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
 }
