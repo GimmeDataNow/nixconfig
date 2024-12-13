@@ -2,9 +2,11 @@
 .backups
 .cache
 .cargo
+.config
 .git
 .gnupg
 .icons
+.java
 .local
 .mono
 .mozilla
@@ -14,6 +16,7 @@
 .ssh
 .steam
 .wine
+coding
 Downloads
 downloads
 obsidian
@@ -24,6 +27,8 @@ usb
 .bashrc
 .bash_history
 .gitconfig
+.gtkrc-2.0
+.nix-profile
 .nvidia-settings-rc
 .pulse-cookie
 .steampath
@@ -31,7 +36,7 @@ usb
 pc
 
 
-*
+# *
 # execpt
 !.gitignore
 
