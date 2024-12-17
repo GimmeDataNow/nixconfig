@@ -35,6 +35,7 @@ usb
 .steampid
 pc
 
+.bash_history*
 
 # *
 # execpt
