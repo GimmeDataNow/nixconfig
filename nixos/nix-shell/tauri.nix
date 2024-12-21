@@ -27,6 +27,8 @@ pkgs.mkShell {
     pango
     webkitgtk_4_1
     openssl
+
+    rust-analyzer
   ];
 
 }

@@ -211,11 +211,9 @@ in
     hyprland
     pwvucontrol # audio control
     unstable.firefox # browser
+    floorp
     rofi-wayland # app launcher
-    waybar (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      })
-    ) # top bar
+    waybar
     wev # get keyboard inputs
     dunst # notification manager
     swww # desktop background
@@ -261,7 +259,7 @@ in
 
     # theme
     # glib # needed for gnome
-    gnome.adwaita-icon-theme # makes wm not crash
+    pkgs.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
 }

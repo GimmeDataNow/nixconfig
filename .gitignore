@@ -3,6 +3,7 @@
 .cache
 .cargo
 .config
+.floorp
 .git
 .gnupg
 .icons

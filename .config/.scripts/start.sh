@@ -10,4 +10,4 @@ swww img ~/.config/.scripts/wallpaper.png &
 
 dunst &
 
-waybar &
+sleep 1s && waybar &
