@@ -236,7 +236,7 @@ in
         
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
-    # unstable.freetube # better youtube desktop
+    unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
