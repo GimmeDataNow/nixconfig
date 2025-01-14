@@ -80,24 +80,14 @@ in {
   # configure console keymap
   console.keyMap = "de";
 
+  services.xserver.videoDrivers = ["amdgpu"]; # use nvidia, this is critical for hyprland
+
   hardware.sane.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   hardware.sane.extraBackends = [pkgs.hplipWithPlugin pkgs.sane-airscan];
   services.udev.packages = [pkgs.sane-airscan];
 
-  # nvidia fluff
-  # hardware.opengl = {
-  # enable = true;
-  # driSupport = true;
-  # driSupport32Bit = true;
-  # };
-  #
-  # hardware.opengl.extraPackages = with pkgs; [
-  # rocm-opencl-icd
-  # rocm-runtime-ext
-  # ];
-  #
   services.ollama = with pkgs; {
     package = ollama-rocm;
     enable = true;
@@ -107,17 +97,6 @@ in {
       HCC_AMDGPU_TARGET = "gfx1101"; # used to be necessary, but doesn't seem to anymore
     };
   };
-
-  services.xserver.videoDrivers = ["amdgpu"]; # use nvidia, this is critical for hyprland
-
-  # hardware.nvidia = {
-  # modesetting.enable = true; # speed regulation
-  # powerManagement.enable = true; # might crash otherwise
-  # powerManagement.finegrained = false; # might crash otherwise
-  # open = false; # opensource
-  # nvidiaSettings = true; # nvidia settings app
-  # package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
-  # };
 
   # allows for legacy apps to run on hyprland
   programs.xwayland.enable = true;
@@ -129,9 +108,6 @@ in {
     enable = true;
     # allow for legacy apps on hyprland (this might be the same as programs.xwayland.enable but I'm not sure)
     xwayland.enable = true;
-
-    # pull it from the flake
-    # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
 
   # allows for screen capture to work in hyprland
@@ -157,24 +133,11 @@ in {
   # important session/bash variables
   environment.sessionVariables = {
     # hyprland vars
-    # LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
-    # __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    # GBM_BACKEND = "nvidia-drm";
-    # WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-
-    # experimental
-    # __GL_VRR_ALLOWED = "0";
-    # MOZ_ENABLE_WAYLAND = "0";
-    # __GL_GSYNC_ALLOWED = "0";
 
     # others
     EDITOR = "hx";
-    # RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
-
-    # lutris itch.io fix
-    # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
 
     # fixing these shitty dotfiles in my directory
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -186,7 +149,6 @@ in {
 
   # aliasing and some other bash-env
   environment.interactiveShellInit = ''
-    alias e='hx'
     alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
   '';
@@ -231,6 +193,8 @@ in {
     glow # markdown viewer
     bat # better pager and better cat
 
+    alejandra # auto formatter for nix
+
     # gui
     hyprland
     pwvucontrol # audio control
@@ -272,7 +236,6 @@ in {
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
-    # unstable.steam # steam
     gamescope
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
@@ -281,7 +244,6 @@ in {
     prismlauncher # minecraft
 
     # theme
-    # glib # needed for gnome
     pkgs.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
