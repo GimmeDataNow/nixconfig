@@ -24,7 +24,6 @@ in {
   # nixfeatures
   # allow for flakes and nix commands that are still marked as unstable
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  # should probably be higher up in the nix config but this
   # enables unfree, insecure and broken packages to be installed
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
@@ -87,6 +86,10 @@ in {
   services.avahi.nssmdns4 = true;
   hardware.sane.extraBackends = [pkgs.hplipWithPlugin pkgs.sane-airscan];
   services.udev.packages = [pkgs.sane-airscan];
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+  ];
 
   services.ollama = with pkgs; {
     package = ollama-rocm;
