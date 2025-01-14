@@ -1,23 +1,34 @@
-{ inputs, config, pkgs,  ...}: 
-let
-  # define additional channels here that can later be used via 
-  # unstable.<package>
-  # in order to switch between versions. This will cause 
-  # nixos-rebuild to fail without the --impure flag
-  stable = import <nixos-stable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-in 
-
 {
+  inputs,
+  config,
+  pkgs,
+  ...
+}: let
+  # define additional channels here that can later be used via
+  # unstable.<package>
+  # in order to switch between versions. This will cause
+  # nixos-rebuild to fail without the --impure flag
+  stable = import <nixos-stable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+in {
   # nixfeatures
   # allow for flakes and nix commands that are still marked as unstable
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # should probably be higher up in the nix config but this
   # enables unfree, insecure and broken packages to be installed
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
   nixpkgs.config.allowBroken = true;
-
 
   # imports (keep it minimal here)
   imports = [
@@ -27,7 +38,7 @@ in
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
-  boot.kernelParams = [ 
+  boot.kernelParams = [
     # "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
   ];
 
@@ -36,9 +47,9 @@ in
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
     description = "Alan O. User"; # minor additional info
-    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ]; # add additional capability groups here
+    extraGroups = ["networkmanager" "wheel" "scanner" "lp"]; # add additional capability groups here
   };
-  
+
   # autologin
   services.getty.autologinUser = "hallow"; # skip the login
   security.polkit.enable = true;
@@ -46,10 +57,10 @@ in
   # networking & security
   networking.hostName = "nixos"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
-  networking.firewall.allowedTCPPorts = [ 53317 ]; # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [53317]; # 53317 is used by local-send
   services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
-  # time 
+  # time
   time.timeZone = "Europe/Berlin";
 
   # locale
@@ -72,25 +83,40 @@ in
   hardware.sane.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
-  hardware.sane.extraBackends = [ pkgs.hplipWithPlugin pkgs.sane-airscan ];
-  services.udev.packages = [ pkgs.sane-airscan ];
+  hardware.sane.extraBackends = [pkgs.hplipWithPlugin pkgs.sane-airscan];
+  services.udev.packages = [pkgs.sane-airscan];
 
   # nvidia fluff
   # hardware.opengl = {
-    # enable = true;
-    # driSupport = true;
-    # driSupport32Bit = true;
+  # enable = true;
+  # driSupport = true;
+  # driSupport32Bit = true;
   # };
-  
-  services.xserver.videoDrivers = [ "amdgpu" ]; # use nvidia, this is critical for hyprland
-  
+  #
+  # hardware.opengl.extraPackages = with pkgs; [
+  # rocm-opencl-icd
+  # rocm-runtime-ext
+  # ];
+  #
+  services.ollama = with pkgs; {
+    package = ollama-rocm;
+    enable = true;
+    acceleration = "rocm";
+    rocmOverrideGfx = "11.0.1";
+    environmentVariables = {
+      HCC_AMDGPU_TARGET = "gfx1101"; # used to be necessary, but doesn't seem to anymore
+    };
+  };
+
+  services.xserver.videoDrivers = ["amdgpu"]; # use nvidia, this is critical for hyprland
+
   # hardware.nvidia = {
-    # modesetting.enable = true; # speed regulation
-    # powerManagement.enable = true; # might crash otherwise
-    # powerManagement.finegrained = false; # might crash otherwise
-    # open = false; # opensource
-    # nvidiaSettings = true; # nvidia settings app
-    # package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
+  # modesetting.enable = true; # speed regulation
+  # powerManagement.enable = true; # might crash otherwise
+  # powerManagement.finegrained = false; # might crash otherwise
+  # open = false; # opensource
+  # nvidiaSettings = true; # nvidia settings app
+  # package = config.boot.kernelPackages.nvidiaPackages.latest; # driver version
   # };
 
   # allows for legacy apps to run on hyprland
@@ -107,7 +133,7 @@ in
     # pull it from the flake
     # package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
-  
+
   # allows for screen capture to work in hyprland
   xdg.portal = {
     enable = true;
@@ -130,7 +156,6 @@ in
 
   # important session/bash variables
   environment.sessionVariables = {
-
     # hyprland vars
     # LIBVA_DRIVER_NAME = "nvidia";
     XDG_SESSION_TYPE = "wayland";
@@ -143,7 +168,7 @@ in
     # __GL_VRR_ALLOWED = "0";
     # MOZ_ENABLE_WAYLAND = "0";
     # __GL_GSYNC_ALLOWED = "0";
-    
+
     # others
     EDITOR = "hx";
     # RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
@@ -156,10 +181,10 @@ in
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
-    CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv";
+    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
   };
 
-  # aliasing and some other bash-env 
+  # aliasing and some other bash-env
   environment.interactiveShellInit = ''
     alias e='hx'
     alias less='bat'
@@ -173,9 +198,9 @@ in
 
   # ubuntumono nerd font for utf8 symbols and nice font
   fonts.fontconfig.defaultFonts = {
-    serif = [ "UbuntuMono Nerd Font" ];
-    sansSerif = [ "UbuntuSansMono Nerd Font" ];
-    monospace = [ "UbuntuMono Nerd Font Mono" ];
+    serif = ["UbuntuMono Nerd Font"];
+    sansSerif = ["UbuntuSansMono Nerd Font"];
+    monospace = ["UbuntuMono Nerd Font Mono"];
   };
 
   # import the nix-user-repo
@@ -187,7 +212,6 @@ in
 
   # packages
   environment.systemPackages = with pkgs; [
-  
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor
@@ -233,7 +257,7 @@ in
     # code
     vscode.fhs # vscode
     nil # nix language server
-        
+
     # personal
     unstable.xwaylandvideobridge # allows for screensharing
     unstable.freetube # better youtube desktop
@@ -255,7 +279,6 @@ in
     winetricks # execute this to fix wine
     heroic # heroic games launcher
     prismlauncher # minecraft
-
 
     # theme
     # glib # needed for gnome

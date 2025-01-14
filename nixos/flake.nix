@@ -1,7 +1,7 @@
 {
   description = "builds the system";
-  
-  inputs =  {
+
+  inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
@@ -15,13 +15,13 @@
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs; };
+        specialArgs = {inherit inputs outputs;};
 
-        modules = [ 
-          ./min-configuration.nix
+        modules = [
+          ./configuration.nix
           # ./espanso-capdacoverride
           # ./freetube.nix
-         ];
+        ];
       };
     };
   };

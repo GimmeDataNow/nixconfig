@@ -1,6 +1,5 @@
-{ pkgs ? import <nixpkgs> {}}:
+{pkgs ? import <nixpkgs> {}}:
 pkgs.mkShell {
-
   shellHook = ''
     alias run="npm run dev"
 

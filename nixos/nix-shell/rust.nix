@@ -1,6 +1,5 @@
-{ pkgs ? import <nixpkgs> {}}:
+{pkgs ? import <nixpkgs> {}}:
 pkgs.mkShell {
-
   shellHook = ''
     alias build="cargo build"
     alias run="cargo run"
@@ -14,7 +13,7 @@ pkgs.mkShell {
     cargo
     rust-analyzer
 
-    # glibc.static 
+    # glibc.static
     pkg-config
     openssl
   ];

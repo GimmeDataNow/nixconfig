@@ -9,15 +9,13 @@
   nixosTests ? pkgs.nixosTests,
 }:
 stdenv.mkDerivation rec {
-  pname = "freetube";
+  pname = "anythingllm-desktop";
   version = "0.22.1";
 
   src = fetchurl {
-    url = "https://github.com/FreeTubeApp/FreeTube/releases/download/v${version}-beta/freetube_${version}_amd64.AppImage";
-    hash = "sha256-HbU5yRSP5Gk473ZoQL3HD2Bph/U/sq1Dd0eFpxyKc9s=";
+    url = "https://cdn.useanything.com/latest/AnythingLLMDesktop.AppImage";
+    hash = "sha256-hWCH4CTkpY0B8oyW/RA5uX0OAha2X2KcUEOd4VsX12c=";
   };
-
-  passthru.tests = nixosTests.freetube;
 
   appimageContents = appimageTools.extractType2 {inherit pname version src;};
 
@@ -30,11 +28,10 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/share/${pname} $out/share/applications $out/share/icons/hicolor/scalable/apps
+    mkdir -p $out/bin $out/share/${pname} $out/share/applications
 
     cp -a ${appimageContents}/{locales,resources} $out/share/${pname}
-    cp -a ${appimageContents}/freetube.desktop $out/share/applications/${pname}.desktop
-    cp -a ${appimageContents}/usr/share/icons/hicolor/scalable/freetube.svg $out/share/icons/hicolor/scalable/apps
+    cp -a ${appimageContents}/anythingllm-desktop.desktop $out/share/applications/${pname}.desktop
 
     substituteInPlace $out/share/applications/${pname}.desktop \
       --replace 'Exec=AppRun' 'Exec=${pname}'
@@ -42,12 +39,9 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  postFixup = ''
-    makeWrapper ${electron}/bin/electron $out/bin/${pname} \
-      --add-flags $out/share/${pname}/resources/app.asar \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}" \
-      --append-flags "--disable-gpu-memory-buffer-video-frames"
-  '';
+  # postFixup = ''
+  #   makeWrapper ${electron}/bin/electron $out/bin/${pname}
+  # '';
 
   meta = {
     description = "Open Source YouTube app for privacy";
@@ -55,11 +49,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [
       ryneeverett
-      alyaeanyx
-      ryand56
-      sigmasquadron
     ];
-    inherit (electron.meta) platforms;
     mainProgram = "freetube";
   };
 }

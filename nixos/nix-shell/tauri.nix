@@ -1,8 +1,7 @@
-{ pkgs ? import <nixpkgs> {}}:
+{pkgs ? import <nixpkgs> {}}:
 pkgs.mkShell {
-
   shellHook = ''
-      export GDK_BACKEND=x11
+    export GDK_BACKEND=x11
   '';
 
   nativeBuildInputs = with pkgs; [
@@ -14,7 +13,7 @@ pkgs.mkShell {
     rustc
   ];
 
-  buildInputs = with pkgs;[
+  buildInputs = with pkgs; [
     at-spi2-atk
     atkmm
     cairo
@@ -30,5 +29,4 @@ pkgs.mkShell {
 
     rust-analyzer
   ];
-
 }
