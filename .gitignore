@@ -55,6 +55,7 @@ pc
 
 # nixos folder
 !nixos
+nixos/nixos-switch.log
 nixos/result
 nixos/nix-programs/result
 
