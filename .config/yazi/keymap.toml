@@ -3,7 +3,7 @@ prepend_keymap = [
   # simple settings
   { on = [ "g", "l" ],       run = "cd ~/.local",             desc = "Go to the .local directory"   },
   { on = [ "g", "n" ],       run = "cd ~/nixos",              desc = "Go to the nixos directory"    },
-  { on = [ "g", "p" ],       run = "cd ~/personal",           desc = "Go to the personal directory" },
+  { on = [ "g", "p" ],       run = "cd ~/secondary_drive",    desc = "Go to the personal directory" },
   { on = [ "g", "u" ],       run = "cd ~/usb",                desc = "Go to the usb directory"      },
 
   # complex settings
