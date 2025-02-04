@@ -182,6 +182,9 @@ in {
     nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
       inherit pkgs;
     };
+    # nur2 = import (builtins.fetchTarball "https://github.com/GimmeDataNow/nur/archive/master.tar.gz") {
+    # inherit pkgs;
+    # };
   };
 
   # packages
@@ -240,6 +243,8 @@ in {
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
+    # nur2.grayjay-desktop
+    # nur2.example-package
     unstable.obsidian # notetaking
     anki # learning cards
 
