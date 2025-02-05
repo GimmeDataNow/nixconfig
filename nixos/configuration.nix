@@ -155,6 +155,8 @@ in {
     alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
     alias dirs='dirs -v'
+    alias rebuild='bash ~/.config/.scripts/rebuild.sh'
+    alias nix-prefetch-hash-sha256='bash ~/.config/.scripts/nix-prefetch-hash-sha256.sh'
     function y() {
      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
      yazi "$@" --cwd-file="$tmp"
