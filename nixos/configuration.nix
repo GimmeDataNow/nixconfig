@@ -32,21 +32,21 @@ in {
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
+
+    inputs.xremap-flake.nixosModules.default
   ];
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
-  boot.kernelParams = [
-    # "nvidia.NVreg_PreserveVideoMemoryAllocations=1" # https://wiki.hyprland.org/Nvidia/#suspendwakeup-issues
-  ];
 
+  hardware.uinput.enable = true;
   # users
   users.users.hallow = {
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
     description = "Alan O. User"; # minor additional info
-    extraGroups = ["networkmanager" "wheel" "scanner" "lp"]; # add additional capability groups here
+    extraGroups = ["networkmanager" "wheel" "scanner" "lp" "input" "uinput"]; # add additional capability groups here
   };
 
   # autologin
@@ -78,6 +78,19 @@ in {
 
   # configure console keymap
   console.keyMap = "de";
+
+  services.xremap = {
+    withHypr = true;
+    userName = "hallow";
+    yamlConfig = ''
+      keymap:
+        - name: Ex
+          application:
+            not: firefox
+          remap:
+            CapsLock: Esc
+    '';
+  };
 
   services.xserver.videoDrivers = ["amdgpu"]; # use nvidia, this is critical for hyprland
 
