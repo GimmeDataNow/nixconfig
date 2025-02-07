@@ -41,12 +41,15 @@ in {
   boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
 
   hardware.uinput.enable = true;
+  users.groups.uinput.members = ["hallow"];
+  users.groups.input.members = ["hallow"];
+
   # users
   users.users.hallow = {
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
     description = "Alan O. User"; # minor additional info
-    extraGroups = ["networkmanager" "wheel" "scanner" "lp" "input" "uinput"]; # add additional capability groups here
+    extraGroups = ["networkmanager" "wheel" "scanner" "lp"]; # add additional capability groups here
   };
 
   # autologin
