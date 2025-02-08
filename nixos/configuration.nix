@@ -91,7 +91,7 @@ in {
           application:
             not: firefox
           remap:
-            CapsLock: Esc
+            SHIFT_R: Esc
     '';
   };
 
