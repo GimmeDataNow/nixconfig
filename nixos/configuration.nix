@@ -32,17 +32,11 @@ in {
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
-
-    inputs.xremap-flake.nixosModules.default
   ];
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
-
-  hardware.uinput.enable = true;
-  users.groups.uinput.members = ["hallow"];
-  users.groups.input.members = ["hallow"];
 
   # users
   users.users.hallow = {
@@ -81,19 +75,6 @@ in {
 
   # configure console keymap
   console.keyMap = "de";
-
-  services.xremap = {
-    withHypr = true;
-    userName = "hallow";
-    yamlConfig = ''
-      modmap:
-        - name: Ex
-          application:
-            not: firefox
-          remap:
-            SHIFT_R: Esc
-    '';
-  };
 
   services.xserver.videoDrivers = ["amdgpu"]; # use nvidia, this is critical for hyprland
 
