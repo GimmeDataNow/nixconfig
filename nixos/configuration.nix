@@ -86,7 +86,7 @@ in {
     withHypr = true;
     userName = "hallow";
     yamlConfig = ''
-      keymap:
+      modmap:
         - name: Ex
           application:
             not: firefox
