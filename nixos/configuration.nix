@@ -211,6 +211,7 @@ in {
 
     # gui
     hyprland
+    hyprlandPlugins.hyprspace
     pwvucontrol # audio control
     unstable.firefox # browser
     floorp
