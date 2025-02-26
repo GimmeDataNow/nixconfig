@@ -1,3 +1,1 @@
-//@theme "/nix/store/khs5gl4cdm7m9wy5100akiw178fw8kgx-rofi-1.7.5+wayland2/share/rofi/themes/Arc-Dark.rasi"
-//@theme "/nix/store/vjfm0g0ifqniav51yrxq038xglhsrjyj-rofi-1.7.5+wayland2/share/rofi/themes/Arc-Dark.rasi"
-@theme "~/.config/rofi/Nord_1.rasi"
+@theme "~/.config/rofi/Nord.rasi"
