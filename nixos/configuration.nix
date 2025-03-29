@@ -81,7 +81,10 @@ in {
   hardware.sane.enable = true;
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
-  hardware.sane.extraBackends = [pkgs.hplipWithPlugin pkgs.sane-airscan];
+  hardware.sane.extraBackends = [
+    # pkgs.hplipWithPlugin
+    pkgs.sane-airscan
+  ];
   services.udev.packages = [pkgs.sane-airscan];
 
   programs.nix-ld.enable = true;
