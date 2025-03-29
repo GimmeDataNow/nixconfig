@@ -42,7 +42,7 @@ in {
   users.users.hallow = {
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
-    description = "Alan O. User"; # minor additional info
+    description = "Default User"; # minor additional info
     extraGroups = ["networkmanager" "wheel" "scanner" "lp"]; # add additional capability groups here
   };
 
@@ -87,16 +87,6 @@ in {
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
   ];
-
-  services.ollama = with pkgs; {
-    package = ollama-rocm;
-    enable = true;
-    acceleration = "rocm";
-    rocmOverrideGfx = "11.0.1";
-    environmentVariables = {
-      HCC_AMDGPU_TARGET = "gfx1101"; # used to be necessary, but doesn't seem to anymore
-    };
-  };
 
   # allows for legacy apps to run on hyprland
   programs.xwayland.enable = true;
@@ -232,6 +222,7 @@ in {
     slurp # mark an area from the wayland compositor
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
+    kando # new menu style
 
     # code
     vscode.fhs # vscode
