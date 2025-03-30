@@ -82,7 +82,7 @@ in {
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   hardware.sane.extraBackends = [
-    # pkgs.hplipWithPlugin
+    pkgs.hplipWithPlugin
     pkgs.sane-airscan
   ];
   services.udev.packages = [pkgs.sane-airscan];
@@ -225,7 +225,6 @@ in {
     slurp # mark an area from the wayland compositor
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
-    kando # new menu style
 
     # code
     vscode.fhs # vscode
