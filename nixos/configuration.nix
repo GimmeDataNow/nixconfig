@@ -47,6 +47,7 @@ in {
   };
 
   # autologin
+  services.resolved.enable = true;
   services.getty.autologinUser = "hallow"; # skip the login
   security.polkit.enable = true;
 
@@ -82,7 +83,7 @@ in {
   services.avahi.enable = true;
   services.avahi.nssmdns4 = true;
   hardware.sane.extraBackends = [
-    pkgs.hplipWithPlugin
+    # pkgs.hplipWithPlugin
     pkgs.sane-airscan
   ];
   services.udev.packages = [pkgs.sane-airscan];
@@ -147,6 +148,7 @@ in {
     alias dirs='dirs -v'
     alias rebuild='bash ~/.config/.scripts/rebuild.sh'
     alias nix-prefetch-hash-sha256='bash ~/.config/.scripts/nix-prefetch-hash-sha256.sh'
+    alias bm='bashmount'
     function y() {
      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
      yazi "$@" --cwd-file="$tmp"
@@ -199,6 +201,7 @@ in {
     ouch # universal unarchiver
     glow # markdown viewer
     bat # better pager and better cat
+    bashmount # easier usb mounting
 
     alejandra # auto formatter for nix
 
