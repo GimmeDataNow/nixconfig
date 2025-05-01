@@ -229,6 +229,12 @@ in {
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
 
+    # hyprpaper # new top bar
+    # python312
+    # brightnessctl
+    # python312Packages.gpustat
+    eww
+
     # code
     vscode.fhs # vscode
     nil # nix language server
