@@ -47,7 +47,7 @@ in {
   };
 
   # autologin
-  # services.resolved.enable = true;
+  services.resolved.enable = true;
   services.getty.autologinUser = "hallow"; # skip the login
   security.polkit.enable = true;
 
