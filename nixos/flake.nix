@@ -13,13 +13,13 @@
     inherit (self) outputs;
   in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+      # nixos = nixpkgs.lib.nixosSystem {
+        # specialArgs = {inherit inputs outputs;};
 
-        modules = [
-          ./configuration.nix
-        ];
-      };
+        # modules = [
+          # ./configuration.nix
+        # ];
+      # };
       mainpc = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs outputs;};
 
