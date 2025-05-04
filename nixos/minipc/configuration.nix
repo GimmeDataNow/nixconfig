@@ -114,6 +114,14 @@ in
     alias e='hx'
     alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
+    function y() {
+     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+     yazi "$@" --cwd-file="$tmp"
+     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      builtin cd -- "$cwd"
+     fi
+     rm -f -- "$tmp"
+    }
   '';
 
   # fonts
