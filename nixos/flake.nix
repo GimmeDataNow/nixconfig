@@ -1,10 +1,8 @@
 {
-  description = "builds the system";
+  description = "Main flake that decides which system to build";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    # xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs = {
@@ -20,8 +18,20 @@
 
         modules = [
           ./configuration.nix
-          # ./espanso-capdacoverride
-          # ./freetube.nix
+        ];
+      };
+      mainpc = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+
+        modules = [
+          ./mainpc/configuration.nix
+        ];
+      };
+      minipc = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs outputs;};
+
+        modules = [
+          ./minipc/configuration.nix
         ];
       };
     };
