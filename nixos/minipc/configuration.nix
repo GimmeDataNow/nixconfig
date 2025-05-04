@@ -22,6 +22,7 @@ in
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
+    ./services/suwayomi.nix
   ];
 
   # bootloader options
