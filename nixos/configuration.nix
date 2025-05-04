@@ -36,7 +36,7 @@ in {
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
-  boot.kernelPackages = unstable.linuxPackages_6_11; # newest nixos linux kernel version != lastest kernel version
+  boot.kernelPackages = unstable.linuxPackages_6_14; # newest nixos linux kernel version != lastest kernel version
 
   # users
   users.users.hallow = {
@@ -240,7 +240,8 @@ in {
     nil # nix language server
 
     # personal
-    unstable.xwaylandvideobridge # allows for screensharing
+    # unstable.xwaylandvideobridge # allows for screensharing
+    kdePackages.xwaylandvideobridge
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
