@@ -246,6 +246,7 @@ in {
     obs-studio # obs
     mpv # video playern
     nur.repos.nltch.spotify-adblock # spotify adblock
+    # nur.repos.nltch.spotify-adblock # spotify adblock
     # nur2.grayjay-desktop
     # nur2.example-package
     unstable.obsidian # notetaking
