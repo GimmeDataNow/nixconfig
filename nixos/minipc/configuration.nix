@@ -44,7 +44,7 @@ in
   # networking & security
   networking.hostName = "minipc"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
-  networking.firewall.allowedTCPPorts = [ 22 4567 53317 ]; # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [ 22 53317 ]; # 53317 is used by local-send
   services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
   services.openssh = {
@@ -63,12 +63,6 @@ in
   virtualisation.docker.rootless = {
     enable = true;
     setSocketVariable = true;
-  };
-
-  services.suwayomi-server = {
-    enable = true;
-    settings.server.port = 4567;
-    settings.server.extensionRepos = [ "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json" ];
   };
 
   # time 
