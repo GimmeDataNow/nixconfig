@@ -52,7 +52,7 @@ in {
   security.polkit.enable = true;
 
   # networking & security
-  networking.hostName = "nixos"; # hostname
+  networking.hostName = "mainpc"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
   networking.firewall.allowedTCPPorts = [53317]; # 53317 is used by local-send
   services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
