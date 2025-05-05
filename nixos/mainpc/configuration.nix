@@ -179,7 +179,7 @@ in {
     nur = import (builtins.fetchGit {
       url = "https://github.com/NL-TCH/nur-packages.git";
       ref = "master";
-      rev = "6bb5b4277bb6ef4e0aafc21ea7c17f0201140f24";
+      rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
     }) {
       inherit pkgs;
     };
