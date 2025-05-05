@@ -173,7 +173,15 @@ in {
 
   # import the nix-user-repo
   nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+    # nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      # inherit pkgs;
+    # };
+    nur = import (builtins.fetchGit {
+      url = "https://github.com/NL-TCH/nur-packages.git";
+      ref = "master";
+      # rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
+      rev = "568bb07d073167f4553cec1e409ad8a2a8af0124";
+    }) {
       inherit pkgs;
     };
     # nur2 = import (builtins.fetchTarball "https://github.com/GimmeDataNow/nur/archive/master.tar.gz") {
@@ -245,10 +253,7 @@ in {
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
-    nur.repos.nltch.spotify-adblock # spotify adblock
-    # nur.repos.nltch.spotify-adblock # spotify adblock
-    # nur2.grayjay-desktop
-    # nur2.example-package
+    nur.spotify-adblock # spotify adblock
     unstable.obsidian # notetaking
     anki # learning cards
 
