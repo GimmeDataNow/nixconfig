@@ -32,6 +32,7 @@ in {
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
+    ./applications/spotify-adblock.nix
   ];
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
@@ -176,14 +177,14 @@ in {
     # nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
       # inherit pkgs;
     # };
-    nur = import (builtins.fetchGit {
-      url = "https://github.com/NL-TCH/nur-packages.git";
-      ref = "master";
+    # nur = import (builtins.fetchGit {
+      # url = "https://github.com/NL-TCH/nur-packages.git";
+      # ref = "master";
       # rev = "6bb5b4277bb6ef4e0aafc21ea7c17f0201140f24";
-      rev = "568bb07d073167f4553cec1e409ad8a2a8af0124";
-    }) {
-      inherit pkgs;
-    };
+      # rev = "568bb07d073167f4553cec1e409ad8a2a8af0124";
+    # }) {
+      # inherit pkgs;
+    # };
     # nur2 = import (builtins.fetchTarball "https://github.com/GimmeDataNow/nur/archive/master.tar.gz") {
     # inherit pkgs;
     # };
@@ -253,7 +254,7 @@ in {
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
-    nur.spotify-adblock # spotify adblock
+    # nur.spotify-adblock # spotify adblock
     unstable.obsidian # notetaking
     anki # learning cards
 
