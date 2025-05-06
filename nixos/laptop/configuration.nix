@@ -195,7 +195,7 @@ in
     nil # nix language server
     
     # personal
-    unstable.xwaylandvideobridge # allows for screensharing
+    kdePackages.xwaylandvideobridge# allows for screensharing
     obs-studio # obs
     mpv # video playern
     nur.spotify-adblock # spotify adblock
