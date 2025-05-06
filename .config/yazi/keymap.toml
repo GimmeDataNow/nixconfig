@@ -1,10 +1,13 @@
 [manager]
 prepend_keymap = [
   # simple settings
-  { on = [ "g", "l" ],       run = "cd ~/.local",             desc = "Go to the .local directory"   },
-  { on = [ "g", "n" ],       run = "cd ~/nixos",              desc = "Go to the nixos directory"    },
-  { on = [ "g", "p" ],       run = "cd ~/secondary_drive",    desc = "Go to the personal directory" },
-  { on = [ "g", "u" ],       run = "cd ~/usb",                desc = "Go to the usb directory"      },
+  { on = [ "g", "l" ],       run = "cd ~/.local",             desc = "~/.local"                   },
+  { on = [ "g", "n" ],       run = "cd ~/nixos",              desc = "~/nixos"                    },
+  { on = [ "g", "p" ],       run = "cd ~/secondary_drive",    desc = "~/secondary_drive"          },
+  { on = [ "g", "u" ],       run = "cd ~/usb",                desc = "~/usb"                      },
+  { on = [ "g", "d" ],       run = "cd ~/downloads",          desc = "~/downloads"                },
+  { on = [ "g", "c" ],       run = "cd ~/.config",            desc = "~/.config"                  },
+  { on = [ "g", "h" ],       run = "cd ~/",                   desc = "~"                          },
 
   # complex settings
   { on = [ "c", "a" ],       run = "plugin ouch --args=zip",  desc = "Compress selected" },
