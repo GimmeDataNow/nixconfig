@@ -10,6 +10,9 @@ prepend_keymap = [
   { on = [ "c", "a" ],       run = "plugin ouch --args=zip",  desc = "Compress selected" },
   { on = [ "c", "m" ],       run = "plugin chmod", desc = "chmod on selected"},
 
+  { on = ["d", "d"], run = "remove", desc = "move to trash" },
+  { on = ["d", "u"], run = "plugin restore", desc = "Restore last deleted files/folders" },
+
   { on = [ "c", "q" ],       run = "quit", desc = "quit"}
 
 ]

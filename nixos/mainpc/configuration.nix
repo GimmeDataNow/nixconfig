@@ -139,6 +139,7 @@ in {
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
     CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+    HYPRSHOT_DIR = "$HOME/screenshots";
   };
 
   # aliasing and some other bash-env
@@ -200,6 +201,8 @@ in {
     wireplumber # manager for the audio system
     ranger # tui file explorer
     yazi # tui file explorer
+    trash-cli # yazi restore deleted files
+    exiftool # yazi preview exif data of audio files
     btop # system monitor
     unzip # unzip
     wl-clipboard # fixes the clipboard for wayland

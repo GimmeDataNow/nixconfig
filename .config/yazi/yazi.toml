@@ -38,4 +38,7 @@ prepend_previewers = [
 	{ mime = "application/x-xz",            run = "ouch" },
 
   { name = "*.md", run = "glow" },
+
+  { mime = "audio/*",   run = "exifaudio"},
+  
 ]
