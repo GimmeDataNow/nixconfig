@@ -212,7 +212,7 @@ in
 
     # theme
     glib # needed for gnome
-    gnome3.adwaita-icon-theme # makes wm not crash
+    adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
 }
