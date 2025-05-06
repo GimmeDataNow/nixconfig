@@ -21,10 +21,7 @@
     };
   };
 in {
-  # nixfeatures
-  # allow for flakes and nix commands that are still marked as unstable
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  # enables unfree, insecure and broken packages to be installed
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
   nixpkgs.config.allowBroken = true;
@@ -42,7 +39,7 @@ in {
   users.users.hallow = {
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     hashedPassword = "$y$j9T$.1SJTv4b5xb74jNuW5Jos0$saRV3GfwAEGo1M70hUmoQsPs2TIl.klI09rJYD2bl18"; # mkpasswrd -m Yescrypt <password>
-    description = "Default User"; # minor additional info
+    description = "default user";
     extraGroups = ["networkmanager" "wheel" "scanner" "lp"]; # add additional capability groups here
   };
 
@@ -174,9 +171,6 @@ in {
 
   # import the nix-user-repo
   nixpkgs.config.packageOverrides = pkgs: {
-    # nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-      # inherit pkgs;
-    # };
     nur = import (builtins.fetchGit {
       url = "https://github.com/NL-TCH/nur-packages.git";
       ref = "master";
@@ -184,9 +178,6 @@ in {
     }) {
       inherit pkgs;
     };
-    # nur2 = import (builtins.fetchTarball "https://github.com/GimmeDataNow/nur/archive/master.tar.gz") {
-    # inherit pkgs;
-    # };
   };
 
   # packages
@@ -239,18 +230,11 @@ in {
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
 
-    # hyprpaper # new top bar
-    # python312
-    # brightnessctl
-    # python312Packages.gpustat
-    eww
-
     # code
     vscode.fhs # vscode
     nil # nix language server
 
     # personal
-    # unstable.xwaylandvideobridge # allows for screensharing
     kdePackages.xwaylandvideobridge
     unstable.freetube # better youtube desktop
     obs-studio # obs
