@@ -51,13 +51,6 @@ in
     enable = true;
   };
 
-  # nvidia fluff
-  hardware.opengl = {
-    enable = true;
-     driSupport = true;
-    driSupport32Bit = true;
-  };
-
   services.xserver.videoDrivers = [ "amdgpu" ]; # use nvidia
 
   # security
