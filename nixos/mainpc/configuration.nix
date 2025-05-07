@@ -229,6 +229,7 @@ in {
     slurp # mark an area from the wayland compositor
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
+    unstable.hyprland
 
     # code
     vscode.fhs # vscode
