@@ -55,10 +55,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
 
     # Set LD_LIBRARY_PATH to match your FHS shell runtime deps
-    makeWrapper $out/lib/grayjay/Grayjay $out/bin/grayjay --set LD_LIBRARY_PATH "${pkgs.lib.makeLibraryPath [
+    makeWrapper $out/lib/grayjay/Grayjay $out/bin/grayjay \
+    --set XDG_DATA_HOME "~/.local/share" \
+    --set XDG_CACHE_HOME "~/.cache" \
+    --set LD_LIBRARY_PATH "${pkgs.lib.makeLibraryPath [
       pkgs.libz
       pkgs.icu
-      pkgs.openssl
+      # pkgs.openssl
       pkgs.xorg.libX11
       pkgs.xorg.libXcomposite
       pkgs.xorg.libXdamage
@@ -66,10 +69,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       pkgs.xorg.libXfixes
       pkgs.xorg.libXrandr
       pkgs.xorg.libxcb
-      pkgs.gtk3
-      pkgs.glib
-      pkgs.nss
-      pkgs.nspr
+      # pkgs.gtk3
+      # pkgs.glib
+      # pkgs.nss
+      # pkgs.nspr
       pkgs.dbus
       pkgs.atk
       pkgs.cups
@@ -79,14 +82,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       pkgs.pango
       pkgs.cairo
       pkgs.udev
-      pkgs.alsa-lib
-      pkgs.mesa
+      # pkgs.alsa-lib
+      # pkgs.mesa
       pkgs.libGL
       pkgs.libsecret
     ]}" \
-    --set XDG_DATA_HOME "$HOME/.local/share" \
-    --set XDG_CACHE_HOME "$HOME/.cache"
-
+    
     # Optionally install icon
     # mkdir -p $out/share/icons/hicolor/512x512/apps
     # cp $src/grayjay.png $out/share/icons/hicolor/512x512/apps/grayjay.png
@@ -105,7 +106,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       icon = "grayjay.png"; # TODO figure out how icons work
       startupWMClass = "Grayjay";
       # mimeTypes = [ "x-scheme-handler/freetube" ];
-      categories = [ "AudioVideo" "Network" ];
+      categories = [ "Network" ];
     })
   ];
 

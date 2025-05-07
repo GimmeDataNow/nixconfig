@@ -189,6 +189,7 @@ in
     localsend # airdrop
     sirikali # encryption manager
     hyprpicker # color picker for hyprland
+    unstable.hyprland
 
     # code
     # vscode.fhs # vscode
