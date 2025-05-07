@@ -207,7 +207,7 @@ in {
     alejandra # auto formatter for nix
 
     # gui
-    hyprland
+    # hyprland
     hyprlandPlugins.hyprspace
     pwvucontrol # audio control
     unstable.firefox # browser
