@@ -207,8 +207,7 @@ in {
     alejandra # auto formatter for nix
 
     # gui
-    # hyprland
-    hyprlandPlugins.hyprspace
+    hyprland
     pwvucontrol # audio control
     unstable.firefox # browser
     floorp
@@ -229,7 +228,6 @@ in {
     slurp # mark an area from the wayland compositor
     swappy # save a buffer as an image
     hyprpicker # color picker for hyprland
-    unstable.hyprland
 
     # code
     vscode.fhs # vscode
