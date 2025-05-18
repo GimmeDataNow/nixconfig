@@ -1,7 +1,5 @@
 { inputs, config, pkgs, unstable, ...}: {
-  # sound priority
   security.rtkit.enable = true; # this allows pipewire to handle real-time priority
-  # sound
   services.pipewire = {
     enable = true;
     alsa.enable = true;

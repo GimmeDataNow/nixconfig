@@ -1,4 +1,4 @@
-{ imports, pkgs, unstable, ...}: {
+{ pkgs, unstable, ...}: {
   nixpkgs.config.packageOverrides = pkgs: {
     nur =
       import (builtins.fetchGit {

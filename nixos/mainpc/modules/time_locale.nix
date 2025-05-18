@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ ... }: {
   time.timeZone = "Europe/Berlin";
 
   # locale

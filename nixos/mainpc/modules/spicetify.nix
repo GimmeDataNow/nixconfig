@@ -1,11 +1,10 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ inputs, pkgs, ...}: {
   programs.spicetify =
   let
     spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
   in
   {
     enable = true;
-
     enabledExtensions = with spicePkgs.extensions; [
       adblock
       hidePodcasts
@@ -19,7 +18,6 @@
       rotatingCoverart
       pointer
     ];
-
     theme = spicePkgs.themes.catppuccin;
     colorScheme = "macchiato";
   };
