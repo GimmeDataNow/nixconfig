@@ -30,6 +30,7 @@
 
         modules = [
           ./mainpc/default.nix
+          inputs.spicetify-nix.nixosModules.default
         ];
       };
       minipc = nixpkgs.lib.nixosSystem {
