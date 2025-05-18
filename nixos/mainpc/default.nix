@@ -1,6 +1,7 @@
 { inputs, config, pkgs, unstable, ... }: {
 
   imports = [
+    # essential modules
     ./modules/hardware.nix
     ./modules/boot.nix
     ./modules/users.nix
@@ -12,7 +13,10 @@
     ./modules/environment.nix
     ./modules/printer.nix
     ./modules/desktop.nix
+
+    # optional modules
     ./modules/programs.nix
+    ./modules/spicetify.nix
 
   ];
   
