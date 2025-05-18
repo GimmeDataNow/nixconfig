@@ -2,9 +2,9 @@
   services.suwayomi-server = {
     enable = true;
     openFirewall = true;
-    settings.server ={
+    settings.server = {
       port = 4567;
-      extensionRepos = [ "https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json" ];
+      extensionRepos = ["https://raw.githubusercontent.com/keiyoushi/extensions/repo/index.min.json"];
     };
   };
 }

@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix/24.11";
   };
 
   outputs = {

@@ -1,23 +1,34 @@
-{ inputs, config, pkgs,  ...}: 
-let
-  # define additional channels here that can later be used via 
-  # unstable.<package>
-  # in order to switch between versions. This will cause 
-  # nixos-rebuild to fail without the --impure flag
-  stable = import <nixos-stable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-in 
-
 {
+  inputs,
+  config,
+  pkgs,
+  ...
+}: let
+  # define additional channels here that can later be used via
+  # unstable.<package>
+  # in order to switch between versions. This will cause
+  # nixos-rebuild to fail without the --impure flag
+  stable = import <nixos-stable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+in {
   # nixfeatures
   # allow for flakes and nix commands that are still marked as unstable
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # should probably be higher up in the nix config but this
   # enables unfree, insecure and broken packages to be installed
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
   nixpkgs.config.allowBroken = true;
-
 
   # imports (keep it minimal here)
   imports = [
@@ -35,9 +46,9 @@ in
     isNormalUser = true; # sets up the home directory and set a few misc. variables
     password = "minipc"; # mkpasswrd -m Yescrypt <password>
     description = "The minipc that host some services"; # minor additional info
-    extraGroups = [ "networkmanager" "wheel" "docker" ]; # add additional capability groups here
+    extraGroups = ["networkmanager" "wheel" "docker"]; # add additional capability groups here
   };
-  
+
   # autologin
   services.getty.autologinUser = "minipc"; # skip the login
   security.polkit.enable = true;
@@ -45,12 +56,12 @@ in
   # networking & security
   networking.hostName = "minipc"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
-  networking.firewall.allowedTCPPorts = [ 22 53317 ]; # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [22 53317]; # 53317 is used by local-send
   services.gnome.gnome-keyring.enable = true; # bitwarden will fail to run if this is not enabled
 
   services.openssh = {
     enable = true;
-    ports = [ 22 ];
+    ports = [22];
     settings = {
       PasswordAuthentication = true;
       AllowUsers = null;
@@ -66,7 +77,7 @@ in
     setSocketVariable = true;
   };
 
-  # time 
+  # time
   time.timeZone = "Europe/Berlin";
 
   # locale
@@ -91,7 +102,6 @@ in
 
   # important session/bash variables
   environment.sessionVariables = {
-    
     # others
     EDITOR = "hx";
     RANGER_LOAD_DEFAULT_RC = "FALSE"; # make ranger not load both configs
@@ -101,10 +111,10 @@ in
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
-    CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv";
+    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
   };
 
-  # aliasing and some other bash-env 
+  # aliasing and some other bash-env
   environment.interactiveShellInit = ''
     alias e='hx'
     alias less='bat'
@@ -126,14 +136,13 @@ in
 
   # ubuntumono nerd font for utf8 symbols and nice font
   fonts.fontconfig.defaultFonts = {
-    serif = [ "UbuntuMono Nerd Font" ];
-    sansSerif = [ "UbuntuSansMono Nerd Font" ];
-    monospace = [ "UbuntuMono Nerd Font Mono" ];
+    serif = ["UbuntuMono Nerd Font"];
+    sansSerif = ["UbuntuSansMono Nerd Font"];
+    monospace = ["UbuntuMono Nerd Font Mono"];
   };
 
   # packages
   environment.systemPackages = with pkgs; [
-  
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor

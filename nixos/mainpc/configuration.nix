@@ -29,6 +29,7 @@ in {
   # imports (keep it minimal here)
   imports = [
     ./hardware-configuration.nix # hardware stuff
+    inputs.spicetify-nix.nixosModules.default
   ];
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
@@ -169,15 +170,42 @@ in {
     monospace = ["UbuntuMono Nerd Font Mono"];
   };
 
+  programs.spicetify =
+  let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+  in
+  {
+    enable = true;
+
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      hidePodcasts
+      shuffle # shuffle+ (special characters are sanitized out of extension names)
+    ];
+    enabledCustomApps = with spicePkgs.apps; [
+      newReleases
+      ncsVisualizer
+    ];
+    enabledSnippets = with spicePkgs.snippets; [
+      rotatingCoverart
+      pointer
+    ];
+
+    theme = spicePkgs.themes.catppuccin;
+    colorScheme = "mocha";
+  };
+  
+
   # import the nix-user-repo
   nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchGit {
-      url = "https://github.com/NL-TCH/nur-packages.git";
-      ref = "master";
-      rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
-    }) {
-      inherit pkgs;
-    };
+    nur =
+      import (builtins.fetchGit {
+        url = "https://github.com/NL-TCH/nur-packages.git";
+        ref = "master";
+        rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
+      }) {
+        inherit pkgs;
+      };
   };
 
   # packages

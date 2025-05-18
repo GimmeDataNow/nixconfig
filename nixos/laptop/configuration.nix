@@ -1,26 +1,39 @@
-{ inputs, config, pkgs, lib,  ...}: 
-let
-  stable = import <nixos-stable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-  unstable = import <nixos-unstable> { config = { allowUnfree = true; nixpkgs.config.allowBroken = true; }; };
-in 
-
 {
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  stable = import <nixos-stable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+  unstable = import <nixos-unstable> {
+    config = {
+      allowUnfree = true;
+      nixpkgs.config.allowBroken = true;
+    };
+  };
+in {
   imports = [
     ./hardware-configuration.nix # hardware stuff
   ];
-  
+
   # bootloader options
   boot.loader.systemd-boot.enable = true; # use systemd-boot
   boot.loader.efi.canTouchEfiVariables = true; # avoid potential issues with efi
   boot.kernelPackages = unstable.linuxPackages_6_14;
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = ["amdgpu"];
 
   # networking
   networking.hostName = "laptop"; # hostname
   networking.networkmanager.enable = true; # use networkmanager
-  networking.firewall.allowedTCPPorts = [ 53317 ]; # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [53317]; # 53317 is used by local-send
 
-  # time 
+  # time
   time.timeZone = "Europe/Berlin";
 
   # locale
@@ -51,13 +64,13 @@ in
     enable = true;
   };
 
-  services.xserver.videoDrivers = [ "amdgpu" ]; # use nvidia
+  services.xserver.videoDrivers = ["amdgpu"]; # use nvidia
 
   # security
   security.polkit.enable = true;
-  
+
   # nixfeatures
-  nix.settings.experimental-features = [ "nix-command" "flakes" ]; 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowInsecure = true;
   nixpkgs.config.allowBroken = true;
@@ -81,7 +94,7 @@ in
     isNormalUser = true;
     hashedPassword = "$y$j9T$doJaUYVyR2mGgRyfiYWv5/$D/2ghzNMTuDFpf5oX9x3Fj/o0UTVMCJub9ywC0NJ0q2";
     description = "default user";
-    extraGroups = [ "networkmanager" "wheel" "input" "udev" ];
+    extraGroups = ["networkmanager" "wheel" "input" "udev"];
   };
 
   # bitwarden security
@@ -102,10 +115,10 @@ in
     XDG_CACHE_HOME = "$HOME/.cache";
     XDG_DATA_HOME = "$HOME/.local/share";
     XDG_STATE_HOME = "$HOME/.local/state";
-    CUDA_CACHE_PATH ="$XDG_CACHE_HOME/nv";
+    CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
   };
 
-  # aliasing and some other bash-env 
+  # aliasing and some other bash-env
   environment.interactiveShellInit = ''
     alias e='hx'
     alias less='bat'
@@ -127,25 +140,25 @@ in
 
   # ubuntumono nerd font for utf8 symbols and nice font
   fonts.fontconfig.defaultFonts = {
-    serif = [ "UbuntuMono Nerd Font" ];
-    sansSerif = [ "UbuntuSansMono Nerd Font" ];
-    monospace = [ "UbuntuMono Nerd Font Mono" ];
+    serif = ["UbuntuMono Nerd Font"];
+    sansSerif = ["UbuntuSansMono Nerd Font"];
+    monospace = ["UbuntuMono Nerd Font Mono"];
   };
 
   # import the nix-user-repo
   nixpkgs.config.packageOverrides = pkgs: {
-    nur = import (builtins.fetchGit {
-      url = "https://github.com/NL-TCH/nur-packages.git";
-      ref = "master";
-      rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
-    }) {
-      inherit pkgs;
-    };
+    nur =
+      import (builtins.fetchGit {
+        url = "https://github.com/NL-TCH/nur-packages.git";
+        ref = "master";
+        rev = "d7c48ab53778bb9c63458c797d8f2db0a57f191c";
+      }) {
+        inherit pkgs;
+      };
   };
 
   # packages
   environment.systemPackages = with pkgs; [
-  
     # tui/cli
     kitty # terminal emulator
     vim # basic text editor
@@ -171,8 +184,10 @@ in
     pwvucontrol # audio control
     unstable.firefox
     rofi-wayland # app launcher
-    waybar (waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    waybar
+    (
+      waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
       })
     ) # top bar
     wev # get keyboard inputs
@@ -194,9 +209,9 @@ in
     # code
     # vscode.fhs # vscode
     nil # nix language server
-    
+
     # personal
-    kdePackages.xwaylandvideobridge# allows for screensharing
+    kdePackages.xwaylandvideobridge # allows for screensharing
     obs-studio # obs
     mpv # video playern
     nur.spotify-adblock # spotify adblock
