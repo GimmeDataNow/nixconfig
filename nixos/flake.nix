@@ -3,13 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix/24.11";
   };
 
   outputs = {
     self,
     nixpkgs,
-    unstable,
+    # unstable,
     ...
   } @ inputs: let
     inherit (self) outputs;
@@ -18,7 +19,13 @@
       mainpc = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          unstable = import <nixos-unstable> {};
+          unstable = import inputs.unstable {
+            config = {
+              allowUnfree = true;
+              allowInsecure = true;
+              allowBroken = true;
+            };
+          };
         };
 
         modules = [
@@ -28,7 +35,7 @@
       minipc = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          unstable = import <nixos-unstable> {};
+          unstable = import inputs.unstable {};
         };
         modules = [
           ./minipc/configuration.nix
@@ -37,7 +44,7 @@
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          unstable = import <nixos-unstable> {};
+          unstable = import inputs.unstable {};
         };
 
         modules = [

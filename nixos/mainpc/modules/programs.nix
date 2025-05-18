@@ -71,7 +71,7 @@
     anki # learning cards
 
     # communication
-    stable.vesktop # discord
+    vesktop # discord
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
