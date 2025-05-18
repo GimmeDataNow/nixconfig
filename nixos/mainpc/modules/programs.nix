@@ -75,6 +75,7 @@
     xdg-utils # xdg-settings and more (set default browser)
 
     # gaming
+    steam
     gamescope
     wineWowPackages.stable # additional packages for lutis (may not be needed)
     lutris # windows games on linux
