@@ -9,27 +9,36 @@
   outputs = {
     self,
     nixpkgs,
+    unstable,
     ...
   } @ inputs: let
     inherit (self) outputs;
   in {
     nixosConfigurations = {
       mainpc = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          inherit inputs outputs;
+          unstable = import <nixos-unstable> {};
+        };
 
         modules = [
-          ./mainpc/configuration.nix
+          ./mainpc/default.nix
         ];
       };
       minipc = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
-
+        specialArgs = {
+          inherit inputs outputs;
+          unstable = import <nixos-unstable> {};
+        };
         modules = [
           ./minipc/configuration.nix
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs outputs;};
+        specialArgs = {
+          inherit inputs outputs;
+          unstable = import <nixos-unstable> {};
+        };
 
         modules = [
           ./laptop/configuration.nix
