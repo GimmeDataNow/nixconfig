@@ -191,8 +191,8 @@ in {
       pointer
     ];
 
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    theme = spicePkgs.themes.nord;
+    # colorScheme = "nord";
   };
   
 
@@ -266,7 +266,7 @@ in {
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
-    nur.spotify-adblock # spotify adblock
+    # nur.spotify-adblock # spotify adblock
     unstable.obsidian # notetaking
     anki # learning cards
 
