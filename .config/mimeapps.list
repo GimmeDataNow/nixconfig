@@ -13,6 +13,7 @@ x-scheme-handler/about=floorp.desktop
 x-scheme-handler/unknown=floorp.desktop
 x-scheme-handler/ror2mm=r2modman.desktop
 x-scheme-handler/discord-455712169795780630=discord-455712169795780630.desktop
+x-scheme-handler/discord=vesktop.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;

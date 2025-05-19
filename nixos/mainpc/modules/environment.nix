@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ ... }: {
   # important session/bash variables
   environment.sessionVariables = {
     # hyprland vars
@@ -17,7 +17,7 @@
     HYPRSHOT_DIR = "$HOME/screenshots";
   };
 
-  # aliasing and some other bash-env
+  # aliasing
   environment.interactiveShellInit = ''
     alias less='bat'
     alias lsblk='lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL'
@@ -25,14 +25,31 @@
     alias rebuild='bash ~/.config/.scripts/rebuild.sh'
     alias nix-prefetch-hash-sha256='bash ~/.config/.scripts/nix-prefetch-hash-sha256.sh'
     alias bm='bashmount'
+  ''
+  + # auto enter current directory after qutting using yazi
+  ''
     function y() {
-     local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-     yazi "$@" --cwd-file="$tmp"
-     if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+      local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+      yazi "$@" --cwd-file="$tmp"
+      if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
       builtin cd -- "$cwd"
-     fi
-     rm -f -- "$tmp"
+      fi
+      rm -f -- "$tmp"
+    }
+  ''
+  + # scroll trough git commits
+  ''
+    gitlog() {
+      git log --oneline --graph --decorate --all
+    }
+  ''
+  + # time the following command
+  ''
+    timer() {
+      SECONDS=0
+      "$@"
+      duration=$SECONDS
+      echo "⏱️ Time: $((duration / 60))m $((duration % 60))s"
     }
   '';
-
 }
