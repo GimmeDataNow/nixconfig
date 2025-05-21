@@ -2,9 +2,9 @@
   description = "Main flake that decides which system to build";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix/24.11";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs = {

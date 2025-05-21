@@ -87,4 +87,7 @@
     pkgs.adwaita-icon-theme # makes wm not crash
     lxappearance-gtk2 # icon theme changer
   ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-33.4.11"
+  ];
 }
