@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ... }: {
+{ ... }: {
 
   imports = [
     # essential modules

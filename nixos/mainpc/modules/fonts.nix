@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ pkgs, ...}: {
   fonts.packages = with pkgs; [
     # nerdfonts # nerdfonts is a massive package but I dont care
     nerd-fonts.ubuntu

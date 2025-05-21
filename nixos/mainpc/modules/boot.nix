@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, ... }:
+{ unstable, ... }:
 
 {
   boot.loader.systemd-boot.enable = true;

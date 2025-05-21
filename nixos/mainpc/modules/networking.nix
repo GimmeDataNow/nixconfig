@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ ... }: {
  # networking & security
   networking.hostName = "mainpc"; # hostname
   networking.networkmanager.enable = true; # use networkmanager

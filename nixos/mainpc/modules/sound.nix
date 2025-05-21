@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, unstable, ...}: {
+{ ... }: {
   security.rtkit.enable = true; # this allows pipewire to handle real-time priority
   services.pipewire = {
     enable = true;
