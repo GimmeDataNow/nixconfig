@@ -1,1 +1,1 @@
-nix-build -E 'with import <nixpkgs> {}; callPackage ./grayjay.nix {}'
+nix-build -E 'with import <nixpkgs> {}; callPackage ./grayjayv2.nix {}'

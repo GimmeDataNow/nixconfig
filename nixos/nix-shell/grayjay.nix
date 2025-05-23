@@ -1,4 +1,8 @@
-{pkgs ? import <nixpkgs> {}}:
+{pkgs ? import (fetchTarball {
+  url = "https://github.com/NixOS/nixpkgs/archive/72841a4a8761d1aed92ef6169a636872c986c76d.tar.gz";
+})
+
+ {}}:
 (pkgs.buildFHSEnv {
   name = "fhs";
   targetPkgs = _:
