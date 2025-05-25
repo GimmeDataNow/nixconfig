@@ -12,6 +12,7 @@
   environment.systemPackages = with pkgs; [
     # tui/cli
     kitty # terminal emulator
+    tmux # terminal multiplexer
     vim # basic text editor
     unstable.helix # vim alternative in rust
     xclip # clipboard manager for files
