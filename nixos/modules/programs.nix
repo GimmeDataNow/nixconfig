@@ -20,7 +20,7 @@
     pipewire # audio system
     wireplumber # manager for the audio system
     ranger # tui file explorer
-    yazi # tui file explorer
+    unstable.yazi # tui file explorer
     trash-cli # yazi restore deleted files
     exiftool # yazi preview exif data of audio files
     btop # system monitor

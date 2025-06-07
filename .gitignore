@@ -51,7 +51,7 @@ Zomboid
 !.config/kitty/*
 !.config/rofi/*
 !.config/waybar/*
-!.config/yazi/*
+!.config/yazi/**
 
 # nixos folder
 !nixos
