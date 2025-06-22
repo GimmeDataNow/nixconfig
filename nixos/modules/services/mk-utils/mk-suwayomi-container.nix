@@ -11,7 +11,7 @@ in {
     "${name}" = {
       autoStart = true;
       privateNetwork = true;
-      hostAddress = "192.168.100.1";
+      hostAddress = "192.168.0.110";
       localAddress = containerIp;
 
       config = { config, pkgs, lib, ... }: {

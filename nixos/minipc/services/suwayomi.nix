@@ -31,7 +31,7 @@ in {
     networking.nat = {
       enable = true;
       internalInterfaces = [ "ve-+" ];
-      externalInterface = "enp3s0"; # <- Replace this with your actual interface name
+      externalInterface = "enp2s0"; # <- Replace this with your actual interface name
     };
   };
 }

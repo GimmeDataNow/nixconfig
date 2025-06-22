@@ -17,6 +17,7 @@
 
     # services
     ./services/ssh.nix
+    ./services/docker.nix
     ./services/suwayomi.nix
   ];
   
