@@ -36,20 +36,34 @@
       minipc = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          unstable = import inputs.unstable {};
+          unstable = import inputs.unstable {
+            config = {
+              allowUnfree = true;
+              allowInsecure = true;
+              allowBroken = true;
+            };
+          };
         };
+
         modules = [
-          ./minipc/configuration.nix
+          ./minipc/default.nix
         ];
       };
       laptop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs;
-          unstable = import inputs.unstable {};
+          unstable = import inputs.unstable {
+            config = {
+              allowUnfree = true;
+              allowInsecure = true;
+              allowBroken = true;
+            };
+          };
         };
 
         modules = [
-          ./laptop/configuration.nix
+          ./laptop/default.nix
+          inputs.spicetify-nix.nixosModules.default
         ];
       };
     };
