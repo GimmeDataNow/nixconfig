@@ -42,20 +42,34 @@ prepend_rules = [
     # Fallback
     { name = "*", use = ["open", "reveal"] },
 ]
-[plugin]
-prepend_previewers = [
+# [plugin]
+# prepend_previewers = [
 	# Archive previewer
-	{ mime = "application/*zip",            run = "ouch" },
-  { mime = "application/zip",            run = "ouch" },
-	{ mime = "application/x-tar",           run = "ouch" },
-	{ mime = "application/x-bzip2",         run = "ouch" },
-	{ mime = "application/x-7z-compressed", run = "ouch" },
-	{ mime = "application/x-rar",           run = "ouch" },
-	{ mime = "application/x-xz",            run = "ouch" },
+	# { mime = "application/*zip",            run = "ouch" },
+  # { mime = "application/zip",            run = "ouch" },
+	# { mime = "application/x-tar",           run = "ouch" },
+	# { mime = "application/x-bzip2",         run = "ouch" },
+	# { mime = "application/x-7z-compressed", run = "ouch" },
+	# { mime = "application/x-rar",           run = "ouch" },
+	# { mime = "application/x-xz",            run = "ouch" },
 
-  { name = "*.md", run = "glow" },
+  # { name = "*.md", run = "glow" },
 
-  { mime = "audio/*",   run = "exifaudio"},
+  # { mime = "audio/*",   run = "exifaudio"},
   
-]
+# ]
+
+# md with glow
+[[plugin.prepend_previewers]]
+name = "*.md"
+run  = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
+
+# csv with bat
+[[plugin.prepend_previewers]]
+name = "*.csv"
+run  = 'piper -- bat -p --color=always "$1"'
+
+# [[plugin.prepend_previewers]]
+# name = "*.tar*"
+# run  = 'piper --format=url -- tar tf "$1"'
 
