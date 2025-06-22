@@ -6,8 +6,8 @@ name: port: index:
     "${name}" = {
       autoStart = true;
 
-      useHostNetwork = true;
       
+      # ONLY USE IF NEEDED
       # privateNetwork = true;
       # hostAddress = "192.168.0.110";
       # localAddress = "192.168.0.${toString (10 + index)}";
