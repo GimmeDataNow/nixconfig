@@ -16,6 +16,7 @@
     ./modules/programs.nix
 
     # services
+    ./services/ssh.nix
     ./services/suwayomi.nix
   ];
   
