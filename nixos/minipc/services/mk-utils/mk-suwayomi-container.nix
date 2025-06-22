@@ -10,6 +10,7 @@ name: port: index:
     localAddress = "192.168.0.${toString (10 + index)}";
 
     config = { config, pkgs, ... }: {
+      networking.useHostNetwork = true;
       services.suwayomi-server = {
         enable = true;
         openFirewall = true;
