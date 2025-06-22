@@ -1,19 +1,20 @@
+# ../services/mk-utils/mk-suwayomi-container.nix
 { lib }:
 
-name: port: index:
-{
-  containers = {
+name: port:
+index:
+let
+  ipSuffix = toString (10 + index);
+  containerIp = "192.168.100.${ipSuffix}";
+in {
+  container = {
     "${name}" = {
       autoStart = true;
+      privateNetwork = true;
+      hostAddress = "192.168.100.1";
+      localAddress = containerIp;
 
-      
-      # ONLY USE IF NEEDED
-      # privateNetwork = true;
-      # hostAddress = "192.168.0.110";
-      # localAddress = "192.168.0.${toString (10 + index)}";
-
-      config = { config, pkgs, ... }: {
-
+      config = { config, pkgs, lib, ... }: {
         services.suwayomi-server = {
           enable = true;
           openFirewall = true;
@@ -24,7 +25,15 @@ name: port: index:
             ];
           };
         };
+
+        networking.firewall.allowedTCPPorts = [ port ];
+        networking.useHostResolvConf = lib.mkForce false;
+        services.resolved.enable = true;
+
+        system.stateVersion = "24.05";
       };
     };
   };
+
+  port = port;
 }
