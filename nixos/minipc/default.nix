@@ -19,6 +19,8 @@
     ./services/ssh.nix
     ./services/docker.nix
     ./services/suwayomi.nix
+
+    ./services/containers.nix
   ];
   
   # Base system config
