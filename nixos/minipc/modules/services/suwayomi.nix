@@ -2,10 +2,10 @@
 #
 # This module configures the suwayomi-server service inside a container.
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, containerDef, ... }:
 
 # `specialArgs` from the factory passes our container definition here.
-{ containerDef, ... }:
+# { containerDef, ... }:
 
 {
   # Configure the suwayomi-server service.

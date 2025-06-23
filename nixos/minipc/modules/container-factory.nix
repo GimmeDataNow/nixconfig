@@ -36,9 +36,8 @@ let
 
         # We generate a unique IP address for each container based on its port
         # to avoid collisions. This is a simple but effective trick.
-        hostAddress = "10.233.${toString (containerDef.hostPort % 254 + 1)}.${toString (containerDef.hostPort / 254)}";
-        localAddress = "10.233.${toString (containerDef.hostPort % 254 + 1)}.${toString (containerDef.hostPort / 254 + 1)}";
-
+        hostAddress = "10.233.${toString (mod (containerDef.hostPort) 254 + 1)}.1";
+        localAddress = "10.233.${toString (mod (containerDef.hostPort) 254 + 1)}.2";
         # Forward the specified port from the host to the same port inside the container.
         forwardPorts = [
           {
