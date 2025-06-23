@@ -20,7 +20,9 @@
     ./services/docker.nix
     ./services/suwayomi.nix
 
-    ./services/containers.nix
+    # ./services/containers.nix
+
+    ./modules/container-factory.nix
   ];
   
   # Base system config
@@ -32,4 +34,14 @@
   };
 
   system.stateVersion = "25.05";
+
+
+   services.containerFactory = {
+    enable = true;
+    containersList = [
+      { name = "suwayomi-main"; service = "suwayomi"; hostPort = 4569; }
+      { name = "suwayomi-testing"; service = "suwayomi"; hostPort = 2222; }
+      # { name = "paperless"; service = "paperless"; hostPort = 8080; }
+    ];
+  };
 }
