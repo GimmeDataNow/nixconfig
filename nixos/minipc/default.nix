@@ -18,7 +18,7 @@
     # services
     ./services/ssh.nix
     ./services/docker.nix
-    ./services/suwayomi.nix
+    # ./services/suwayomi.nix
 
     # ./services/containers.nix
 
@@ -39,8 +39,10 @@
    services.containerFactory = {
     enable = true;
     containersList = [
-      { name = "suwayomi-main"; service = "suwayomi"; hostPort = 4569; }
-      { name = "suwayomi-testing"; service = "suwayomi"; hostPort = 2222; }
+      { name = "suwayomi";      service = "suwayomi"; hostPort = 4567; }
+      { name = "suwayomi-nsfw"; service = "suwayomi"; hostPort = 4568; }
+      { name = "mealie";        service = "mealie";   hostPort = 9092; }
+      # { name = "suwayomi-testing"; service = "suwayomi"; hostPort = 2222; }
       # { name = "paperless"; service = "paperless"; hostPort = 8080; }
     ];
   };
