@@ -36,9 +36,10 @@
    services.containerFactory = {
     enable = true;
     containersList = [
-      ["suwayomi"      "suwayomi" 4567]
-      ["suwayomi-nsfw" "suwayomi" 4568]
-      ["mealie"        "mealie"   9092]
+      ["suwayomi"      "suwayomi"    4567]
+      ["suwayomi-nsfw" "suwayomi"    4568]
+      ["paperless"     "paperless"   8452]
+      ["mealie"        "mealie"      9092]
     ];
   };
 }
