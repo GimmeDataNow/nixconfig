@@ -1,1 +1,1 @@
-../../../../nixos/modules/container-factory.nix
+../../modules/container-factory.nix
