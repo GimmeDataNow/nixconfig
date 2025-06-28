@@ -36,6 +36,8 @@
    services.containerFactory = {
     enable = true;
     containersList = [
+      ["immich-memes"  "immich"      2283]
+      ["immich-art"    "immich"      2283]
       ["suwayomi"      "suwayomi"    4567]
       ["suwayomi-nsfw" "suwayomi"    4568]
       ["paperless"     "paperless"   8452]
