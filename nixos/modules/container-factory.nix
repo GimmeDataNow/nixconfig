@@ -73,7 +73,7 @@ let
         config = {
           # Import the specific service module for this container.
           # The path is constructed from the service attribute (e.g., "suwayomi" -> ./services/suwayomi.nix).
-          imports = [ (./../. + "/services/${service}.nix") ];
+          imports = [ (./. + "/services/${service}.nix") ];
 
           # Basic container configuration.
           system.stateVersion = config.system.stateVersion; # Inherit state version from host.
