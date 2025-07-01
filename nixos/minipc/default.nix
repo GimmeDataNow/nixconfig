@@ -35,6 +35,7 @@
 
    services.containerFactory = {
     enable = true;
+    domainSuffix = "home.private";
     containersList = [
       ["immich-memes"  "immich"      2283]
       ["immich-art"    "immich"      2284]

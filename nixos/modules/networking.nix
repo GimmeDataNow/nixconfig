@@ -16,7 +16,7 @@
     dnssec = "false";           # optional
     dnsovertls = "false";       # optional
     domains = [];             # your search domains, if any
-    fallbackDns = [ "1.1.1.1" "1.0.0.1" ];         # fallback if DHCP fails
+    # fallbackDns = [ "1.1.1.1" "1.0.0.1" ];         # fallback if DHCP fails
     extraConfig = ''
       # Ensure stub resolver is enabled
       DNSStubListener=yes

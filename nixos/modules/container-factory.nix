@@ -1,11 +1,8 @@
-# /etc/nixos/modules/container-factory.nix
-#
 # This module acts as a factory for creating NixOS containers declaratively.
 # It reads a list of service definitions and generates:
 # 1. The full configuration for each container.
 # 2. Port forwarding from the host to the container.
 # 3. Firewall rules on the host to allow traffic to the containers.
-
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -23,21 +20,16 @@ let
       service = elemAt containerList 1;
       port = elemAt containerList 2;
       extraArgs = if length containerList > 3 then elemAt containerList 3 else {};
-      
+
       # --- Input Validation ---
       # Ensure the list has at least 3 elements
       listLength = length containerList;
     in
-    if listLength < 3
-    then throw "Container list must have at least 3 elements: [ name service port extraArgs ]"
-    else if !isString name
-    then throw "Container name must be a string, got: ${toString name}"
-    else if !isString service
-    then throw "Container service must be a string, got: ${toString service}"
-    else if !isInt port
-    then throw "Container port must be an integer, got: ${toString port}"
-    else if listLength > 3 && !isAttrs extraArgs
-    then throw "Container extraArgs must be an attribute set, got: ${toString extraArgs}"
+    if listLength < 3 then throw "Container list must have at least 3 elements: [ name service port extraArgs ]"
+    else if !isString name then throw "Container name must be a string, got: ${toString name}"
+    else if !isString service then throw "Container service must be a string, got: ${toString service}"
+    else if !isInt port then throw "Container port must be an integer, got: ${toString port}"
+    else if listLength > 3 && !isAttrs extraArgs then throw "Container extraArgs must be an attribute set, got: ${toString extraArgs}"
     else
       # --- Configuration Generation ---
       nameValuePair name {
@@ -51,32 +43,29 @@ let
         # to avoid collisions. This is a simple but effective trick.
         hostAddress = "10.233.${toString (mod port 254 + 1)}.1";
         localAddress = "10.233.${toString (mod port 254 + 1)}.2";
-        
+
         # Forward the specified port from the host to the same port inside the container.
         forwardPorts = [
-          {
-            hostPort = port;
-            containerPort = port;
-          }
+          { hostPort = port; containerPort = port; }
         ];
 
         # This is the actual NixOS configuration for the system running *inside* the container.
         # We pass the container definition data down to the container's modules
         # so they can access things like the port number and extra arguments.
-        specialArgs = { 
+        specialArgs = {
           containerDef = {
             inherit name service;
             hostPort = port;
           } // extraArgs;
         };
-        
+
         config = {
           # Import the specific service module for this container.
           # The path is constructed from the service attribute (e.g., "suwayomi" -> ./services/suwayomi.nix).
           imports = [ (./. + "/services/${service}.nix") ];
 
           # Basic container configuration.
-          system.stateVersion = config.system.stateVersion; # Inherit state version from host.
+          system.stateVersion = config.system.stateVersion;
 
           # Disable the container's own firewall, as the host manages access.
           networking.firewall.enable = false;
@@ -90,6 +79,21 @@ let
         } // extraArgs; # Merge extraArgs into the container config
       };
 
+  buildNginxHost = containerList:
+    let
+      name = elemAt containerList 0;
+      port = elemAt containerList 2;
+      domain = "${name}.${cfg.domainSuffix}";
+    in
+    nameValuePair domain {
+      enableACME = true;
+      forceSSL = true;
+      locations."/" = {
+        proxyPass = "http://localhost:${toString port}";
+        proxyWebsockets = true;
+      };
+    };
+
 in {
   # --- Custom Options ---
   # We define a new set of options under services.containerFactory to make the configuration clean.
@@ -102,19 +106,19 @@ in {
       description = ''
         A list of lists defining the containers to be built.
         Each list should have the format: [ name service port extraArgs ]
-        where:
-        - name: string - The unique name for the container
-        - service: string - The type of service (maps to ./services/<service>.nix)
-        - port: integer - The port on the host to forward to the container
-        - extraArgs: attrs (optional) - Additional configuration to merge into the container
       '';
       example = literalExample ''
         [
           [ "paperless" "paperless" 8080 { services.paperless.dataDir = "/var/lib/paperless"; } ]
-          [ "suwayomi-main" "suwayomi" 4567 {} ]
-          [ "suwayomi-testing" "suwayomi" 2222 ]
+          [ "mealie" "mealie" 9090 ]
         ]
       '';
+    };
+
+    domainSuffix = mkOption {
+      type = types.str;
+      default = "example.com";
+      description = "Suffix used to generate subdomains (e.g. paperless.example.com)";
     };
   };
 
@@ -125,9 +129,17 @@ in {
     # over the user-provided list and converting the result to an attribute set.
     containers = listToAttrs (map buildContainer cfg.containersList);
 
-    # Automatically open the firewall ports on the host for each container.
-    # This reads the port from each list, ensuring the firewall
-    # is always in sync with your containers.
-    networking.firewall.allowedTCPPorts = map (containerList: elemAt containerList 2) cfg.containersList;
+    services.nginx = {
+      enable = true;
+      virtualHosts = listToAttrs (map buildNginxHost cfg.containersList);
+    };
+
+    security.acme = {
+      acceptTerms = true;
+      email = "Credible3736@byom.de"; # Set your real email
+    };
+
+    networking.firewall.allowedTCPPorts =
+      [ 80 443 ] ++ map (c: elemAt c 2) cfg.containersList;
   };
 }
