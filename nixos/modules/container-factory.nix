@@ -1,12 +1,10 @@
-# /etc/nixos/modules/container-factory.nix
-#
 # This module acts as a factory for creating NixOS containers declaratively.
 # It reads a list of service definitions and generates:
 # 1. The full configuration for each container.
 # 2. Port forwarding from the host to the container.
 # 3. Firewall rules on the host to allow traffic to the containers.
 
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -24,10 +22,10 @@ let
       port = elemAt containerList 2;
       extraArgs = if length containerList > 3 then elemAt containerList 3 else {};
       
-      # --- Input Validation ---
-      # Ensure the list has at least 3 elements
       listLength = length containerList;
     in
+    # --- Input Validation ---
+    # Ensure the list has at least 3 elements
     if listLength < 3
     then throw "Container list must have at least 3 elements: [ name service port extraArgs ]"
     else if !isString name
@@ -47,7 +45,7 @@ let
         # Use a private network for communication between the host and container.
         privateNetwork = true;
 
-        # We generate a unique IP address for each container based on its port
+        # Generate a unique IP address for each container based on its port
         # to avoid collisions. This is a simple but effective trick.
         hostAddress = "10.233.${toString (mod port 254 + 1)}.1";
         localAddress = "10.233.${toString (mod port 254 + 1)}.2";

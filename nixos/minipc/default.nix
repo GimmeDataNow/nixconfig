@@ -15,10 +15,13 @@
     # optional modules
     ./modules/programs.nix
 
-    # services
+    # these services are mandatory and should not
+    # be placed inside of the container factory
     ./services/ssh.nix
     ./services/docker.nix
+    ./services/tailscale.nix
 
+    # non vital services are made inside of this
     ./modules/container-factory.nix
   ];
   
@@ -31,7 +34,6 @@
   };
 
   system.stateVersion = "25.05";
-
 
    services.containerFactory = {
     enable = true;
