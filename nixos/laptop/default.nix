@@ -18,6 +18,9 @@
     ./modules/programs.nix
     ./modules/spicetify.nix
 
+    #tailscale client
+    ./services/tailscale-client.nix
+
   ];
   
   # Base system config
