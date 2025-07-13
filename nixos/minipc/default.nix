@@ -43,7 +43,8 @@
       ["immich-art"    "immich"      2284]
       ["suwayomi"      "suwayomi"    4567]
       ["suwayomi-nsfw" "suwayomi"    4568]
-      ["actual"        "actual"      5062]
+      # this needs some kind of https cert, disabling for now
+      # ["actual"        "actual"      5062]
       ["paperless"     "paperless"   8452]
       ["mealie"        "mealie"      9092]
     ];
