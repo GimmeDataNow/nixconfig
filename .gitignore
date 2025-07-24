@@ -14,6 +14,8 @@
 .nix-defexpr
 .npm
 .pki
+.reticulum/storage/**
+!.reticulum/config
 .ssh
 .steam
 .wine

@@ -15,6 +15,8 @@
     XDG_STATE_HOME = "$HOME/.local/state";
     CUDA_CACHE_PATH = "$XDG_CACHE_HOME/nv";
     HYPRSHOT_DIR = "$HOME/screenshots";
+
+    NLTK_DATA="/home/hallow/.cache/nltk";
   };
 
   # aliasing
