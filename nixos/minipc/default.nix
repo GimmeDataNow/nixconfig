@@ -41,6 +41,7 @@
     containersList = [
       ["immich-memes"  "immich"      2283]
       ["immich-art"    "immich"      2284]
+      ["immich"        "immich"      2285]
       ["suwayomi"      "suwayomi"    4567]
       ["suwayomi-nsfw" "suwayomi"    4568]
       # this needs some kind of https cert, disabling for now
