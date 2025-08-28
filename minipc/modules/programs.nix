@@ -17,6 +17,7 @@
     unstable.helix # vim alternative in rust
     xclip # clipboard manager for files
     git # git
+    stow # manage .conf files
     pipewire # audio system
     wireplumber # manager for the audio system
     ranger # tui file explorer
