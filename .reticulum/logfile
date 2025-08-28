@@ -1,4 +1,0 @@
-[2025-08-22 23:17:04] [Error]    Initial connection for TCPInterface[TCP Connect/141.140.12.141:53317] could not be established: [Errno 111] Connection refused
-[2025-08-22 23:17:04] [Error]    Leaving unconnected and retrying connection in 5 seconds.
-[2025-08-22 23:17:04] [Notice]   Started rnsd version 0.9.6
-[2025-08-22 23:17:05] [Notice]   Error while shutting down socket for TCPInterface[TCP Connect/141.140.12.141:53317]: [Errno 107] Transport endpoint is not connected
