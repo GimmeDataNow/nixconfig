@@ -1,17 +1,17 @@
-{ pkgs, unstable, ...}: {
+{ pkgs, pkgsUnstable, ...}: {
   environment.systemPackages = with pkgs; [
     # tui/cli
     kitty # terminal emulator
     tmux # terminal multiplexer
     vim # basic text editor
-    unstable.helix # vim alternative in rust
+    pkgsUnstable.helix # vim alternative in rust
     xclip # clipboard manager for files
     git # git
     stow # manage .conf files
     pipewire # audio system
     wireplumber # manager for the audio system
     ranger # tui file explorer
-    unstable.yazi # tui file explorer
+    pkgsUnstable.yazi # tui file explorer
     trash-cli # yazi restore deleted files
     exiftool # yazi preview exif data of audio files
     btop # system monitor
@@ -31,7 +31,7 @@
     # gui
     hyprland
     pwvucontrol # audio control
-    unstable.firefox # browser
+    pkgsUnstable.firefox # browser
     floorp
     rofi-wayland # app launcher
     waybar
@@ -41,7 +41,7 @@
     mpvpaper
     pavucontrol
     imv # terminal image viewer
-    unstable.bitwarden-desktop # password manager
+    pkgsUnstable.bitwarden-desktop # password manager
     sirikali # encryption manager
     qalculate-qt # calculator
     localsend # airdrop
@@ -57,10 +57,10 @@
 
     # personal
     kdePackages.xwaylandvideobridge
-    unstable.freetube # better youtube desktop
+    pkgsUnstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
-    unstable.obsidian # notetaking
+    pkgsUnstable.obsidian # notetaking
     anki # learning cards
 
     # communication
@@ -81,6 +81,7 @@
     lxappearance-gtk2 # icon theme changer
 
     mousai
+    zenity
   ];
   # nixpkgs.config.permittedInsecurePackages = [
     # "electron-33.4.11"

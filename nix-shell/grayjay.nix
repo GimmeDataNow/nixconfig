@@ -37,5 +37,10 @@
       libGL
       libsecret
     ];
+
+    # profile = ''
+        # cd ~/downloads/Grayjay
+      # '';
+    # runScript = /home/hallow/downloads/Grayjay/Grayjay;
 })
 .env

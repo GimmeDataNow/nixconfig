@@ -1,7 +1,7 @@
 { ... }: {
  # networking & security
   networking.hostName = "mainpc"; # hostname
-  networking.firewall.allowedTCPPorts = [53317]; # 53317 is used by local-send
+  networking.firewall.allowedTCPPorts = [12315 53317]; # 53317 is used by local-send, 12315 by Grayjay
   networking.enableIPv6 = false;
 
   networking.networkmanager.enable = true; # use networkmanager
