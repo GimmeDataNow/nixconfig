@@ -81,7 +81,7 @@
     lxappearance-gtk2 # icon theme changer
 
     mousai
-    grayjay
+    # grayjay
   ];
   # nixpkgs.config.permittedInsecurePackages = [
     # "electron-33.4.11"

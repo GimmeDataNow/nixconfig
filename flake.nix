@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    # spicetify-nix.url = "github:Gerg-L/spicetify-nix/df3f3ff6db7e1f553288592496f6293d32164d8a";
   };
 
   outputs = {
