@@ -1,16 +1,24 @@
 { inputs, ... }:
 
+let
+  system = "x86_64-linux";
+in
 {
   flake = {
 
     nixosConfigurations.mainpc = inputs.nix-stable-pkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      # system = "x86_64-linux";
+      inherit system;
       modules = [
         ./systems/mainpc/default.nix
+        # inputs.spicetify-nix.nixosModules.spicetify
+        ./modules/common/spicetify.nix
         
         {
           _module.args = {
-            # inherit inputs;
+            # spicetifyModule = inputs.spicetify-nix.nixosModules.spicetify;
+            spicetifyLib = inputs.spicetify-nix.lib;
+            spicePkgset = inputs.spicetify-nix.legacyPackages.${system};
             pkgsUnstable = import inputs.nix-unstable-pkgs {
               system = "x86_64-linux";
               config = {
@@ -50,7 +58,6 @@
 
         {
           _module.args = {
-            # inherit inputs;
             pkgsUnstable = import inputs.nix-unstable-pkgs {
               system = "x86_64-linux";
               config = {

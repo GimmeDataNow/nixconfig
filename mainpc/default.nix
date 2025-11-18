@@ -17,7 +17,7 @@
     # optional modules
     ./modules/programs.nix
     ./modules/spicetify.nix
-    ./modules/ai.nix
+    # ./modules/ai.nix
 
   ];
   

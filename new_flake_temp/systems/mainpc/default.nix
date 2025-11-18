@@ -19,7 +19,7 @@
 
     ../../modules/common/programs.nix
 
-    # ../../modules/common/spicetify.nix
+    ../../modules/common/spicetify.nix
     
   ];
 
