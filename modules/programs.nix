@@ -1,4 +1,4 @@
-{ pkgs, unstable, ...}: {
+{ pkgs, unstable, inputs, ...}: {
   environment.systemPackages = with pkgs; [
     # tui/cli
     kitty # terminal emulator
@@ -31,9 +31,10 @@
     # gui
     hyprland
     pwvucontrol # audio control
-    unstable.firefox # browser
-    floorp
-    rofi-wayland # app launcher
+    # unstable.firefox # browser
+    inputs.zen-browser.packages."${system}".default
+    # floorp
+    rofi # app launcher
     waybar
     wev # get keyboard inputs
     dunst # notification manager
@@ -56,8 +57,8 @@
     nil # nix language server
 
     # personal
-    kdePackages.xwaylandvideobridge
-    unstable.freetube # better youtube desktop
+    # kdePackages.xwaylandvideobridge
+    # unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
     unstable.obsidian # notetaking

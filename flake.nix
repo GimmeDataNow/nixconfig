@@ -2,10 +2,16 @@
   description = "Main flake that decides which system to build";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     # spicetify-nix.url = "github:Gerg-L/spicetify-nix/df3f3ff6db7e1f553288592496f6293d32164d8a";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # inputs = {
+        # nixpkgs.follows = "nixpkgs";
+      # };
+    };
   };
 
   outputs = {
