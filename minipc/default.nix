@@ -43,6 +43,7 @@
       ["suwayomi"      "suwayomi"    4567]
       ["paperless"     "paperless"   8452]
       ["mealie"        "mealie"      9092]
+      ["flaresolverr"  "flaresolverr" 999]
     ];
   };
 }
