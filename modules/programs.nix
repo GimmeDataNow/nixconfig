@@ -30,6 +30,7 @@
 
     # gui
     hyprland
+    quickshell
     pwvucontrol # audio control
     # unstable.firefox # browser
     inputs.zen-browser.packages."${system}".default
@@ -55,6 +56,7 @@
     # code
     vscode.fhs # vscode
     nil # nix language server
+    kdePackages.qtdeclarative
 
     # personal
     # kdePackages.xwaylandvideobridge
