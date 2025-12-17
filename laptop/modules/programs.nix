@@ -1,4 +1,4 @@
-{ pkgs, unstable, ...}: {
+{ inputs, pkgs, unstable, ...}: {
   nixpkgs.config.packageOverrides = pkgs: {
     nur =
       import (builtins.fetchGit {
@@ -37,11 +37,13 @@
     alejandra # auto formatter for nix
 
     # gui
+    brightnessctl
     hyprland
     pwvucontrol # audio control
-    unstable.firefox # browser
-    floorp
-    rofi-wayland # app launcher
+    inputs.zen-browser.packages."${system}".default
+    # unstable.firefox # browser
+    # floorp
+    rofi # app launcher
     waybar
     wev # get keyboard inputs
     dunst # notification manager
@@ -64,7 +66,7 @@
     nil # nix language server
 
     # personal
-    kdePackages.xwaylandvideobridge
+    # kdePackages.xwaylandvideobridge
     unstable.freetube # better youtube desktop
     obs-studio # obs
     mpv # video playern
