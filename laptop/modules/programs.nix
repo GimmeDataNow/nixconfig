@@ -33,6 +33,7 @@
     glow # markdown viewer
     bat # better pager and better cat
     bashmount # easier usb mounting
+    acpi
 
     alejandra # auto formatter for nix
 
@@ -44,6 +45,10 @@
     # unstable.firefox # browser
     # floorp
     rofi # app launcher
+    quickshell
+    comma
+    unstable.adw-bluetooth # bluetooth 
+
     waybar
     wev # get keyboard inputs
     dunst # notification manager

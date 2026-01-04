@@ -16,6 +16,13 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
+  services.upower.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/85ad7886-ae66-4dfe-8397-a05c7d1987d0";
