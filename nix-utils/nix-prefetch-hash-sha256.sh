@@ -1,1 +1,0 @@
-../../.config/.scripts/nix-prefetch-hash-sha256.sh
