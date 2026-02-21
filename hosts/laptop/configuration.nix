@@ -8,6 +8,7 @@
     ../../modules/nixos/common/location.nix    # Allows for the time to automatically update based on location
     # ../../modules/nixos/desktop/gui.nix        # Specific to GUI machines (Nvidia, Audio)
     ../../modules/nixos/desktop/hyprland.nix
+    ../../modules/home/hyprland/default.nix
     ../../modules/nixos/desktop/gpu-amd.nix
     ../../modules/nixos/desktop/networking.nix
     ../../modules/nixos/desktop/fonts.nix
@@ -20,7 +21,13 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit inputs unstable user; };
-      home-manager.users.${user} = import ../../modules/home/desktop.nix;
+      # home-manager.users.${user} = import ../../modules/home/desktop.nix;
+      home-manager.users.${user} = {
+        imports = [
+          ../../modules/home/hyprland/default.nix
+        ];
+      };
+
     }
   ];
 
