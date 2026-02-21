@@ -3,7 +3,7 @@
     # gui
     hyprland
     pwvucontrol # audio control
-    inputs.zen-browser.packages."${system}".default
+    # inputs.zen-browser.packages."${system}".default
     rofi # app launcher
     waybar
     wev # get keyboard inputs
@@ -51,4 +51,7 @@
     mousai
     # grayjay
   ];
+  nixpkgs.config.permittedInsecurePackages = [
+                "electron-33.4.11"
+              ];
 }

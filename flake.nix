@@ -2,11 +2,11 @@
   description = "My Unified NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Your stable base
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; # Your stable base
     unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # The "bleeding edge" branch
     
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
