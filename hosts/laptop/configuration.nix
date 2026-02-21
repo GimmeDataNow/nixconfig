@@ -11,7 +11,8 @@
     ../../modules/nixos/desktop/gpu-amd.nix
     ../../modules/nixos/desktop/networking.nix
     ../../modules/nixos/desktop/fonts.nix
-    ../../modules/nixos/desktop/programs.nix
+    ../../modules/nixos/desktop/programs-cli.nix
+    ../../modules/nixos/desktop/programs-gui.nix
     ../../modules/nixos/common/boot.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
