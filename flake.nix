@@ -9,6 +9,14 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # inputs = {
+        # nixpkgs.follows = "nixpkgs";
+      # };
+    };
     
     sops-nix.url = "github:Mic92/sops-nix";
   };
