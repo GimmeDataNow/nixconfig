@@ -42,5 +42,6 @@
     curl
     wget
     bat
+    tree
   ];
 }
