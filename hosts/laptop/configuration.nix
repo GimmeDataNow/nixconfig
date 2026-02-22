@@ -4,17 +4,21 @@
     ./hardware.nix
 
     # 2. Reusable NixOS Modules (We will create these next)
+    ../../modules/nixos/common/boot.nix
     ../../modules/nixos/common/common.nix      # Core settings for all machines
     ../../modules/nixos/common/location.nix    # Allows for the time to automatically update based on location
-    # ../../modules/nixos/desktop/gui.nix        # Specific to GUI machines (Nvidia, Audio)
-    ../../modules/nixos/desktop/hyprland.nix
-    # ../../modules/home/hyprland/default.nix
-    ../../modules/nixos/desktop/gpu-amd.nix
     ../../modules/nixos/desktop/networking.nix
+    ../../modules/nixos/desktop/gpu-amd.nix
+    ../../modules/nixos/desktop/hyprland.nix
     ../../modules/nixos/desktop/fonts.nix
-    ../../modules/nixos/desktop/programs-cli.nix
-    ../../modules/nixos/desktop/programs-gui.nix
-    ../../modules/nixos/common/boot.nix
+    ../../modules/nixos/desktop/programs/cli.nix
+    ../../modules/nixos/desktop/programs/communication.nix
+    ../../modules/nixos/desktop/programs/gaming.nix
+    ../../modules/nixos/desktop/programs/gui.nix
+    # ../../modules/home/hyprland/default.nix
+    # ../../modules/nixos/desktop/gui.nix        # Specific to GUI machines (Nvidia, Audio)
+    # ../../modules/nixos/desktop/programs-cli.nix
+    # ../../modules/nixos/desktop/programs-gui.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
     inputs.home-manager.nixosModules.home-manager {
