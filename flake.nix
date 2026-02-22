@@ -24,7 +24,7 @@
   outputs = { self, nixpkgs, unstable, ... }@inputs: 
   let
     inherit (self) outputs;
-    user = "yourusername";
+    user = "hallow";
     
     # Define the helper function
     mkSystem = { host, system ? "x86_64-linux" }: nixpkgs.lib.nixosSystem {
