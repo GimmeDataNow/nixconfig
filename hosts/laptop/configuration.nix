@@ -30,6 +30,12 @@
           ../../modules/home/shell.nix
           ../../modules/home/wayland.nix
         ];
+
+        wayland.windowManager.hyprland.settings = {
+          monitor = [
+            ", preferred, auto, 1"
+          ];
+        };
       };
 
     }

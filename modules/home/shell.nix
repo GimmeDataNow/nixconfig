@@ -1,4 +1,5 @@
 { user, ... }: {
+  programs.bash.enable = true;  
   home.sessionVariables = {
     EDITOR = "hx";
     # XDG Cleanliness
@@ -16,7 +17,7 @@
     less = "bat";
     lsblk = "lsblk -t -o RO,RM,HOTPLUG,NAME,SIZE,UUID,MODE,PATH,MODEL";
     dirs = "dirs -v";
-    rebuild = "bash ~/.config/.scripts/rebuild.sh";
+    rebuild = "sudo nixos-rebuild switch --flake ~/nixos";
     nix-prefetch-hash-sha256 = "bash ~/.config/.scripts/nix-prefetch-hash-sha256.sh";
     bm = "bashmount";
   };
