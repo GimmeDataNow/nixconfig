@@ -2,7 +2,7 @@ This project contains the configurations for all of my nixos machines.
 
 ## Project Structure
 `tree -a -I '.git'`
-.
+```.
 ├── pkgs
 ├── modules
 │   ├── nixos
@@ -50,3 +50,4 @@ This project contains the configurations for all of my nixos machines.
     └── desktop
         ├── hardware.nix
         └── configuration.nix
+```
