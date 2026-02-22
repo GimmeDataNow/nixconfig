@@ -10,13 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      # inputs = {
-        # nixpkgs.follows = "nixpkgs";
-      # };
-    };
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix/25.11";
     
     sops-nix.url = "github:Mic92/sops-nix";
   };

@@ -15,10 +15,6 @@
     ../../modules/nixos/desktop/programs/communication.nix
     ../../modules/nixos/desktop/programs/gaming.nix
     ../../modules/nixos/desktop/programs/gui.nix
-    # ../../modules/home/hyprland/default.nix
-    # ../../modules/nixos/desktop/gui.nix        # Specific to GUI machines (Nvidia, Audio)
-    # ../../modules/nixos/desktop/programs-cli.nix
-    # ../../modules/nixos/desktop/programs-gui.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
     inputs.home-manager.nixosModules.home-manager {
@@ -33,6 +29,7 @@
           ../../modules/home/desktop.nix
           ../../modules/home/shell.nix
           ../../modules/home/wayland.nix
+          ../../modules/home/spicetify.nix
         ];
 
         wayland.windowManager.hyprland.settings = {
