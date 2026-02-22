@@ -1,4 +1,7 @@
 { pkgs, ... }: {
+
+  location.provider = "geoclue2";
+  
   # Enable the geoclue2 daemon
   services.geoclue2.enable = true;
 

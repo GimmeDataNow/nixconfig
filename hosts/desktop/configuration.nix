@@ -15,6 +15,7 @@
     ../../modules/nixos/desktop/programs/communication.nix
     ../../modules/nixos/desktop/programs/gaming.nix
     ../../modules/nixos/desktop/programs/gui.nix
+    # ../../modules/nixos/desktop/backlight.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
     inputs.home-manager.nixosModules.home-manager {
