@@ -22,10 +22,13 @@
       home-manager.useUserPackages = true;
       home-manager.extraSpecialArgs = { inherit inputs unstable user; };
       # home-manager.users.${user} = import ../../modules/home/desktop.nix;
+      home-manager.backupFileExtension = "bak";
       home-manager.users.${user} = {
         imports = [
           ../../modules/home/hyprland/default.nix
           ../../modules/home/desktop.nix
+          ../../modules/home/shell.nix
+          ../../modules/home/wayland.nix
         ];
       };
 
