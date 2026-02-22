@@ -11,7 +11,7 @@
     };
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix/25.11";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     
     sops-nix.url = "github:Mic92/sops-nix";
   };
