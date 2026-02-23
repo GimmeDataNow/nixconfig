@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ inputs, pkgs, lib, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
@@ -30,6 +30,10 @@
           size = 3;
           passes = 1;
         };
+      };
+      misc = {
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
       };
 
  
@@ -69,16 +73,12 @@
         "$mainMod, right, movefocus, r"
         "$mainMod, up, movefocus, u"
         "$mainMod, down, movefocus, d"
-
-        # Example special workspace (scratchpad)
-        "$mainMod, S, togglespecialworkspace, spotify"
-        "$mainMod SHIFT, S, movetoworkspace, special:spotify"
-        
+     
         # Scroll through existing workspaces with mainMod + scroll
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
       ] ++ [
-
+        # Workspaces
         "$mainMod, 1, workspace, 1"
         "$mainMod, 2, workspace, 2"
         "$mainMod, 3, workspace, 3"
@@ -99,13 +99,10 @@
         "$mainMod SHIFT, 8, movetoworkspace, 8"
         "$mainMod SHIFT, 9, movetoworkspace, 9"
         "$mainMod SHIFT, 0, movetoworkspace, 10"
-
-
       ] ++ [
-        # Media keys
-        # ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        # ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-        # ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
+        # Special workspaces
+        "$mainMod, S, togglespecialworkspace, spotify"
+        "$mainMod SHIFT, S, movetoworkspace, special:spotify"
       ];
 
       bindm = [
@@ -116,15 +113,14 @@
 
       binde = [
       # Volume control
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ && pkill -RTMIN+8 waybar" # mute
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+8 waybar" # decrease volume
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+8 waybar" # increase volume
+      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@" # mute
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" # decrease volume
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" # increase volume
 
       # Spotify control
       ", XF86AudioPlay, exec, playerctl -p spotify play-pause # play-pause"
       ", XF86AudioPrev, exec, playerctl -p spotify previous # previous"
       ", XF86AudioNext, exec, playerctl -p spotify next # next"
-
       ];
 
       # Environment Variables (merged from your list)
