@@ -48,6 +48,7 @@
         ../../modules/home/shell.nix # Keep your aliases and bash settings!
         ../../modules/home/starship.nix
         ../../modules/home/kitty.nix
+        ../../modules/home/yazi.nix
       ];
       home.stateVersion = "25.11";
     };
