@@ -32,6 +32,7 @@
           ../../modules/home/spicetify.nix
           ../../modules/home/starship.nix
           ../../modules/home/kitty.nix
+          ../../modules/home/xdg-settings.nix
         ];
 
         wayland.windowManager.hyprland.settings = {
