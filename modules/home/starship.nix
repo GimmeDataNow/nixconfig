@@ -7,13 +7,13 @@
     settings = {
       # Your specific format
       format = ''
-        [╭─ ](bold blue)$hostname$directory$git_branch$git_status$nix_shell
+        [╭─┐ ](bold blue)$hostname$directory$git_branch$git_status$nix_shell
         [╰](bold blue)$character
       '';
 
       hostname = {
         ssh_only = true;
-        format = "on [$hostname](bold magenta) ";
+        format = "[$hostname](bold purple)[ ┌┐ ](bold blue)";
         trim_at = "."; # Changes 'minipc.local' to just 'minipc'
       };
 

@@ -46,6 +46,8 @@
     users.${user} = {
       imports = [
         ../../modules/home/shell.nix # Keep your aliases and bash settings!
+        ../../modules/home/starship.nix
+        ../../modules/home/kitty.nix
       ];
       home.stateVersion = "25.11";
     };
