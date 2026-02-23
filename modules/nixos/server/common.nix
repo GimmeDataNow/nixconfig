@@ -2,12 +2,17 @@
   # --- SECURITY ---
   services.openssh = {
     enable = true;
+
     settings = {
-      PasswordAuthentication = false;  # Force SSH keys only
-      PermitRootLogin = "prohibit-password"; 
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
     };
-    # Automatically open the firewall for SSH
-    openFirewall = true; 
+
+    extraConfig = ''
+      Match Address 137.226.218.185,127.0.0.1/8,192.168.0.0/24,100.64.0.0/10
+        PasswordAuthentication yes
+        KbdInteractiveAuthentication yes
+    '';
   };
 
   # Fail2Ban: Bans IPs that try to brute force your SSH
@@ -15,8 +20,15 @@
     enable = true;
     maxretry = 5;
     ignoreIP = [
+      "137.226.218.185"
+
+      # Loopback
       "127.0.0.1/8"
-      # "your.home.ip.here" # Add your home IP to avoid locking yourself out
+
+      # LAN
+      "192.168.0.0/24"
+      # Tailscale CGNAT range
+      "100.64.0.0/10"
     ];
   };
 
