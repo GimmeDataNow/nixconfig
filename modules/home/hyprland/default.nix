@@ -116,9 +116,9 @@
 
       binde = [
       # Volume control
-      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@" # mute
-      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-" # decrease volume
-      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+" # increase volume
+      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ && pkill -RTMIN+8 waybar" # mute
+      ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && pkill -RTMIN+8 waybar" # decrease volume
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && pkill -RTMIN+8 waybar" # increase volume
 
       # Spotify control
       ", XF86AudioPlay, exec, playerctl -p spotify play-pause # play-pause"

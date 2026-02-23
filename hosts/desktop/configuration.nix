@@ -15,6 +15,7 @@
     ../../modules/nixos/desktop/programs/communication.nix
     ../../modules/nixos/desktop/programs/gaming.nix
     ../../modules/nixos/desktop/programs/gui.nix
+    ../../modules/nixos/desktop/audio.nix
     # ../../modules/nixos/desktop/backlight.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
@@ -25,14 +26,15 @@
       home-manager.backupFileExtension = "bak";
       home-manager.users.${user} = {
         imports = [
-          ../../modules/home/hyprland/default.nix
-          ../../modules/home/desktop.nix
           ../../modules/home/shell.nix
-          ../../modules/home/wayland.nix
-          ../../modules/home/spicetify.nix
           ../../modules/home/starship.nix
           ../../modules/home/kitty.nix
+          ../../modules/home/desktop.nix
+          ../../modules/home/wayland.nix
+          ../../modules/home/hyprland/default.nix
           ../../modules/home/xdg-settings.nix
+          ../../modules/home/spicetify.nix
+          ../../modules/home/waybar.nix
         ];
 
         wayland.windowManager.hyprland.settings = {
