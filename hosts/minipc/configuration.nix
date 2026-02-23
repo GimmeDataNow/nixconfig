@@ -26,9 +26,11 @@
   # Docker Setup
   virtualisation.docker.enable = true;
   users.users.${user} = {
+    isNormalUser = true;
     extraGroups = [ "docker" ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgsEnykX81QlWJyUQxsKSbJV4g3WwckVH31o5jXO5ot hallow@desktop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII4CLEZFzXYaJMZ95RFC7GGpxOUJstTXQ/lgOLo9Lvlc hallow@laptop"
     ];
   };
 
