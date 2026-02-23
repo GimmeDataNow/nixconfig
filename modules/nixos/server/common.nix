@@ -2,19 +2,20 @@
   # --- SECURITY ---
   services.openssh = {
     enable = true;
-
     settings = {
       PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
 
+    # Space-separated list. Ensure there are no commas.
     extraConfig = ''
-      Match Address 137.226.218.185,127.0.0.1/8,192.168.0.0/24,100.64.0.0/10
-        PasswordAuthentication yes
-        KbdInteractiveAuthentication yes
+      Match Address 137.226.218.185,127.0.0.1,192.168.0.0/24,100.64.0.0/10
+          PasswordAuthentication yes
+          KbdInteractiveAuthentication yes
     '';
   };
-
+  
   # Fail2Ban: Bans IPs that try to brute force your SSH
   services.fail2ban = {
     enable = true;
