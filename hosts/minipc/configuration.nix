@@ -26,6 +26,9 @@
   # Docker Setup
   virtualisation.docker.enable = true;
   users.users.${user}.extraGroups = [ "docker" ];
+  users.users.${user}.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgsEnykX81QlWJyUQxsKSbJV4g3WwckVH31o5jXO5ot hallow@desktop"
+  ];
 
   # Hostname
   networking.hostName = "minipc";
