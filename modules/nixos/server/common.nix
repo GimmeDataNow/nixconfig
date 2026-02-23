@@ -18,18 +18,18 @@
   services.openssh = {
     enable = true;
     settings = {
-      # 1. Global: Only keys allowed
+      # Global Defaults
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
 
-    # 2. Use lib.mkOrder to ensure this is at the VERY end of the file.
-    # We use wildcards (*) because they are the most compatible with sshd's Match Address.
+    # We use mkOrder to ensure this block is the very last thing in sshd_config
     extraConfig = lib.mkOrder 1000 ''
-      Match Address 137.226.218.185 127.0.0.1 192.168.0.* 100.*
-        PasswordAuthentication yes
-        KbdInteractiveAuthentication yes
+      Match Address 137.226.218.185,127.0.0.1,192.168.0.0/24,100.64.0.0/10
+          PasswordAuthentication yes
+          KbdInteractiveAuthentication yes
+          AuthenticationMethods keyboard-interactive password publickey
     '';
   };
   
