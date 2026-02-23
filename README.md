@@ -2,55 +2,65 @@ This project contains the configurations for all of my nixos machines.
 
 ## Project Structure
 `tree -a -I '.git'`
-```.
-├── pkgs
-├── modules
-│   ├── nixos
-│   │   ├── server
-│   │   │   └── common.nix
-│   │   ├── desktop
-│   │   │   ├── fonts.nix
-│   │   │   ├── security.nix
-│   │   │   ├── sound.nix
-│   │   │   ├── printer.nix
-│   │   │   ├── networking.nix
-│   │   │   ├── hyprland.nix
-│   │   │   ├── programs-cli.nix
-│   │   │   ├── programs-gui.nix
-│   │   │   ├── gpu-amd.nix
-│   │   │   ├── programs.nix
-│   │   │   ├── programs
-│   │   │   │   ├── programs.nix
-│   │   │   │   ├── gaming.nix
-│   │   │   │   ├── communication.nix
-│   │   │   │   ├── cli.nix
-│   │   │   │   └── gui.nix
-│   │   │   ├── power.nix
-│   │   │   └── backlight.nix
-│   │   └── common
-│   │       ├── common.nix
-│   │       ├── boot.nix
-│   │       └── location.nix
-│   └── home
-│       ├── wayland.nix
-│       ├── shell.nix
-│       ├── spicetify.nix
-│       ├── desktop.nix
-│       └── hyprland
-│           └── default.nix
+```
+.
 ├── flake.lock
 ├── flake.nix
-└── hosts
-    ├── minipc
-    ├── laptop
-    │   ├── hardware.nix
-    │   └── configuration.nix
-    ├── vps
-    │   └── configuration.nix
-    └── desktop
-        ├── hardware.nix
-        └── configuration.nix
+├── hosts
+│   ├── desktop
+│   │   ├── configuration.nix
+│   │   └── hardware.nix
+│   ├── laptop
+│   │   ├── configuration.nix
+│   │   └── hardware.nix
+│   ├── minipc
+│   │   ├── configuration.nix
+│   │   └── hardware.nix
+│   └── vps
+│       └── configuration.nix
+├── modules
+│   ├── home
+│   │   ├── desktop.nix
+│   │   ├── hyprland
+│   │   │   └── default.nix
+│   │   ├── shell.nix
+│   │   ├── spicetify.nix
+│   │   └── wayland.nix
+│   └── nixos
+│       ├── common
+│       │   ├── boot.nix
+│       │   ├── common.nix
+│       │   └── location.nix
+│       ├── desktop
+│       │   ├── backlight.nix
+│       │   ├── fonts.nix
+│       │   ├── gpu-amd.nix
+│       │   ├── hyprland.nix
+│       │   ├── networking.nix
+│       │   ├── power.nix
+│       │   ├── printer.nix
+│       │   ├── programs
+│       │   │   ├── cli.nix
+│       │   │   ├── communication.nix
+│       │   │   ├── gaming.nix
+│       │   │   ├── gui.nix
+│       │   │   └── programs.nix
+│       │   ├── programs-cli.nix
+│       │   ├── programs-gui.nix
+│       │   ├── programs.nix
+│       │   ├── security.nix
+│       │   └── sound.nix
+│       └── server
+│           ├── common.nix
+│           ├── paperless
+│           │   ├── docker-compose.yml
+│           │   └── service.nix
+│           └── portainer
+│               ├── docker-compose.yml
+│               └── service.nix
+└── README.md
 ```
+
 ## Project utilites
 
 ### compose2nix
