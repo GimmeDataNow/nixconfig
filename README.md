@@ -51,3 +51,7 @@ This project contains the configurations for all of my nixos machines.
         ├── hardware.nix
         └── configuration.nix
 ```
+## Project utilites
+
+### compose2nix
+`nix run github:aksiksi/compose2nix -- -inputs=docker-compose.yml -output=compose.nix -env_files=.env -include_env_files=true -check_bind_mounts=true -use_upheld_by=true -runtime=docker -project=paperless -root_path /home/hallow/paperless`
