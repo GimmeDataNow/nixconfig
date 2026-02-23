@@ -42,11 +42,14 @@ in {
 
     # 3. Add the Compression keymap (keymap.toml)
     keymap.manager.prepend_keymap = [
-      {
-        on = [ "C" ];
-        run = "plugin ouch";
-        desc = "Compress with ouch";
-      }
+      { on = [ "g" "l" ]; run = "cd ~/.local";           desc = "Go to ~/.local";          }
+      { on = [ "g" "n" ]; run = "cd ~/nixos";            desc = "Go to ~/nixos";           }
+      { on = [ "g" "p" ]; run = "cd ~/secondary_drive";  desc = "Go to secondary drive";   }
+      { on = [ "g" "u" ]; run = "cd ~/usb";              desc = "Go to USB";               }
+      { on = [ "g" "d" ]; run = "cd ~/downloads";        desc = "Go to Downloads";         }
+      { on = [ "g" "c" ]; run = "cd ~/.config";          desc = "Go to ~/.config";         }
+      { on = [ "g" "h" ]; run = "cd ~/";                 desc = "Go to Home";              }
+      { on = [ "C"     ]; run = "plugin ouch";           desc = "Compress with ouch";      }
     ];
   };
 }
