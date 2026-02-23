@@ -6,6 +6,7 @@
     ../../modules/nixos/common/boot.nix
     ../../modules/nixos/common/common.nix
     ../../modules/nixos/common/location.nix
+    ../../modules/nixos/desktop/programs/cli.nix
     
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
