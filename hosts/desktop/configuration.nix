@@ -30,6 +30,8 @@
           ../../modules/home/shell.nix
           ../../modules/home/wayland.nix
           ../../modules/home/spicetify.nix
+          ../../modules/home/starship.nix
+          ../../modules/home/kitty.nix
         ];
 
         wayland.windowManager.hyprland.settings = {
