@@ -7,6 +7,7 @@
     ../../modules/nixos/common/common.nix
     ../../modules/nixos/common/location.nix
     ../../modules/nixos/desktop/programs/cli.nix
+    ../../modules/nixos/server/common.nix
     
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
@@ -15,11 +16,11 @@
   # --- SERVER SPECIFIC SETTINGS ---
   
   # SSH Setup (Password based as requested)
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = true;
-    settings.PermitRootLogin = "no";
-  };
+  # services.openssh = {
+  #   enable = true;
+  #   settings.PasswordAuthentication = true;
+  #   settings.PermitRootLogin = "no";
+  # };
   networking.firewall.allowedTCPPorts = [ 22 ];
 
   # Docker Setup
