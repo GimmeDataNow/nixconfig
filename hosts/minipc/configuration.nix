@@ -53,6 +53,7 @@
         ../../modules/home/starship.nix
         ../../modules/home/kitty.nix
         ../../modules/home/yazi.nix
+        ../../modules/home/helix.nix
       ];
       home.stateVersion = "25.11";
     };
