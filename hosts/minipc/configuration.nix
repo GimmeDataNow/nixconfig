@@ -10,6 +10,8 @@
     ../../modules/nixos/server/common.nix
     ../../modules/nixos/server/paperless/compose.nix
     ../../modules/nixos/server/suwayomi/compose.nix
+    ../../modules/nixos/server/mealie/compose.nix
+    ../../modules/nixos/server/technitium/compose.nix
     
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
