@@ -1,78 +1,50 @@
 {
-  description = "Main flake that decides which system to build";
+  description = "My Unified NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    # spicetify-nix.url = "github:Gerg-L/spicetify-nix/df3f3ff6db7e1f553288592496f6293d32164d8a";
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      # inputs = {
-        # nixpkgs.follows = "nixpkgs";
-      # };
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; # Your stable base
+    unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # The "bleeding edge" branch
+    
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    # unstable,
-    ...
-  } @ inputs: let
+  outputs = { self, nixpkgs, unstable, ... }@inputs: 
+  let
     inherit (self) outputs;
+    user = "hallow";
+    
+    # Define the helper function
+    mkSystem = { host, system ? "x86_64-linux" }: nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { 
+        inherit inputs outputs user;
+        # This makes 'unstable' available as an argument in every module
+        unstable = import inputs.unstable {
+          inherit system;
+          config = { 
+            allowUnfree = true; 
+            allowInsecure = true; 
+            allowBroken = true; 
+          };
+        };
+      };
+      modules = [ ./hosts/${host}/configuration.nix ];
+    };
+
   in {
     nixosConfigurations = {
-      mainpc = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs;
-          unstable = import inputs.unstable {
-            config = {
-              allowUnfree = true;
-              allowInsecure = true;
-              allowBroken = true;
-            };
-          };
-        };
-
-        modules = [
-          ./mainpc/default.nix
-          inputs.spicetify-nix.nixosModules.default
-        ];
-      };
-      minipc = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs;
-          unstable = import inputs.unstable {
-            config = {
-              allowUnfree = true;
-              allowInsecure = true;
-              allowBroken = true;
-            };
-          };
-        };
-
-        modules = [
-          ./minipc/default.nix
-        ];
-      };
-      laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs;
-          unstable = import inputs.unstable {
-            config = {
-              allowUnfree = true;
-              allowInsecure = true;
-              allowBroken = true;
-            };
-          };
-        };
-
-        modules = [
-          ./laptop/default.nix
-          inputs.spicetify-nix.nixosModules.default
-        ];
-      };
+      desktop = mkSystem { host = "desktop"; };
+      laptop = mkSystem { host = "laptop"; };
+      minipc = mkSystem { host = "minipc"; };
+      vps    = mkSystem { host = "vps"; };
     };
   };
 }
