@@ -14,7 +14,8 @@
   virtualisation.oci-containers.containers."paperless-broker" = {
     image = "docker.io/library/redis:8";
     environmentFiles = [
-      "/home/hallow/paperless/.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/docker-compose.env"
     ];
     volumes = [
       "paperless_redisdata:/data:rw"
@@ -59,10 +60,11 @@
       "POSTGRES_USER" = "paperless";
     };
     environmentFiles = [
-      "/home/hallow/paperless/.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/docker-compose.env"
     ];
     volumes = [
-      "/home/hallow/paperless/db-paperless:/var/lib/postgresql/data:rw"
+      "/home/hallow/containers/paperless/db:/var/lib/postgresql/data:rw"
     ];
     log-driver = "journald";
     extraOptions = [
@@ -97,21 +99,17 @@
     image = "ghcr.io/paperless-ngx/paperless-ngx:latest";
     environment = {
       "PAPERLESS_DBHOST" = "db";
-      "PAPERLESS_OCR_LANGUAGE" = "deu+eng";
       "PAPERLESS_REDIS" = "redis://broker:6379";
-      "PAPERLESS_SECRET_KEY" = "=IqNKaXGQCy>.KXwyC-Qo<vZ>*b[f1duy{a_A=-23BE/Z8fAOo+ryn{qnI{xHbO/";
-      "PAPERLESS_TIME_ZONE" = "Europe/Berlin";
-      "USERMAP_GID" = "100";
     };
     environmentFiles = [
-      "/home/hallow/paperless/.env"
-      "/home/hallow/paperless/docker-compose.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/.env"
+      "/home/hallow/nixos/modules/nixos/server/paperless/docker-compose.env"
     ];
     volumes = [
-      "/home/hallow/paperless/consume:/usr/src/paperless/consume:rw"
-      "/home/hallow/paperless/data-paperless:/usr/src/paperless/data:rw"
-      "/home/hallow/paperless/export:/usr/src/paperless/export:rw"
-      "/home/hallow/paperless/media:/usr/src/paperless/media:rw"
+      "/home/hallow/containers/paperless/consume:/usr/src/paperless/consume:rw"
+      "/home/hallow/containers/paperless/data:/usr/src/paperless/data:rw"
+      "/home/hallow/containers/paperless/export:/usr/src/paperless/export:rw"
+      "/home/hallow/containers/paperless/media:/usr/src/paperless/media:rw"
     ];
     ports = [
       "8452:8000/tcp"

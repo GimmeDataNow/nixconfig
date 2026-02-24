@@ -8,6 +8,7 @@
     ../../modules/nixos/common/location.nix
     ../../modules/nixos/desktop/programs/cli.nix
     ../../modules/nixos/server/common.nix
+    ../../modules/nixos/server/paperless/compose.nix
     
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
