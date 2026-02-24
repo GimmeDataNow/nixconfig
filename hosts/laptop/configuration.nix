@@ -29,6 +29,7 @@
           ../../modules/home/hyprland/default.nix
           ../../modules/home/desktop.nix
           ../../modules/home/shell.nix
+          ../../modules/home/helix.nix
           ../../modules/home/wayland.nix
           ../../modules/home/spicetify.nix
           ../../modules/home/starship.nix
