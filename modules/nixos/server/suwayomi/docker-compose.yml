@@ -1,0 +1,11 @@
+services:
+  suwayomi_server:
+    image: ghcr.io/suwayomi/suwayomi-server:stable
+    container_name: Suwayomi-Server
+    # volumes:
+      # The order matters! Downloads must come before the main Tachidesk folder.
+      # - /example/suwayomi-server/downloads:/home/suwayomi/.local/share/Tachidesk/downloads
+      # - /example/suwayomi-server/files:/home/suwayomi/.local/share/Tachidesk
+    ports:
+      - 4568:4567
+    restart: unless-stopped
