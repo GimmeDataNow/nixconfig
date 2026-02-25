@@ -8,11 +8,11 @@
     ../../modules/nixos/common/location.nix
     ../../modules/nixos/desktop/programs/cli.nix
     ../../modules/nixos/server/common.nix
+    ../../modules/nixos/server/tailscale.nix    
     ../../modules/nixos/server/paperless/compose.nix
     ../../modules/nixos/server/suwayomi/compose.nix
     ../../modules/nixos/server/mealie/compose.nix
     ../../modules/nixos/server/technitium/compose.nix
-    
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
   ];
