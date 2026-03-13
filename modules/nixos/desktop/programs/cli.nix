@@ -29,6 +29,7 @@
     alejandra # auto formatter for nix
     nil # nix language server
     # kdePackages.qtdeclarative
+    jq
 
   ];
 }

@@ -17,11 +17,11 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
-  };
+  # hardware.bluetooth.settings = {
+    # General = {
+      # Enable = "Source,Sink,Media,Socket";
+    # };
+  # };
   services.upower.enable = true;
 
   fileSystems."/" = {

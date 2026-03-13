@@ -27,5 +27,6 @@
     sshs # ssh manager
 
     alejandra # auto formatter for nix
+    jq # json
   ];
 }
