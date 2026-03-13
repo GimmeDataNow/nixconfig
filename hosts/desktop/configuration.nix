@@ -16,6 +16,8 @@
     ../../modules/nixos/desktop/programs/gaming.nix
     ../../modules/nixos/desktop/programs/gui.nix
     ../../modules/nixos/desktop/audio.nix
+    ../../modules/nixos/desktop/tailscale-client.nix
+    ../../modules/nixos/common/surrealdb.nix
     # ../../modules/nixos/desktop/backlight.nix
     
     # 3. Home Manager Integration (The "Dotfiles" engine)
