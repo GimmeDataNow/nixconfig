@@ -25,6 +25,7 @@
 
     # code
     vscode.fhs # vscode
+    zed-editor
     # nil # nix language server
     # kdePackages.qtdeclarative
 

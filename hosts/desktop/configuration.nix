@@ -17,6 +17,7 @@
     ../../modules/nixos/desktop/programs/gui.nix
     ../../modules/nixos/desktop/audio.nix
     ../../modules/nixos/desktop/tailscale-client.nix
+    ../../modules/nixos/desktop/ollama.nix
     ../../modules/nixos/common/surrealdb.nix
     # ../../modules/nixos/desktop/backlight.nix
     
@@ -38,6 +39,7 @@
           ../../modules/home/xdg-settings.nix
           ../../modules/home/spicetify.nix
           ../../modules/home/waybar.nix
+          # ../../modules/home/zed.nix
         ];
 
         wayland.windowManager.hyprland.settings = {

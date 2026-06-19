@@ -2,11 +2,11 @@
   description = "My Unified NixOS Configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; # The stable branch
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05"; # The stable branch
     unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # The "bleeding edge" branch
     
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,6 +23,8 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # zed-editor.url = "github:zed-industries/zed";
 
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     
