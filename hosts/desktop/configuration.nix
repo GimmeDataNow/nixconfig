@@ -17,7 +17,7 @@
     ../../modules/nixos/desktop/programs/gui.nix
     ../../modules/nixos/desktop/audio.nix
     ../../modules/nixos/desktop/tailscale-client.nix
-    ../../modules/nixos/desktop/ollama.nix
+    # ../../modules/nixos/desktop/ollama.nix
     ../../modules/nixos/common/surrealdb.nix
     # ../../modules/nixos/desktop/backlight.nix
     
@@ -33,6 +33,8 @@
           ../../modules/home/starship.nix
           ../../modules/home/kitty.nix
           ../../modules/home/helix.nix
+          ../../modules/home/nnn.nix
+
           ../../modules/home/desktop.nix
           ../../modules/home/wayland.nix
           ../../modules/home/hyprland/default.nix
@@ -64,5 +66,5 @@
   # Example: Using 'unstable' for a specific system-level package
   boot.kernelPackages = unstable.linuxPackages_latest;
 
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "26.05"; 
 }

@@ -13,15 +13,28 @@
   environment.etc."resolv.conf".source = "/run/systemd/resolve/stub-resolv.conf";
 
   # Enable systemd-resolved
+  # services.resolved = {
+  #   enable = true;
+  #   dnssec = "false";           # optional
+  #   dnsovertls = "false";       # optional
+  #   domains = [];
+  #   # fallbackDns = [ "1.1.1.1" "1.0.0.1" ];         # fallback if DHCP fails
+  #   extraConfig = ''
+  #     # Ensure stub resolver is enabled
+  #     DNSStubListener=yes
+  #   '';
+  # };
+
   services.resolved = {
     enable = true;
-    dnssec = "false";           # optional
-    dnsovertls = "false";       # optional
-    domains = [];
-    # fallbackDns = [ "1.1.1.1" "1.0.0.1" ];         # fallback if DHCP fails
-    extraConfig = ''
-      # Ensure stub resolver is enabled
-      DNSStubListener=yes
-    '';
+    settings = {
+      Resolve = {
+        DNSSEC = "false";
+        DNSOverTLS = "false";
+        Domains = [ ];
+        DNSStubListener = "yes";
+        # FallbackDNS = [ "1.1.1.1" "1.0.0.1" ]; # Optional, matches upstream camelCase
+      };
+    };
   };
 }

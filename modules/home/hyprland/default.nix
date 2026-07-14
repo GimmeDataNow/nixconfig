@@ -1,6 +1,7 @@
 { inputs, pkgs, lib, ... }: {
   wayland.windowManager.hyprland = {
     enable = true;
+    configType = "hyprlang";
     package = null;
 
     settings = {
@@ -38,8 +39,11 @@
 
  
       # windowrulev2 goes in a list (like bind)
-      windowrulev2 = [
-        "opacity 0.8 0.8, class:^(kitty)$"
+      # windowrulev2 = [
+        # "opacity 0.8 0.8, class:^(kitty)$"
+      # ];
+      windowrule = [
+        "match:class ^(kitty)$, opacity 0.8 0.8"
       ];
 
       # animations becomes a nested set

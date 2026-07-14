@@ -6,6 +6,10 @@
     allowUnfree = true;
     allowInsecure = true;
     allowBroken = true;
+
+    permittedInsecurePackages = [
+      "electron-39.8.10"
+    ];
   };
 
   # Set a sensible default, but allow hosts to override it

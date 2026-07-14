@@ -14,6 +14,21 @@ in {
   programs.yazi = {
     enable = true;
 
+    package = pkgs.yazi.overrideAttrs (old: rec {
+      version = "26.1.22";
+      src = pkgs.fetchFromGitHub {
+        owner = "sxyazi";
+        repo = "yazi";
+        tag = "v${version}";
+        hash = ""; # leave blank, see below
+      };
+      cargoDeps = old.cargoDeps.overrideAttrs (pkgs.lib.const {
+        name = "yazi-${version}-vendor.tar.gz";
+        inherit src;
+        outputHash = ""; # leave blank, see below
+      });
+    });
+
     # 1. Install the plugin
     plugins = {
       ouch = "${ouch-yazi}";
@@ -41,7 +56,7 @@ in {
     };
 
     # 3. Add the Compression keymap (keymap.toml)
-    keymap.manager.prepend_keymap = [
+    keymap.mgr.prepend_keymap = [
       { on = [ "g" "l" ]; run = "cd ~/.local";           desc = "Go to ~/.local";          }
       { on = [ "g" "n" ]; run = "cd ~/nixos";            desc = "Go to ~/nixos";           }
       { on = [ "g" "p" ]; run = "cd ~/secondary_drive";  desc = "Go to secondary drive";   }
