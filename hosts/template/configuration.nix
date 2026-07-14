@@ -34,7 +34,6 @@
   users.users.hallow = {
     isNormalUser = true;
     extraGroups = [ "wheel" "docker" ]; # Enable sudo
-    hashedPassword = "$6$f64J0RqxjCAZfIH0$P/aVfYOw6ReR2veH5cyoVxdMlRIf1svM7i68lLTcCJEsnZ7P8nRPYqdkwROHg/xAYjRG8Zr6W8q6OqdSm8Avp.";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgsEnykX81QlWJyUQxsKSbJV4g3WwckVH31o5jXO5ot hallow@desktop"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII4CLEZFzXYaJMZ95RFC7GGpxOUJstTXQ/lgOLo9Lvlc hallow@laptop"

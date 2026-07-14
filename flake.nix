@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05"; # The stable branch
     unstable.url = "github:nixos/nixpkgs/nixos-unstable"; # The "bleeding edge" branch
+
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
