@@ -54,7 +54,7 @@
   networking.firewall = {
     enable = true;
     # Allow standard web traffic if you're hosting a site later
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [ 22 80 443 ];
   };
 
   # --- MAINTENANCE ---

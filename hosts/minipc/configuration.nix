@@ -56,12 +56,12 @@
         ../../modules/home/yazi.nix
         ../../modules/home/helix.nix
       ];
-      home.stateVersion = "25.11";
+      home.stateVersion = "26.05";
     };
   };
 
   # --- SYSTEM CONFIG ---
   time.timeZone = lib.mkForce null; # Let location.nix/geoclue handle it
   boot.kernelPackages = unstable.linuxPackages_latest;
-  system.stateVersion = "25.11"; 
+  system.stateVersion = "26.05"; 
 }
