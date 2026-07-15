@@ -76,3 +76,17 @@ This project contains the configurations for all of my nixos machines.
   -root_path=/home/hallow/containers/paperless \
   -env_files=/home/hallow/nixos/modules/nixos/server/paperless/.env,/home/hallow/nixos/modules/nixos/server/paperless/docker-compose.env
 ```
+
+# Remote
+## Remote Hardware Config
+nix run github:nix-community/nixos-anywhere -- \
+  --flake .#vps \
+  --generate-hardware-config nixos-generate-config ./hosts/vps/hardware-configuration.nix \
+  root@31.56.233.116
+## Remote Rebuild
+nixos-rebuild switch \
+  --flake .#vps \
+  --target-host hallow@31.56.233.116 \
+  --build-host hallow@31.56.233.116 \
+  --use-remote-sudo \
+  --ask-sudo-password

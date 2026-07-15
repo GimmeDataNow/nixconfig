@@ -1,13 +1,16 @@
-{ config, pkgs, disko, ... }:
+{ config, unstable, pkgs, inputs, disko, user, ... }:
 
 {
-  # Import auto-generated hardware configuration (usually /etc/nixos/hardware-configuration.nix)
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
-  ];
 
-  # 1. Bootloader (usually /dev/vda or /dev/sda for VPS)
+    ../../modules/nixos/desktop/programs/cli.nix
+    inputs.home-manager.nixosModules.home-manager
+  ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Bootloader
   boot.loader.grub.enable = true;
   # boot.loader.grub.device = "/dev/vda"; 
 
@@ -18,22 +21,39 @@
     "virtio_balloon"
   ];
 
-  # 2. Networking (Adjust interface name using `ip a`)
-  networking.hostName = "gateway";
-  networking.useDHCP = true;
-  networking.interfaces.ens3.ipv4.addresses = [ { address = "31.56.233.116"; prefixLength = 24; } ];
-  networking.defaultGateway = "31.56.233.1";
-  networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
+  # Networking
+  networking = {
+    hostName = "gateway";
+    useDHCP = true;
+    interfaces.ens3.ipv4.addresses = [ { address = "31.56.233.116"; prefixLength = 24; } ];
+    defaultGateway = "31.56.233.1";
+    nameservers = [ "1.1.1.1" "8.8.8.8" ];
+    firewall.allowedTCPPorts = [
+      22 # ssh
+      80 # pangolin
+      443 # pangolin
+      8000 # portainer
+      9001 # portainer
+    ];
+    firewall.allowedUDPPorts = [
+      21820 # pangolin
+      51820 # pangolin
+    ];
 
-  # 3. Enable SSH for remote access (CRITICAL)
-  services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = false;
-  services.openssh.settings.PermitRootLogin = "prohibit-password";
+  };
 
-  # 4. Define your user and add your SSH public key
+
+  # SSH
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+    settings.PermitRootLogin = "prohibit-password";
+  };
+
+  # User and SSH keys
   users.users.hallow = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ]; # Enable sudo
+    extraGroups = [ "wheel" "docker" ];
     hashedPassword = "$6$f64J0RqxjCAZfIH0$P/aVfYOw6ReR2veH5cyoVxdMlRIf1svM7i68lLTcCJEsnZ7P8nRPYqdkwROHg/xAYjRG8Zr6W8q6OqdSm8Avp.";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOgsEnykX81QlWJyUQxsKSbJV4g3WwckVH31o5jXO5ot hallow@desktop"
@@ -41,9 +61,28 @@
     ];
   };
 
-  # 5. Allow essential firewall traffic
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  # Docker
+  virtualisation.docker.enable = true;
 
-  # 6. NixOS release version (Match your installation ISO)
-  system.stateVersion = "26.05"; # or your installed version
+  # UTIL
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs unstable user; };
+    backupFileExtension = "bak";
+    users.${user} = {
+      imports = [
+        ../../modules/home/shell.nix
+        ../../modules/home/starship.nix
+        ../../modules/home/kitty.nix
+        ../../modules/home/yazi.nix
+        ../../modules/home/helix.nix
+      ];
+      home.stateVersion = "26.05";
+    };
+  };
+  
+
+  # NixOS version
+  system.stateVersion = "26.05";
 }
