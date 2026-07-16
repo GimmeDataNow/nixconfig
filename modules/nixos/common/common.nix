@@ -46,7 +46,6 @@
     curl
     wget
     bat
-    ssh
     lazyssh
     tree
   ];

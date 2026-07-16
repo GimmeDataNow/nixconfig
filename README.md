@@ -88,5 +88,12 @@ nixos-rebuild switch \
   --flake .#vps \
   --target-host hallow@31.56.233.116 \
   --build-host hallow@31.56.233.116 \
-  --use-remote-sudo \
+  --sudo \
+  --ask-sudo-password
+
+  nixos-rebuild switch \
+  --flake .#minipc \
+  --target-host hallow@192.168.0.110 \
+  --build-host hallow@192.168.0.110 \
+  --sudo \
   --ask-sudo-password
