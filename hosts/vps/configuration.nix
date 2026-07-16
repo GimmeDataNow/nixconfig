@@ -52,6 +52,13 @@
     };
   };
 
+  # prevent bruteforce attacks
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5; # Ban IPs after 5 failed SSH connection attempts
+    bantime = "1h"; # Ban duration
+  };
+
   # User and SSH keys
   users.users.hallow = {
     isNormalUser = true;
