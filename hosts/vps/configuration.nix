@@ -32,8 +32,6 @@
       22 # ssh
       80 # pangolin
       443 # pangolin
-      8000 # portainer
-      9001 # portainer
     ];
     firewall.allowedUDPPorts = [
       21820 # pangolin
@@ -46,8 +44,12 @@
   # SSH
   services.openssh = {
     enable = true;
-    settings.PasswordAuthentication = false;
-    settings.PermitRootLogin = "prohibit-password";
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      KbdInteractiveAuthentication = false;
+      X11Forwarding = false;
+    };
   };
 
   # User and SSH keys
