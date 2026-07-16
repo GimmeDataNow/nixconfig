@@ -18,20 +18,37 @@
   services.openssh = {
     enable = true;
     settings = {
-      # Global Defaults
       PasswordAuthentication = false;
+      PermitRootLogin = "no";
       KbdInteractiveAuthentication = false;
-      PermitRootLogin = "prohibit-password";
+      X11Forwarding = false;
     };
-
-    # We use mkOrder to ensure this block is the very last thing in sshd_config
-    extraConfig = lib.mkOrder 1000 ''
-      Match Address 137.226.218.185,127.0.0.1,192.168.0.0/24,100.64.0.0/10
-          PasswordAuthentication yes
-          KbdInteractiveAuthentication yes
-          AuthenticationMethods keyboard-interactive password publickey
-    '';
   };
+
+  # prevent bruteforce attacks
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5; # Ban IPs after 5 failed SSH connection attempts
+    bantime = "1h"; # Ban duration
+  };
+
+  # services.openssh = {
+  #   enable = true;
+  #   settings = {
+  #     # Global Defaults
+  #     PasswordAuthentication = false;
+  #     KbdInteractiveAuthentication = false;
+  #     PermitRootLogin = "prohibit-password";
+  #   };
+
+  #   # We use mkOrder to ensure this block is the very last thing in sshd_config
+  #   extraConfig = lib.mkOrder 1000 ''
+  #     Match Address 137.226.218.185,127.0.0.1,192.168.0.0/24,100.64.0.0/10
+  #         PasswordAuthentication yes
+  #         KbdInteractiveAuthentication yes
+  #         AuthenticationMethods keyboard-interactive password publickey
+  #   '';
+  # };
   
   # Fail2Ban: Bans IPs that try to brute force your SSH
   # services.fail2ban = {
@@ -54,7 +71,9 @@
   networking.firewall = {
     enable = true;
     # Allow standard web traffic if you're hosting a site later
-    allowedTCPPorts = [ 22 80 443 ];
+    allowedTCPPorts = [
+      22
+    ];
   };
 
   # --- MAINTENANCE ---
