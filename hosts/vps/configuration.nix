@@ -4,10 +4,13 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ../../modules/nixos/server/reticulum-server.nix
 
     ../../modules/nixos/desktop/programs/cli.nix
     inputs.home-manager.nixosModules.home-manager
   ];
+
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader
@@ -53,10 +56,34 @@
   };
 
   # prevent bruteforce attacks
+
   services.fail2ban = {
     enable = true;
-    maxretry = 5; # Ban IPs after 5 failed SSH connection attempts
-    bantime = "1h"; # Ban duration
+    maxretry = 3; # ban after 3 tries
+    bantime = "1h";
+
+    # don't ban these ips
+    ignoreIP = [
+      "127.0.0.1/8"
+      "::1"
+      "137.226.218.185"
+    ];
+
+    bantime-increment = {
+      enable = true;
+      rndtime = "15m"; # Keep botnets guessing when they get unbanned
+    };
+
+    jails = {
+      recidive = {
+        settings = {
+          enabled = true;
+          maxretry = 3;
+          findtime = "2d"; # what window to check for repeat offenders
+          bantime = "1w"; # Put serial offenders in "super-jail" for a week
+        };
+      };
+    };
   };
 
   # User and SSH keys
