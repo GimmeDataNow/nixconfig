@@ -1,4 +1,6 @@
 { pkgs, ... }: {
+  xdg.portal.config.common.default = "*";
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;

@@ -30,6 +30,7 @@
       home-manager.users.${user} = {
         imports = [
           ../../modules/home/shell.nix
+          ../../modules/home/yazi.nix
           ../../modules/home/starship.nix
           ../../modules/home/kitty.nix
           ../../modules/home/helix.nix

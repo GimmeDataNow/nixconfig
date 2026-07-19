@@ -7,6 +7,8 @@
     ../../modules/nixos/server/reticulum-server.nix
 
     ../../modules/nixos/desktop/programs/cli.nix
+
+    # Homemanager
     inputs.home-manager.nixosModules.home-manager
   ];
 
