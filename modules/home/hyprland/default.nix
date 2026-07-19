@@ -12,63 +12,78 @@ in {
     settings = {
       mod = { _var = "SUPER"; };
 
-      # monitor = [
-      #   { _args = [ { output = "HDMI-A-1"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
-      #   { _args = [ { output = "HDMI-A-2"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
+      # monito r = [
+      #   { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
+      #   { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
+
+      #   # { _args = [ { output = "HDMI-A-1"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
+      #  # { _args = [ { output = "HDMI-A-2"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
       # ];
+      monitor = lib.mkForce [
+        {
+          _args = [
+            {
+              output = "";
+              mode = "preferred";
+              position = "auto";
+              scale = 1;
+            }
+          ];
+        }
+      ];
 
-      # config = {
-      #   input = {
-      #     kb_layout = "de";
-      #     kb_options = "caps:swapescape";
-      #     follow_mouse = 1;
-      #     sensitivity = -0.15;
-      #     touchpad = {
-      #       natural_scroll = true;
-      #     };
-      #   };
+      config = {
+        input = {
+          kb_layout = "de";
+          kb_options = "caps:swapescape";
+          follow_mouse = 1;
+          sensitivity = -0.15;
+          touchpad = {
+            natural_scroll = true;
+          };
+        };
 
-      #   general = {
-      #     gaps_in = 5;
-      #     gaps_out = 5;
-      #     border_size = 2;
-      #     col = {
-      #       active_border = "rgba(546484ff)";
-      #       inactive_border = "rgba(434c5eff)";
-      #     };
-      #     layout = "dwindle";
-      #   };
+        general = {
+          gaps_in = 5;
+          gaps_out = 5;
+          border_size = 2;
+          col = {
+            active_border = "rgba(546484ff)";
+            inactive_border = "rgba(434c5eff)";
+          };
+          layout = "dwindle";
+        };
 
-      #   decoration = {
-      #     rounding = 10;
-      #     blur = {
-      #       enabled = true;
-      #       size = 3;
-      #       passes = 1;
-      #     };
-      #   };
+        decoration = {
+          rounding = 10;
+          blur = {
+            enabled = true;
+            size = 3;
+            passes = 1;
+          };
+        };
 
-      #   misc = {
-      #     disable_hyprland_logo = true;
-      #     disable_splash_rendering = true;
-      #   };
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+        };
 
-      #   animations = {
-      #     enabled = true;
-      #     bezier = [
-      #       "myBezier, 0.05, 0.9, 0.1, 1.05"
-      #     ];
-      #     animation = [
-      #       "windows, 1, 7, myBezier"
-      #       "windowsOut, 1, 7, default, popin 80%"
-      #       "border, 1, 10, default"
-      #       "borderangle, 1, 8, default"
-      #       "fade, 1, 7, default"
-      #       "workspaces, 1, 6, default"
-      #       "specialWorkspace, 1, 6, default, slidefadevert 50%"
-      #     ];
-      #   };
-      # };
+        animations = {
+          enabled = true;
+          bezier = [
+            "myBezier, 0.05, 0.9, 0.1, 1.05"
+          ];
+          animation = [
+            "windows, 1, 7, myBezier"
+            "windowsOut, 1, 7, default, popin 80%"
+            "border, 1, 10, default"
+            "borderangle, 1, 8, default"
+            "fade, 1, 7, default"
+            "workspaces, 1, 6, default"
+            "specialWorkspace, 1, 6, default, slidefadevert 50%"
+          ];
+        };
+      };
 
       window_rule = [
         {
@@ -147,68 +162,6 @@ in {
         }
       ];
     };
-
-    extraConfig = ''
-      hl.monitor({
-        output = "",
-        mode = "preferred",
-        position = "auto",
-        scale = 1
-      })
-
-      hl.config({
-        input = {
-          kb_layout = "de",
-          kb_options = "caps:swapescape",
-          follow_mouse = 1,
-          sensitivity = -0.15,
-          touchpad = { natural_scroll = true }
-        },
-        general = {
-          gaps_in = 5,
-          gaps_out = 5,
-          border_size = 2,
-          col = {
-            active_border = "rgba(546484ff)",
-            inactive_border = "rgba(434c5eff)"
-          },
-          layout = "dwindle"
-        },
-        decoration = {
-          rounding = 10,
-          blur = {
-            enabled = true,
-            size = 3,
-            passes = 1
-          }
-        },
-        misc = {
-          disable_hyprland_logo = true,
-          disable_splash_rendering = true
-        },
-        animations = {
-          enabled = true,
-          bezier = { "myBezier, 0.05, 0.9, 0.1, 1.05" },
-          animation = {
-            "windows, 1, 7, myBezier",
-            "windowsOut, 1, 7, default, popin 80%",
-            "border, 1, 10, default",
-            "borderangle, 1, 8, default",
-            "fade, 1, 7, default",
-            "workspaces, 1, 6, default",
-            "specialWorkspace, 1, 6, default, slidefadevert 50%"
-          }
-        }
-      })
-    '';
-    # extraConfig = ''
-    #   hl.monitor({
-    #     output = "",
-    #     mode = "preferred",
-    #     position = "auto",
-    #     scale = 1
-    #   })
-    # '';
 
   };
 }
