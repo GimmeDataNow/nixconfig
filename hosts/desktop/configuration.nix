@@ -38,7 +38,7 @@
 
           ../../modules/home/desktop.nix
           ../../modules/home/wayland.nix
-          ../../modules/home/hyprland/default.nix
+          ../../modules/home/hyprland.nix
           ../../modules/home/xdg-settings.nix
           ../../modules/home/spicetify.nix
           ../../modules/home/waybar.nix

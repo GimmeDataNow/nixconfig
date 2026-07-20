@@ -28,7 +28,7 @@
       home-manager.backupFileExtension = "bak";
       home-manager.users.${user} = {
         imports = [
-          ../../modules/home/hyprland/default.nix
+          ../../modules/home/hyprland.nix
           ../../modules/home/desktop.nix
           ../../modules/home/shell.nix
           ../../modules/home/helix.nix

@@ -4,6 +4,20 @@ let
   # Helper to make raw Lua code injections cleaner to write
   lua = lib.generators.mkLuaInline;
 in {
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-hyprland 
+      pkgs.xdg-desktop-portal-gtk 
+    ];
+
+    config = {
+      common.default = "*";
+      hyprland.default = [ "hyprland" "gtk" ];
+    };
+  };
+
   wayland.windowManager.hyprland = {
     enable = true;
     configType = "lua"; # Enables the modern Lua generator
@@ -12,24 +26,8 @@ in {
     settings = {
       mod = { _var = "SUPER"; };
 
-      # monito r = [
-      #   { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
-      #   { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
-
-      #   # { _args = [ { output = "HDMI-A-1"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
-      #  # { _args = [ { output = "HDMI-A-2"; mode = "preferred"; position = "auto"; scale = 1; } ]; }
-      # ];
       monitor = lib.mkForce [
-        {
-          _args = [
-            {
-              output = "";
-              mode = "preferred";
-              position = "auto";
-              scale = 1;
-            }
-          ];
-        }
+        { _args = [ { output = ""; mode = "preferred"; position = "auto"; scale = 1; } ]; }
       ];
 
       config = {
@@ -80,7 +78,7 @@ in {
             "borderangle, 1, 8, default"
             "fade, 1, 7, default"
             "workspaces, 1, 6, default"
-            "specialWorkspace, 1, 6, default, slidefadevert 50%"
+            # "specialWorkspace, 1, 6, default, slidefadevert 50%"
           ];
         };
       };
@@ -136,12 +134,18 @@ in {
         { _args = [ (lua "mod .. \" + SHIFT + 8\"") (lua "hl.dsp.window.move({ workspace = \"8\" })") ]; }
         { _args = [ (lua "mod .. \" + SHIFT + 9\"") (lua "hl.dsp.window.move({ workspace = \"9\" })") ]; }
 
+        # Media
+        { _args = [ "XF86AudioMute" (lua "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle\")") { repeat = true; } ]; } # mute
+        { _args = [ "XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")") { repeat = true; } ]; } # volume down
+        { _args = [ "XF86AudioRaiseVolume" (lua "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+\")") { repeat = true; } ]; } # volume up
+
+        { _args = [ "XF86AudioPlay" (lua "hl.dsp.exec_cmd(\"playerctl -p spotify play-pause\")") ]; } # play-pause
+        { _args = [ "XF86AudioPrev" (lua "hl.dsp.exec_cmd(\"playerctl -p spotify previous\")") ]; } # previous
+        { _args = [ "XF86AudioNext" (lua "hl.dsp.exec_cmd(\"playerctl -p spotify next\")") ]; } # next
+
         # Mouse Controls
-
-        { _args = [ (lua "mod .. \" + mouse:272\"") (lua "hl.dsp.window.drag()") { mouse = true; } ]; }
-
-        # Resize windows with click and drag (Right Mouse Button)
-        { _args = [ (lua "mod .. \" + mouse:273\"") (lua "hl.dsp.window.resize()") { mouse = true; } ]; }
+        { _args = [ (lua "mod .. \" + mouse:272\"") (lua "hl.dsp.window.drag()") { mouse = true; } ]; } # drag
+        { _args = [ (lua "mod .. \" + mouse:273\"") (lua "hl.dsp.window.resize()") { mouse = true; } ]; } # resize
 
         # Special Workspaces
         { _args = [ (lua "mod .. \" + S\"") (lua "hl.dsp.workspace.toggle_special(\"spotify\")") ]; }
