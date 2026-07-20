@@ -50,6 +50,6 @@
     lxappearance-gtk2 # icon theme changer
 
     mousai
-    grayjay
+    # grayjay
   ];
 }
