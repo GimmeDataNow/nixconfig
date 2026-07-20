@@ -8,7 +8,7 @@
     waybar
     wev # get keyboard inputs
     dunst # notification manager
-    swww # desktop background
+    awww # desktop background
     pavucontrol
     imv # terminal image viewer
     unstable.bitwarden-desktop # password manager
@@ -50,6 +50,6 @@
     lxappearance-gtk2 # icon theme changer
 
     mousai
-    # grayjay
+    grayjay
   ];
 }
