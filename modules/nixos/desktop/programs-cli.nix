@@ -25,6 +25,7 @@
     bashmount # easier usb mounting
     dig # dns query
     sshs # ssh manager
+    lazyssh # ssh manager
 
     alejandra # auto formatter for nix
     jq # json
