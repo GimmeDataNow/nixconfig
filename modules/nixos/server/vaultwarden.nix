@@ -1,4 +1,4 @@
-{
+{ pkgs, unstable, ... }: {
   # services.tailscale.enable = true;
   services.vaultwarden = {
     enable = true;
@@ -7,6 +7,7 @@
       ROCKET_ADDRESS = "127.0.0.1";
       ROCKET_PORT = 8222;
     };
+    # package = unstable.vaultwarden;
   };
 
   # services.caddy = {
