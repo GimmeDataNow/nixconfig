@@ -26,7 +26,9 @@
   #   settings.PasswordAuthentication = true;
   #   settings.PermitRootLogin = "no";
   # };
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 22 4568 8282 ];
+  networking.firewall.allowedUDPPorts = [ 4568 8282 ];
+
 
   # Docker Setup
   virtualisation.docker.enable = true;

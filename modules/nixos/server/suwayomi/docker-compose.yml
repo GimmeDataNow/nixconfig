@@ -9,12 +9,29 @@
 # -root_path=/home/hallow/containers/suwayomi
 services:
   suwayomi_server:
-    image: ghcr.io/suwayomi/suwayomi-server:stable
+    image: ghcr.io/suwayomi/suwayomi-server:v2.3.2298
     container_name: Suwayomi-Server
-    # volumes:
-      # The order matters! Downloads must come before the main Tachidesk folder.
-      # - /example/suwayomi-server/downloads:/home/suwayomi/.local/share/Tachidesk/downloads
-      # - /example/suwayomi-server/files:/home/suwayomi/.local/share/Tachidesk
+    # user: "1001:100"
+    environment:
+      - TZ=Europe/Berlin
+    volumes:
+      - ./data:/home/suwayomi/.local/share/Tachidesk
     ports:
-      - 4568:4567
+      - "4568:4567"
+    restart: unless-stopped
+
+  syncyomi:
+    image: ghcr.io/syncyomi/syncyomi:latest
+    container_name: SyncYomi
+    # user: "1001:100"
+    ports:
+      - "8282:8282"
+    environment:
+      - TZ=Europe/Berlin
+      # SyncYomi needs to communicate with Suwayomi
+      - SUWAYOMI_URL=http://suwayomi_server:4567
+    volumes:
+      - ./syncyomi-data:/data
+    depends_on:
+      - suwayomi_server
     restart: unless-stopped

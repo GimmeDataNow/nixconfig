@@ -13,6 +13,12 @@
   # Containers
   virtualisation.oci-containers.containers."Suwayomi-Server" = {
     image = "ghcr.io/suwayomi/suwayomi-server:v2.3.2298";
+    environment = {
+      "TZ" = "Europe/Berlin";
+    };
+    volumes = [
+      "/home/hallow/containers/suwayomi/data:/home/suwayomi/.local/share/Tachidesk:rw"
+    ];
     ports = [
       "4568:4567/tcp"
     ];
@@ -39,6 +45,51 @@
       "docker-compose-suwayomi-root.target"
     ];
     upheldBy = [
+      "docker-network-suwayomi_default.service"
+    ];
+    wantedBy = [
+      "docker-compose-suwayomi-root.target"
+    ];
+  };
+  virtualisation.oci-containers.containers."SyncYomi" = {
+    image = "ghcr.io/syncyomi/syncyomi:latest";
+    environment = {
+      "SUWAYOMI_URL" = "http://suwayomi_server:4567";
+      "TZ" = "Europe/Berlin";
+    };
+    volumes = [
+      "/home/hallow/containers/suwayomi/syncyomi-data:/data:rw"
+    ];
+    ports = [
+      "8282:8282/tcp"
+    ];
+    dependsOn = [
+      "Suwayomi-Server"
+    ];
+    log-driver = "journald";
+    extraOptions = [
+      "--network-alias=syncyomi"
+      "--network=suwayomi_default"
+    ];
+  };
+  systemd.services."docker-SyncYomi" = {
+    serviceConfig = {
+      Restart = lib.mkOverride 90 "always";
+      RestartMaxDelaySec = lib.mkOverride 90 "1m";
+      RestartSec = lib.mkOverride 90 "100ms";
+      RestartSteps = lib.mkOverride 90 9;
+    };
+    after = [
+      "docker-network-suwayomi_default.service"
+    ];
+    requires = [
+      "docker-network-suwayomi_default.service"
+    ];
+    partOf = [
+      "docker-compose-suwayomi-root.target"
+    ];
+    upheldBy = [
+      "docker-Suwayomi-Server.service"
       "docker-network-suwayomi_default.service"
     ];
     wantedBy = [
