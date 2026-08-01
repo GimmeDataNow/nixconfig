@@ -13,7 +13,7 @@
     ../../modules/nixos/server/suwayomi/compose.nix
     ../../modules/nixos/server/mealie/compose.nix
     ../../modules/nixos/server/technitium/compose.nix
-    ../../modules/nixos/server/vaultwarden.nix
+    ../../modules/nixos/server/vaultwarden/default.nix
     # Home Manager (Just for Shell/CLI tools)
     inputs.home-manager.nixosModules.home-manager
   ];
