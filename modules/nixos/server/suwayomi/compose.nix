@@ -12,7 +12,7 @@
 
   # Containers
   virtualisation.oci-containers.containers."Suwayomi-Server" = {
-    image = "ghcr.io/suwayomi/suwayomi-server:v2.3.2298";
+    image = "ghcr.io/suwayomi/suwayomi-server:v2.3.2358";
     environment = {
       "TZ" = "Europe/Berlin";
     };
