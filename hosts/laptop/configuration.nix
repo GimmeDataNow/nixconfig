@@ -28,15 +28,29 @@
       home-manager.backupFileExtension = "bak";
       home-manager.users.${user} = {
         imports = [
-          ../../modules/home/hyprland.nix
-          ../../modules/home/desktop.nix
           ../../modules/home/shell.nix
-          ../../modules/home/helix.nix
-          ../../modules/home/wayland.nix
-          ../../modules/home/spicetify.nix
+          ../../modules/home/yazi.nix
           ../../modules/home/starship.nix
           ../../modules/home/kitty.nix
+          ../../modules/home/helix.nix
+          ../../modules/home/nnn.nix
+
+          ../../modules/home/desktop.nix
+          ../../modules/home/wayland.nix
+          ../../modules/home/hyprland.nix
           ../../modules/home/xdg-settings.nix
+          ../../modules/home/spicetify.nix
+          ../../modules/home/waybar.nix
+
+          # ../../modules/home/hyprland.nix
+          # ../../modules/home/desktop.nix
+          # ../../modules/home/shell.nix
+          # ../../modules/home/helix.nix
+          # ../../modules/home/wayland.nix
+          # ../../modules/home/spicetify.nix
+          # ../../modules/home/starship.nix
+          # ../../modules/home/kitty.nix
+          # ../../modules/home/xdg-settings.nix
         ];
 
         wayland.windowManager.hyprland.settings = {

@@ -134,6 +134,12 @@ in {
         { _args = [ (lua "mod .. \" + SHIFT + 8\"") (lua "hl.dsp.window.move({ workspace = \"8\" })") ]; }
         { _args = [ (lua "mod .. \" + SHIFT + 9\"") (lua "hl.dsp.window.move({ workspace = \"9\" })") ]; }
 
+        { _args = [ "XF86MonBrightnessUp" (lua "hl.dsp.exec_cmd(\"brightnessctl set +5%\")") { repeat = true; } ]; } # brightness up
+        { _args = [ "XF86MonBrightnessDown" (lua "hl.dsp.exec_cmd(\"brightnessctl set 5%-\")") { repeat = true; } ]; } # brightness down
+
+
+
+        #
         # Media
         { _args = [ "XF86AudioMute" (lua "hl.dsp.exec_cmd(\"wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle\")") { repeat = true; } ]; } # mute
         { _args = [ "XF86AudioLowerVolume" (lua "hl.dsp.exec_cmd(\"wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-\")") { repeat = true; } ]; } # volume down

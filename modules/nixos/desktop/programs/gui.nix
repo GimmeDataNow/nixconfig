@@ -1,5 +1,9 @@
 { pkgs, unstable, inputs, ...}: {
   environment.systemPackages = with pkgs; [
+
+    brightnessctl
+
+    
     # gui
     hyprland
     pwvucontrol # audio control
